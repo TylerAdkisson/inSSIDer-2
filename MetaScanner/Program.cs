@@ -183,9 +183,8 @@ namespace inSSIDer
 
             //Apply settings now 
             SettingsMgr.ApplyGpsSettings(scanner.GpsControl);
-            
-            //Start GPS if it was started last time
 
+            form = new frmTest();
 
             do
             {
