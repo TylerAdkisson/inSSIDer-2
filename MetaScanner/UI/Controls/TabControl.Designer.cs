@@ -1,6 +1,6 @@
 ﻿namespace inSSIDer.UI.Controls
 {
-    partial class TabControl
+    partial class ETabControl
     {
         /// <summary> 
         /// Required designer variable.

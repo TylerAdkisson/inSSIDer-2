@@ -233,6 +233,29 @@ namespace inSSIDer.UI.Forms
 
             //Hook the interface error event
             _scanner.NetworkScanner.InterfaceError += NetworkScanner_InterfaceError;
+
+            //Change tab control
+            ETabControl et = new ETabControl();
+            et.Parent = gripContainer1.Panel2;
+            et.Dock = DockStyle.Fill;
+
+            detailsTabControl.Hide();
+
+            Tab t;
+
+            foreach (TabPage page in detailsTabControl.TabPages)
+            {
+                //Create tab and move control over
+                t = new Tab(page.Text, Font);
+                //only the first control
+                page.Controls[0].Parent = t;
+
+                et.Tabs.Add(t);
+            }
+            et.Invalidate();
+            et.Show();
+
+            detailsTabControl.Parent = this;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -719,5 +742,25 @@ namespace inSSIDer.UI.Forms
             }
         }
 
+        private void addBottomDualViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GripSplitContainer gsp = new GripSplitContainer();
+            gsp.SplitterWidth = 7;
+            gsp.SplitterDistance = gsp.Width / 2;
+
+            gripContainer1.Panel2.Controls[0].Parent = gsp.Panel1;
+
+            gsp.Parent = gripContainer1.Panel2;
+            gsp.Dock = DockStyle.Fill;
+
+
+            //Add new tabcontrol to panel2
+            ETabControl et = new ETabControl();
+            et.Parent = gsp.Panel2;
+            et.Dock = DockStyle.Fill;
+
+            et.Show();
+            gsp.Show();
+        }
     }
 }

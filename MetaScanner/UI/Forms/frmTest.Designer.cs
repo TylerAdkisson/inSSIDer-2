@@ -28,9 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl2 = new inSSIDer.UI.Controls.TabControl();
-            this.tabControl1 = new inSSIDer.UI.Controls.TabControl();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tabControl2 = new inSSIDer.UI.Controls.ETabControl();
+            this.tabControl1 = new inSSIDer.UI.Controls.ETabControl();
             this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 200);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // tabControl2
             // 
@@ -41,7 +51,6 @@
             this.tabControl2.ForeColor = System.Drawing.Color.Lime;
             this.tabControl2.Location = new System.Drawing.Point(12, 249);
             this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedTab = null;
             this.tabControl2.Size = new System.Drawing.Size(685, 227);
             this.tabControl2.TabIndex = 1;
             // 
@@ -54,8 +63,7 @@
             this.tabControl1.ForeColor = System.Drawing.Color.Lime;
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedTab = null;
-            this.tabControl1.Size = new System.Drawing.Size(685, 231);
+            this.tabControl1.Size = new System.Drawing.Size(685, 182);
             this.tabControl1.TabIndex = 0;
             // 
             // frmTest
@@ -63,6 +71,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 488);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmTest";
@@ -73,8 +82,9 @@
 
         #endregion
 
-        private inSSIDer.UI.Controls.TabControl tabControl1;
-        private inSSIDer.UI.Controls.TabControl tabControl2;
+        private inSSIDer.UI.Controls.ETabControl tabControl1;
+        private inSSIDer.UI.Controls.ETabControl tabControl2;
+        private System.Windows.Forms.Button button1;
 
 
     }

@@ -85,6 +85,8 @@ namespace inSSIDer.UI.Forms
             this.tabGps = new System.Windows.Forms.TabPage();
             this.gpsMon1 = new inSSIDer.UI.Controls.GpsMon();
             this.networkInterfaceSelector1 = new inSSIDer.UI.Controls.NetworkInterfaceSelector();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.addBottomDualViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gripContainer1.Panel1.SuspendLayout();
@@ -318,7 +320,9 @@ namespace inSSIDer.UI.Forms
             // 
             this.developerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startNullScanningToolStripMenuItem,
-            this.stopNullScanningToolStripMenuItem});
+            this.stopNullScanningToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.addBottomDualViewToolStripMenuItem});
             this.developerToolStripMenuItem.Name = "developerToolStripMenuItem";
             this.developerToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.developerToolStripMenuItem.Text = "Developer";
@@ -327,14 +331,14 @@ namespace inSSIDer.UI.Forms
             // startNullScanningToolStripMenuItem
             // 
             this.startNullScanningToolStripMenuItem.Name = "startNullScanningToolStripMenuItem";
-            this.startNullScanningToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.startNullScanningToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.startNullScanningToolStripMenuItem.Text = "Start Null Scanning";
             this.startNullScanningToolStripMenuItem.Click += new System.EventHandler(this.StartNullScanningToolStripMenuItemClick);
             // 
             // stopNullScanningToolStripMenuItem
             // 
             this.stopNullScanningToolStripMenuItem.Name = "stopNullScanningToolStripMenuItem";
-            this.stopNullScanningToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.stopNullScanningToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.stopNullScanningToolStripMenuItem.Text = "Stop Null Scanning";
             this.stopNullScanningToolStripMenuItem.Click += new System.EventHandler(this.StopNullScanningToolStripMenuItemClick);
             // 
@@ -600,6 +604,18 @@ namespace inSSIDer.UI.Forms
             this.networkInterfaceSelector1.TabIndex = 2;
             this.networkInterfaceSelector1.SizeChanged += new System.EventHandler(this.NetworkInterfaceSelector1SizeChanged);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(174, 6);
+            // 
+            // addBottomDualViewToolStripMenuItem
+            // 
+            this.addBottomDualViewToolStripMenuItem.Name = "addBottomDualViewToolStripMenuItem";
+            this.addBottomDualViewToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.addBottomDualViewToolStripMenuItem.Text = "Add Bottom DualView";
+            this.addBottomDualViewToolStripMenuItem.Click += new System.EventHandler(this.addBottomDualViewToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -693,5 +709,7 @@ namespace inSSIDer.UI.Forms
         private System.Windows.Forms.ToolStripMenuItem startNullScanningToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopNullScanningToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel apCountLabel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem addBottomDualViewToolStripMenuItem;
     }
 }
