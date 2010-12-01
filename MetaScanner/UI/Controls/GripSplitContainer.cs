@@ -34,8 +34,16 @@ namespace inSSIDer.UI.Controls
         {
             base.OnPaint(e);
 
-            int x = (SplitterRectangle.Width - Properties.Resources.longGripOff.Width) / 2;
-            e.Graphics.DrawImageUnscaled(Properties.Resources.longGripOff, x, SplitterRectangle.Top);
+            if (Orientation == Orientation.Horizontal)
+            {
+                int x = (SplitterRectangle.Width - Properties.Resources.longGripOff.Width) / 2;
+                e.Graphics.DrawImageUnscaled(Properties.Resources.longGripOff, x, SplitterRectangle.Top);
+            }
+            else
+            {
+                int y = (SplitterRectangle.Height - Properties.Resources.longGripOff.Height) / 2;
+                e.Graphics.DrawImageUnscaled(Properties.Resources.longGripOff, SplitterRectangle.Left, y);
+            }
         }
 
         protected override void OnSizeChanged(EventArgs e)

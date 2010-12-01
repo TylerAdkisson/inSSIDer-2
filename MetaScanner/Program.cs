@@ -184,7 +184,7 @@ namespace inSSIDer
             //Apply settings now 
             SettingsMgr.ApplyGpsSettings(scanner.GpsControl);
 
-            //form = new frmTest();
+            form = new frmTest();
 
             do
             {

@@ -10,6 +10,7 @@ using inSSIDer.Misc;
 using System.Diagnostics;
 using System.Threading;
 using inSSIDer.UI.Controls.Designers;
+using inSSIDer.UI.Forms;
 
 namespace inSSIDer.UI.Controls
 {
@@ -19,6 +20,10 @@ namespace inSSIDer.UI.Controls
     {
         private int TabMargin = 24;
         public List<Tab> Tabs = new List<Tab>();
+
+        private Tab _lastTab;
+
+        public event EventHandler<TabRemovedEventArgs> TabRemoved;
 
         public ETabControl()
         {
@@ -99,12 +104,18 @@ namespace inSSIDer.UI.Controls
                     //Show contents if selected
                     if (tab.Selected)
                     {
-                        tab.Parent = this;
-                        tab.Location = new Point(0, TabMargin);
-                        tab.Width = Width;
-                        tab.Height = Height - TabMargin;
-                        tab.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Bottom;
-                        tab.Show();
+                        try
+                        {
+                            tab.Parent = this;
+                            tab.Location = new Point(0, TabMargin);
+                            tab.Width = Width;
+                            tab.Height = Height - TabMargin;
+                            tab.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Bottom;
+                            tab.Show();
+                        }
+                        catch (ObjectDisposedException ex)
+                        {
+                        }
                     }
                     else
                     {
@@ -120,10 +131,16 @@ namespace inSSIDer.UI.Controls
             base.OnMouseClick(e);
             Tab t = GetTabFromPoint(e.Location);
             if (t == null) return;
-            DeselectAllTabs();
+            //DeselectAllTabs();
 
             SelectedTab = t;
             Invalidate();
+
+            if (e.Button == MouseButtons.Right && new Rectangle(0, 0, Width, TabMargin).Contains(e.Location))
+            {
+                cms1.ForeColor = SystemColors.ControlText;
+                cms1.Show(PointToScreen(e.Location));
+            }
         }
 
         public Tab GetTabFromPoint(Point point)
@@ -148,14 +165,41 @@ namespace inSSIDer.UI.Controls
             get
             {
                 if (Tabs.Count == 0) return null; 
-                return Tabs.First(t => t.Selected);
+                return Tabs.FirstOrDefault(t => t.Selected);
             }
             set
             {
-                if (value == null) return;
+                //If the tab we're setting is null, or already selected, ignore
+                if (value == null || value == SelectedTab) return;
+                //Store the last selected tab;
+                _lastTab = SelectedTab;
                 DeselectAllTabs();
                 value.Selected = true;
+                
             }
+        }
+
+        private void SelectLast()
+        {
+            if (_lastTab == null && Tabs.Count > 0)
+                SelectedTab = Tabs[0];
+            else if (_lastTab == null)
+                return;
+            SelectedTab = _lastTab;
+            _lastTab = null;
+        }
+
+        public void RemoveTab(Tab tab)
+        {
+            if (tab == null) return;
+            Tabs.Remove(tab);
+            OnTabRemoved(Tabs.Count == 0);
+        }
+
+        private void OnTabRemoved(bool all)
+        {
+            if (TabRemoved == null) return;
+            TabRemoved(this, new TabRemovedEventArgs(all));
         }
 
         //private void TabControl_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
@@ -214,7 +258,8 @@ namespace inSSIDer.UI.Controls
                 Tab t = SelectedTab;
                 DoDragDrop(t, DragDropEffects.Move);
 
-                Tabs.Remove(SelectedTab);
+                RemoveTab(SelectedTab);
+                //this.Parent
 
                 Invalidate();
 
@@ -283,5 +328,38 @@ namespace inSSIDer.UI.Controls
             //CheckDrag(drgevent, true);
         }
 
+        private void moveToExternalWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmExternal fex = new frmExternal();
+
+            ETabControl et = new ETabControl();
+            et.Parent = fex;
+            et.Dock = DockStyle.Fill;
+            et.Show();
+
+            et.TabRemoved += fex.TabControl_TabRemoved;
+
+            et.Tabs.Add(SelectedTab);
+
+            RemoveTab(SelectedTab);
+
+            SelectLast();
+
+            fex.Show();
+
+            Invalidate();
+
+        }
+
+    }
+
+    public class TabRemovedEventArgs : EventArgs
+    {
+        public TabRemovedEventArgs(bool allRemoved)
+        {
+            AllRemoved = allRemoved;
+        }
+
+        public bool AllRemoved { get; private set; }
     }
 }

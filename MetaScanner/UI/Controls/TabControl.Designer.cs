@@ -28,9 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.cms1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.moveToExternalWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cms1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // TabControl
+            // cms1
+            // 
+            this.cms1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.moveToExternalWindowToolStripMenuItem});
+            this.cms1.Name = "cms1";
+            this.cms1.Size = new System.Drawing.Size(193, 26);
+            // 
+            // moveToExternalWindowToolStripMenuItem
+            // 
+            this.moveToExternalWindowToolStripMenuItem.Name = "moveToExternalWindowToolStripMenuItem";
+            this.moveToExternalWindowToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.moveToExternalWindowToolStripMenuItem.Text = "Move to external window";
+            this.moveToExternalWindowToolStripMenuItem.Click += new System.EventHandler(this.moveToExternalWindowToolStripMenuItem_Click);
+            // 
+            // ETabControl
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -38,12 +56,16 @@
             this.BackColor = System.Drawing.Color.Black;
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Lime;
-            this.Name = "TabControl";
-            this.Size = new System.Drawing.Size(480, 360);
+            this.Name = "ETabControl";
+            this.Size = new System.Drawing.Size(300, 221);
+            this.cms1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.ContextMenuStrip cms1;
+        private System.Windows.Forms.ToolStripMenuItem moveToExternalWindowToolStripMenuItem;
     }
 }

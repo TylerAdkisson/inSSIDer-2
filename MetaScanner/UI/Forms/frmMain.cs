@@ -252,6 +252,7 @@ namespace inSSIDer.UI.Forms
 
                 et.Tabs.Add(t);
             }
+            et.SelectedTab = et.Tabs[0];
             et.Invalidate();
             et.Show();
 
