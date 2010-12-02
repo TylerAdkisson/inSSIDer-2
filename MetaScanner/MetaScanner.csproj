@@ -128,10 +128,6 @@
     <Compile Include="Misc\Settings.cs" />
     <Compile Include="Misc\SignalColor.cs" />
     <Compile Include="Misc\TabUtil.cs" />
-    <Compile Include="Remote\Message.cs" />
-    <Compile Include="Remote\MessageConverter.cs" />
-    <Compile Include="Remote\Misc\Commands.cs" />
-    <Compile Include="Remote\XmlMessages\IMessage.cs" />
     <Compile Include="Scanning\InterfaceManager.cs" />
     <Compile Include="Scanning\Interfaces\NdisScanInterface.cs" />
     <Compile Include="Scanning\ScanCompleteEventArgs.cs">

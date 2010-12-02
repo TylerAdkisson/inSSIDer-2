@@ -10,7 +10,6 @@ using inSSIDer.Misc;
 using inSSIDer.Scanning;
 using inSSIDer.UI.Controls;
 using System.Reflection;
-using inSSIDer.Remote;
 using MetaGeek.WiFi;
 
 namespace inSSIDer.UI.Forms
@@ -47,15 +46,15 @@ namespace inSSIDer.UI.Forms
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Dictionary<string, object> data = new Dictionary<string, object>() { 
-            //                                    { "Ssid", "lolwut" }, 
-            //                                    { "Rssi", -60 }};
-            //MetaGeek.WiFi.NetworkData t = Test<MetaGeek.WiFi.NetworkData>(data);
-            NetworkDataObjectConverter c = new NetworkDataObjectConverter();
-            c.Convert(null, new NetworkData(new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55 }));
-        }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    //Dictionary<string, object> data = new Dictionary<string, object>() { 
+        //    //                                    { "Ssid", "lolwut" }, 
+        //    //                                    { "Rssi", -60 }};
+        //    //MetaGeek.WiFi.NetworkData t = Test<MetaGeek.WiFi.NetworkData>(data);
+        //    NetworkDataObjectConverter c = new NetworkDataObjectConverter();
+        //    c.Convert(null, new NetworkData(new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55 }));
+        //}
 
 
         public T Test<T>(Dictionary<string,object> data)
