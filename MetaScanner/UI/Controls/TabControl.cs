@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Threading;
 using inSSIDer.UI.Controls.Designers;
 using inSSIDer.UI.Forms;
+using System.Runtime.Remoting;
 
 namespace inSSIDer.UI.Controls
 {
@@ -182,9 +183,14 @@ namespace inSSIDer.UI.Controls
         private void SelectLast()
         {
             if (_lastTab == null && Tabs.Count > 0)
+            {
                 SelectedTab = Tabs[0];
-            else if (_lastTab == null)
                 return;
+            }
+            else if (_lastTab == null)
+            {
+                return;
+            }
             SelectedTab = _lastTab;
             _lastTab = null;
         }
@@ -210,7 +216,7 @@ namespace inSSIDer.UI.Controls
         bool _startDrag = false;
         Point LastLocation = Point.Empty;
         Rectangle LastLocDrag = Rectangle.Empty;
-        //Simply so the ref is SO long
+        //Simply so the ref isn't SO long
         Size dragSize = SystemInformation.DragSize;
         bool _mouseDown = false;
 
@@ -256,16 +262,16 @@ namespace inSSIDer.UI.Controls
 
                 //Drag the selected tab
                 Tab t = SelectedTab;
-                DoDragDrop(t, DragDropEffects.Move);
-
-                RemoveTab(SelectedTab);
+                DragDropEffects de = DoDragDrop(t, DragDropEffects.Move);
+                if (de == DragDropEffects.Move)
+                {
+                    RemoveTab(SelectedTab);
+                    SelectLast();
+                }
                 //this.Parent
 
                 Invalidate();
 
-                if (Tabs.Count > 0)
-                    SelectedTab = Tabs[0];
-                
                 Console.WriteLine("DragEnd");
             }
         }
@@ -275,37 +281,34 @@ namespace inSSIDer.UI.Controls
             base.OnDragEnter(drgevent);
             if (DesignMode) return;
             //CheckDrag(drgevent, false);
-            drgevent.Effect = DragDropEffects.Move;
+            bool isTab = CheckData(drgevent.Data);
+            drgevent.Effect = isTab ? DragDropEffects.Move : DragDropEffects.None;
         }
 
         protected override void OnDragOver(DragEventArgs drgevent)
         {
             base.OnDragOver(drgevent);
-            if (DesignMode) return;
-            //CheckDrag(drgevent, false);
-            drgevent.Effect = DragDropEffects.Move;
+            //if (DesignMode) return;
+            ////CheckDrag(drgevent, false);
+            //drgevent.Effect = DragDropEffects.Move;
         }
 
-        private void CheckDrag(DragEventArgs e, bool dropped)
+        private bool CheckData(IDataObject data)
         {
-            //Reject if not within the tab margin
-            Point pt = this.PointToClient(new Point(e.X, e.Y));
+            if (!data.GetDataPresent(typeof(Tab))) return false;
 
-            if (!new Rectangle(0, 0, Width, TabMargin).Contains(pt))
+            //The data is a tab, make sure it's one of ours
+            try
             {
-                //Console.WriteLine("NOT CONTAINED {0} {1}", pt.X, pt.Y);
-                //e.AllowedEffect = DragDropEffects.None; 
-                e.Effect = DragDropEffects.None;
-                return;
+                Tab t = data.GetData(typeof(Tab)) as Tab;
+                Guid id = t.Id;
+                return true;
+                //return Tabs.Where(tab => tab.Id == t.Id).Count() > 0;
             }
-            //Console.WriteLine("CONTAINED {0} {1}", pt.X, pt.Y);
-            e.Effect = DragDropEffects.Move;
-
-            if (dropped)
+            catch (RemotingException)
             {
-                IDataObject ido = e.Data;
-                string data = (string)ido.GetData(typeof(string));
-                Console.WriteLine("Data dropped: {0}", data);
+                //The tab came from another instance
+                return false;
             }
         }
 
@@ -317,7 +320,7 @@ namespace inSSIDer.UI.Controls
 
             IDataObject data = drgevent.Data;
 
-            Tab t = (Tab)data.GetData(typeof(Tab));
+            Tab t = data.GetData(typeof(Tab)) as Tab;
 
             if (t == null) return;
             //DeselectAllTabs();
