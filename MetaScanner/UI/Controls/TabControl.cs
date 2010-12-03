@@ -22,6 +22,8 @@ namespace inSSIDer.UI.Controls
         private int TabMargin = 24;
         public List<Tab> Tabs = new List<Tab>();
 
+        private float divider = -1;
+
         private Tab _lastTab;
 
         public event EventHandler<TabRemovedEventArgs> TabRemoved;
@@ -123,6 +125,11 @@ namespace inSSIDer.UI.Controls
                         tab.Hide();
                     }
                 }
+                //Draw drop divider
+                if (divider > -1)
+                {
+                    e.Graphics.DrawLine(Pens.Red, divider, 0, divider, TabMargin);
+                }
             }
             e.Graphics.ResetClip();
         }
@@ -151,6 +158,33 @@ namespace inSSIDer.UI.Controls
                 if (tab.TabBounds.Contains(point)) return tab;
             }
             return null;
+        }
+
+        public int GetIndexFromPoint(Point point)
+        {
+            int index = -1;
+            foreach (Tab tab in Tabs)
+            {
+                if (point.X >= tab.TabBounds.Left && point.X <= tab.TabBounds.Right)
+                {
+                    index = Tabs.IndexOf(tab);
+                }
+                else if (point.X >= tab.TabBounds.Right)
+                {
+                    index = -1;
+                }
+                else
+                {
+                    return index;
+                }
+            }
+            return -1;
+        }
+
+        public void MoveTab(Tab t, int index)
+        {
+            Tabs.Remove(t);
+            Tabs.Insert(index, t);
         }
 
         public void DeselectAllTabs()
@@ -263,9 +297,11 @@ namespace inSSIDer.UI.Controls
                 //Drag the selected tab
                 Tab t = SelectedTab;
                 DragDropEffects de = DoDragDrop(t, DragDropEffects.Move);
+                Console.WriteLine("EndDragDrop");
+                //Only remove the tab if the drop was successful
                 if (de == DragDropEffects.Move)
                 {
-                    RemoveTab(SelectedTab);
+                    RemoveTab(t);
                     SelectLast();
                 }
                 //this.Parent
@@ -287,10 +323,14 @@ namespace inSSIDer.UI.Controls
 
         protected override void OnDragOver(DragEventArgs drgevent)
         {
+            //Console.WriteLine("DragOver");
             base.OnDragOver(drgevent);
-            //if (DesignMode) return;
-            ////CheckDrag(drgevent, false);
-            //drgevent.Effect = DragDropEffects.Move;
+
+            //Show where the tab would show up
+            //int index = GetIndexFromPoint(PointToClient(new Point(drgevent.X, drgevent.Y)));
+            //Tab t = Tabs[index];
+            //divider = t.TabBounds.Left;
+            //Invalidate();
         }
 
         private bool CheckData(IDataObject data)
@@ -325,7 +365,16 @@ namespace inSSIDer.UI.Controls
             if (t == null) return;
             //DeselectAllTabs();
 
-            Tabs.Add(t);
+            //Generate a new Id for the tab
+            t.Id = Guid.NewGuid();
+
+            int index = GetIndexFromPoint(PointToClient(new Point(drgevent.X, drgevent.Y)));
+            if (index > -1)
+                Tabs.Insert(index, t);
+            else
+                Tabs.Add(t);
+
+            //Tabs.Add(t);
             SelectedTab = t;
             Invalidate();
             //CheckDrag(drgevent, true);

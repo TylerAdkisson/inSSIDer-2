@@ -414,6 +414,10 @@ namespace inSSIDer.UI.Forms
             fullscreenToolStripMenuItem.Enabled = false;
             normalModeToolStripMenuItem.Enabled = true;
 
+            //Hotkey
+            normalModeToolStripMenuItem.ShortcutKeys = Keys.F11;
+            fullscreenToolStripMenuItem.ShortcutKeys = Keys.None;
+
             // Only allow switch to mini mode from normal mode
             switchToMiniModeToolStripMenuItem.Enabled = false;
         }
@@ -430,6 +434,9 @@ namespace inSSIDer.UI.Forms
             fullscreenToolStripMenuItem.Enabled = true;
             normalModeToolStripMenuItem.Enabled = false;
             switchToMiniModeToolStripMenuItem.Enabled = true;
+            //Hotkey
+            normalModeToolStripMenuItem.ShortcutKeys = Keys.None;
+            fullscreenToolStripMenuItem.ShortcutKeys = Keys.F11;
         }
 
         private void SwitchToMiniModeToolStripMenuItemClick(object sender, EventArgs e)
@@ -762,6 +769,63 @@ namespace inSSIDer.UI.Forms
 
             et.Show();
             gsp.Show();
+        }
+
+        private void addTopDualViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GripSplitContainer gsp = new GripSplitContainer();
+            gsp.SplitterWidth = 7;
+            gsp.SplitterDistance = gsp.Width / 2;
+
+            
+
+            gsp.Parent = gripContainer1.Panel1;
+            gsp.Dock = DockStyle.Fill;
+
+            //Temp: give grid a tab control
+            ETabControl et1 = new ETabControl();
+            Tab gridTab = new Tab("Grid", Font);
+
+            gripContainer1.Panel1.Controls[0].Parent = gridTab;
+
+            et1.Tabs.Add(gridTab);
+
+            et1.Parent = gsp.Panel1;
+            et1.Dock = DockStyle.Fill;
+            et1.Show();
+
+            //Add new tabcontrol to panel2
+            ETabControl et = new ETabControl();
+            et.Parent = gsp.Panel2;
+            et.Dock = DockStyle.Fill;
+            et.Show();
+
+            gsp.Show();
+        }
+
+        private void oneBottomViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oneBottomViewToolStripMenuItem.Enabled = false;
+            oneBottomViewToolStripMenuItem.Checked = true;
+
+            twoBottomViewToolStripMenuItem.Enabled = false;
+            twoBottomViewToolStripMenuItem.Checked = true;
+
+            gripBottomView.Panel2Collapsed = true;
+
+            //TODO: dump all tabs from hidden view to visible view
+        }
+
+        private void twoBottomViewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oneBottomViewToolStripMenuItem.Enabled = true;
+            oneBottomViewToolStripMenuItem.Checked = false;
+
+            twoBottomViewToolStripMenuItem.Enabled = true;
+            twoBottomViewToolStripMenuItem.Checked = false;
+
+            gripBottomView.Panel2Collapsed = false;
+
         }
     }
 }

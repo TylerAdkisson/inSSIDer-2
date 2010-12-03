@@ -122,7 +122,17 @@ namespace inSSIDer.UI.Mini
         public void Go()
         {
             //System.Diagnostics.Debug.WriteLineIf(Parent == null, "Orphaned control!");
-            if (InvokeRequired) Invoke(new DelGo(Go));
+            if (InvokeRequired)
+            {
+                try
+                {
+                    Invoke(new DelGo(Go));
+                }
+                catch (InvalidOperationException)
+                {
+                    //Program is probably closing
+                }
+            }
             else
             {
                 try
@@ -153,7 +163,7 @@ namespace inSSIDer.UI.Mini
                                 newrow.Cells["ageColumn"].Value = ap.Age + " sec";
 
                                 //Check for indeterminate state of checkbox
-                                if(_selectAllNetworksCheckBox.CheckState == CheckState.Indeterminate)
+                                if (_selectAllNetworksCheckBox.CheckState == CheckState.Indeterminate)
                                 {
                                     //If at least one AP is unchecked, don't check this one
                                     newrow.Cells["checkColumn"].Value = false;
@@ -192,9 +202,9 @@ namespace inSSIDer.UI.Mini
                         }
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
-                    
+
                 }
             }
         }
