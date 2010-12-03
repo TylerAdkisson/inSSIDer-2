@@ -236,7 +236,7 @@ namespace inSSIDer.UI.Forms
 
             //Change tab control
             ETabControl et = new ETabControl();
-            et.Parent = gripContainer1.Panel2;
+            et.Parent = gripBottomView.Panel1;
             et.Dock = DockStyle.Fill;
 
             detailsTabControl.Hide();
@@ -808,12 +808,28 @@ namespace inSSIDer.UI.Forms
             oneBottomViewToolStripMenuItem.Enabled = false;
             oneBottomViewToolStripMenuItem.Checked = true;
 
-            twoBottomViewToolStripMenuItem.Enabled = false;
-            twoBottomViewToolStripMenuItem.Checked = true;
+            twoBottomViewsToolStripMenuItem.Enabled = true;
+            twoBottomViewsToolStripMenuItem.Checked = false;
 
             gripBottomView.Panel2Collapsed = true;
 
             //TODO: dump all tabs from hidden view to visible view
+            ETabControl et = gripBottomView.Panel2.Controls[0] as ETabControl;
+            if (et == null || et.Tabs.Count == 0) return;
+
+            ETabControl et1 = gripBottomView.Panel1.Controls[0] as ETabControl;
+            if (et1 == null) return;
+
+            foreach (Tab tab in et.Tabs)
+            {
+                tab.Selected = false;
+                et1.Tabs.Add(tab);
+            }
+            et.Tabs.RemoveAll(tab => true);
+
+            gripBottomView.Panel2.Controls.Remove(et);
+            et = null;
+            et1.Invalidate();
         }
 
         private void twoBottomViewsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -821,10 +837,15 @@ namespace inSSIDer.UI.Forms
             oneBottomViewToolStripMenuItem.Enabled = true;
             oneBottomViewToolStripMenuItem.Checked = false;
 
-            twoBottomViewToolStripMenuItem.Enabled = true;
-            twoBottomViewToolStripMenuItem.Checked = false;
+            twoBottomViewsToolStripMenuItem.Enabled = false;
+            twoBottomViewsToolStripMenuItem.Checked = true;
 
             gripBottomView.Panel2Collapsed = false;
+
+            ETabControl et = new ETabControl();
+            et.Parent = gripBottomView.Panel2;
+            et.Dock = DockStyle.Fill;
+            et.Show();
 
         }
     }

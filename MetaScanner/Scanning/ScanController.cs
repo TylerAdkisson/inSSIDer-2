@@ -155,9 +155,9 @@ namespace inSSIDer.Scanning
 
         #region Null scanning
 
-        private readonly Timer _tNullScan = new Timer(1000);
+        private readonly Timer _tNullScan = new Timer(5000);
         private readonly List<NullNetData> _usedData = new List<NullNetData>();
-        private const int numNull = 100;
+        private const int numNull = 1000;
 
         private readonly Random random = new Random();
 

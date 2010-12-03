@@ -42,11 +42,5 @@ namespace inSSIDer.UI.Controls
             get { return _bounds;/* == null ? RectangleF.Empty : _bounds;*/ }
             set { if (value != null) { _bounds = value; } }
         }
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Tab)) return false;
-            return (obj as Tab).Id.Equals(Id);
-        }
     }
 }

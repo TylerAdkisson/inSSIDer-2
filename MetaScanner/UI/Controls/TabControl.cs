@@ -12,6 +12,7 @@ using System.Threading;
 using inSSIDer.UI.Controls.Designers;
 using inSSIDer.UI.Forms;
 using System.Runtime.Remoting;
+using System.Drawing.Drawing2D;
 
 namespace inSSIDer.UI.Controls
 {
@@ -63,17 +64,25 @@ namespace inSSIDer.UI.Controls
             SizeF str;
             float top = 0;
 
-            Brush brTab = Brushes.DimGray;
+            LinearGradientBrush lgb = new LinearGradientBrush(new Point(0, 0), new Point(0, TabMargin), Color.FromArgb(245, 245, 245), Color.FromArgb(169, 169, 169));
+            Brush brTab = lgb;//Brushes.DimGray;
+            Brush selectedBrush = Brushes.White;
 
             if (Tabs.Count > 0)
             {
+                //If there is only 1 tab, make sure it's selected
+                if (Tabs.Count == 1)
+                    Tabs[0].Selected = true;
+
                 foreach (Tab tab in Tabs)
                 {
                     top = tab.Selected ? 0 : 3;
                     str = e.Graphics.MeasureString(tab.Text, Font);
                     width = str.Width + 10;
 
-                    //TODO: Adjust height for non-selected tabs
+                    brTab = tab.Selected ? selectedBrush : lgb;
+
+                    //TODO: Adjust height for non-selected tabs?
                     tab.TabBounds = new RectangleF(x, top, width, TabMargin);
 
                     //Top left corner
@@ -96,7 +105,7 @@ namespace inSSIDer.UI.Controls
 
                     //Text
                     //                e.Graphics.DrawString(tab.Text, Font, Brushes.Black, x + ((width / 2) - (str.Width / 2)), top + ((TabMargin / 2) - (str.Height / 2)));
-                    e.Graphics.DrawString(tab.Text, Font, Brushes.White, tab.TabBounds, new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center });
+                    e.Graphics.DrawString(tab.Text, Font, Brushes.Black, tab.TabBounds, new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center });
 
                     //e.Graphics.FillRectangle(Brushes.Green, x, 0, width, TabMargin);
                     //e.Graphics.DrawRectangle(Pens.White, x, 0, width, TabMargin);
@@ -130,6 +139,14 @@ namespace inSSIDer.UI.Controls
                 {
                     e.Graphics.DrawLine(Pens.Red, divider, 0, divider, TabMargin);
                 }
+            }
+            else
+            {
+                e.Graphics.ResetClip();
+
+                //Draw text telling the user to drop tabs
+                Font bigFont = new Font(Font.FontFamily, 14, FontStyle.Regular);
+                e.Graphics.DrawString("Drop tabs here", bigFont, Brushes.Lime, new RectangleF(0, TabMargin, Width, Height - TabMargin), new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
             }
             e.Graphics.ResetClip();
         }

@@ -72,8 +72,15 @@ namespace inSSIDer.UI.Forms
             this.locationToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.loggingToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.addTopDualViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.oneBottomViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.twoBottomViewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.oneTopViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.twoTopViewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gripContainer1 = new inSSIDer.UI.Controls.GripSplitContainer();
             this.scannerView = new inSSIDer.UI.Controls.ScannerView();
+            this.gripBottomView = new inSSIDer.UI.Controls.GripSplitContainer();
             this.detailsTabControl = new System.Windows.Forms.TabControl();
             this.tabNews = new System.Windows.Forms.TabPage();
             this.htmlControl = new inSSIDer.HTML.HtmlControl();
@@ -88,18 +95,13 @@ namespace inSSIDer.UI.Forms
             this.tabGps = new System.Windows.Forms.TabPage();
             this.gpsMon1 = new inSSIDer.UI.Controls.GpsMon();
             this.networkInterfaceSelector1 = new inSSIDer.UI.Controls.NetworkInterfaceSelector();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.oneBottomViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.twoBottomViewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.oneTopViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.twoTopViewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gripBottomView = new inSSIDer.UI.Controls.GripSplitContainer();
             this.mainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gripContainer1.Panel1.SuspendLayout();
             this.gripContainer1.Panel2.SuspendLayout();
             this.gripContainer1.SuspendLayout();
+            this.gripBottomView.Panel1.SuspendLayout();
+            this.gripBottomView.SuspendLayout();
             this.detailsTabControl.SuspendLayout();
             this.tabNews.SuspendLayout();
             this.tabTimeGraph.SuspendLayout();
@@ -107,8 +109,6 @@ namespace inSSIDer.UI.Forms
             this.tab58Chan.SuspendLayout();
             this.tabFilters.SuspendLayout();
             this.tabGps.SuspendLayout();
-            this.gripBottomView.Panel1.SuspendLayout();
-            this.gripBottomView.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -230,7 +230,7 @@ namespace inSSIDer.UI.Forms
             // 
             this.switchToMiniModeToolStripMenuItem.Name = "switchToMiniModeToolStripMenuItem";
             this.switchToMiniModeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.switchToMiniModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.switchToMiniModeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.switchToMiniModeToolStripMenuItem.Text = "Mini Mode";
             this.switchToMiniModeToolStripMenuItem.Click += new System.EventHandler(this.SwitchToMiniModeToolStripMenuItemClick);
             // 
@@ -240,7 +240,7 @@ namespace inSSIDer.UI.Forms
             this.normalModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.normalModeToolStripMenuItem.Enabled = false;
             this.normalModeToolStripMenuItem.Name = "normalModeToolStripMenuItem";
-            this.normalModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.normalModeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.normalModeToolStripMenuItem.Text = "Normal Mode";
             this.normalModeToolStripMenuItem.Click += new System.EventHandler(this.NormalModeToolStripMenuItemClick);
             // 
@@ -248,7 +248,7 @@ namespace inSSIDer.UI.Forms
             // 
             this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
             this.fullscreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.fullscreenToolStripMenuItem.Text = "Fullscreen";
             this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.FullscreenToolStripMenuItemClick);
             // 
@@ -436,6 +436,48 @@ namespace inSSIDer.UI.Forms
             this.addTopDualViewToolStripMenuItem.Text = "Add Top DualView";
             this.addTopDualViewToolStripMenuItem.Click += new System.EventHandler(this.addTopDualViewToolStripMenuItem_Click);
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(145, 6);
+            // 
+            // oneBottomViewToolStripMenuItem
+            // 
+            this.oneBottomViewToolStripMenuItem.Checked = true;
+            this.oneBottomViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.oneBottomViewToolStripMenuItem.Enabled = false;
+            this.oneBottomViewToolStripMenuItem.Name = "oneBottomViewToolStripMenuItem";
+            this.oneBottomViewToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.oneBottomViewToolStripMenuItem.Text = "1 Bottom view";
+            this.oneBottomViewToolStripMenuItem.Click += new System.EventHandler(this.oneBottomViewToolStripMenuItem_Click);
+            // 
+            // twoBottomViewsToolStripMenuItem
+            // 
+            this.twoBottomViewsToolStripMenuItem.Name = "twoBottomViewsToolStripMenuItem";
+            this.twoBottomViewsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.twoBottomViewsToolStripMenuItem.Text = "2 Bottom views";
+            this.twoBottomViewsToolStripMenuItem.Click += new System.EventHandler(this.twoBottomViewsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(145, 6);
+            // 
+            // oneTopViewToolStripMenuItem
+            // 
+            this.oneTopViewToolStripMenuItem.Checked = true;
+            this.oneTopViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.oneTopViewToolStripMenuItem.Enabled = false;
+            this.oneTopViewToolStripMenuItem.Name = "oneTopViewToolStripMenuItem";
+            this.oneTopViewToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.oneTopViewToolStripMenuItem.Text = "1 Top view";
+            // 
+            // twoTopViewsToolStripMenuItem
+            // 
+            this.twoTopViewsToolStripMenuItem.Name = "twoTopViewsToolStripMenuItem";
+            this.twoTopViewsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.twoTopViewsToolStripMenuItem.Text = "2 Top views";
+            // 
             // gripContainer1
             // 
             this.gripContainer1.BackColor = System.Drawing.Color.Black;
@@ -465,6 +507,21 @@ namespace inSSIDer.UI.Forms
             this.scannerView.Name = "scannerView";
             this.scannerView.Size = new System.Drawing.Size(1008, 246);
             this.scannerView.TabIndex = 0;
+            // 
+            // gripBottomView
+            // 
+            this.gripBottomView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gripBottomView.Location = new System.Drawing.Point(0, 0);
+            this.gripBottomView.Name = "gripBottomView";
+            // 
+            // gripBottomView.Panel1
+            // 
+            this.gripBottomView.Panel1.Controls.Add(this.detailsTabControl);
+            this.gripBottomView.Panel2Collapsed = true;
+            this.gripBottomView.Size = new System.Drawing.Size(1008, 263);
+            this.gripBottomView.SplitterDistance = 504;
+            this.gripBottomView.SplitterWidth = 7;
+            this.gripBottomView.TabIndex = 1;
             // 
             // detailsTabControl
             // 
@@ -517,7 +574,7 @@ namespace inSSIDer.UI.Forms
             this.tabTimeGraph.ForeColor = System.Drawing.Color.Lime;
             this.tabTimeGraph.Location = new System.Drawing.Point(4, 22);
             this.tabTimeGraph.Name = "tabTimeGraph";
-            this.tabTimeGraph.Size = new System.Drawing.Size(1000, 237);
+            this.tabTimeGraph.Size = new System.Drawing.Size(496, 237);
             this.tabTimeGraph.TabIndex = 0;
             this.tabTimeGraph.Text = "Time Graph";
             this.tabTimeGraph.UseVisualStyleBackColor = true;
@@ -532,7 +589,7 @@ namespace inSSIDer.UI.Forms
             this.timeGraph1.Name = "timeGraph1";
             this.timeGraph1.RightMargin = 32;
             this.timeGraph1.ShowSSIDs = true;
-            this.timeGraph1.Size = new System.Drawing.Size(1000, 237);
+            this.timeGraph1.Size = new System.Drawing.Size(496, 237);
             this.timeGraph1.TabIndex = 0;
             this.timeGraph1.TimeSpan = System.TimeSpan.Parse("00:05:00");
             // 
@@ -543,7 +600,7 @@ namespace inSSIDer.UI.Forms
             this.tab24Chan.ForeColor = System.Drawing.Color.Lime;
             this.tab24Chan.Location = new System.Drawing.Point(4, 22);
             this.tab24Chan.Name = "tab24Chan";
-            this.tab24Chan.Size = new System.Drawing.Size(1000, 237);
+            this.tab24Chan.Size = new System.Drawing.Size(496, 237);
             this.tab24Chan.TabIndex = 1;
             this.tab24Chan.Text = "2.4 GHz Channels";
             this.tab24Chan.UseVisualStyleBackColor = true;
@@ -558,7 +615,7 @@ namespace inSSIDer.UI.Forms
             this.chanView24.MinFrequency = 2400F;
             this.chanView24.Name = "chanView24";
             this.chanView24.RightMargin = 20;
-            this.chanView24.Size = new System.Drawing.Size(1000, 237);
+            this.chanView24.Size = new System.Drawing.Size(496, 237);
             this.chanView24.TabIndex = 0;
             // 
             // tab58Chan
@@ -568,7 +625,7 @@ namespace inSSIDer.UI.Forms
             this.tab58Chan.ForeColor = System.Drawing.Color.Lime;
             this.tab58Chan.Location = new System.Drawing.Point(4, 22);
             this.tab58Chan.Name = "tab58Chan";
-            this.tab58Chan.Size = new System.Drawing.Size(1000, 237);
+            this.tab58Chan.Size = new System.Drawing.Size(496, 237);
             this.tab58Chan.TabIndex = 4;
             this.tab58Chan.Text = "5 GHz Channels";
             this.tab58Chan.UseVisualStyleBackColor = true;
@@ -584,7 +641,7 @@ namespace inSSIDer.UI.Forms
             this.chanView58.MinFrequency = 5150F;
             this.chanView58.Name = "chanView58";
             this.chanView58.RightMargin = 20;
-            this.chanView58.Size = new System.Drawing.Size(1000, 237);
+            this.chanView58.Size = new System.Drawing.Size(496, 237);
             this.chanView58.TabIndex = 1;
             // 
             // tabFilters
@@ -594,7 +651,7 @@ namespace inSSIDer.UI.Forms
             this.tabFilters.ForeColor = System.Drawing.Color.Lime;
             this.tabFilters.Location = new System.Drawing.Point(4, 22);
             this.tabFilters.Name = "tabFilters";
-            this.tabFilters.Size = new System.Drawing.Size(1000, 237);
+            this.tabFilters.Size = new System.Drawing.Size(496, 237);
             this.tabFilters.TabIndex = 2;
             this.tabFilters.Text = "Filters";
             this.tabFilters.UseVisualStyleBackColor = true;
@@ -605,7 +662,7 @@ namespace inSSIDer.UI.Forms
             this.filterMgr1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterMgr1.Location = new System.Drawing.Point(0, 0);
             this.filterMgr1.Name = "filterMgr1";
-            this.filterMgr1.Size = new System.Drawing.Size(1000, 237);
+            this.filterMgr1.Size = new System.Drawing.Size(496, 237);
             this.filterMgr1.TabIndex = 4;
             // 
             // tabGps
@@ -615,7 +672,7 @@ namespace inSSIDer.UI.Forms
             this.tabGps.ForeColor = System.Drawing.Color.Lime;
             this.tabGps.Location = new System.Drawing.Point(4, 22);
             this.tabGps.Name = "tabGps";
-            this.tabGps.Size = new System.Drawing.Size(1000, 237);
+            this.tabGps.Size = new System.Drawing.Size(496, 237);
             this.tabGps.TabIndex = 3;
             this.tabGps.Text = "GPS";
             this.tabGps.UseVisualStyleBackColor = true;
@@ -627,7 +684,7 @@ namespace inSSIDer.UI.Forms
             this.gpsMon1.ForeColor = System.Drawing.Color.Lime;
             this.gpsMon1.Location = new System.Drawing.Point(0, 0);
             this.gpsMon1.Name = "gpsMon1";
-            this.gpsMon1.Size = new System.Drawing.Size(1000, 237);
+            this.gpsMon1.Size = new System.Drawing.Size(496, 237);
             this.gpsMon1.TabIndex = 0;
             // 
             // networkInterfaceSelector1
@@ -639,63 +696,6 @@ namespace inSSIDer.UI.Forms
             this.networkInterfaceSelector1.Size = new System.Drawing.Size(181, 25);
             this.networkInterfaceSelector1.TabIndex = 2;
             this.networkInterfaceSelector1.SizeChanged += new System.EventHandler(this.NetworkInterfaceSelector1SizeChanged);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
-            // 
-            // oneBottomViewToolStripMenuItem
-            // 
-            this.oneBottomViewToolStripMenuItem.Checked = true;
-            this.oneBottomViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.oneBottomViewToolStripMenuItem.Enabled = false;
-            this.oneBottomViewToolStripMenuItem.Name = "oneBottomViewToolStripMenuItem";
-            this.oneBottomViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.oneBottomViewToolStripMenuItem.Text = "1 Bottom view";
-            this.oneBottomViewToolStripMenuItem.Click += new System.EventHandler(this.oneBottomViewToolStripMenuItem_Click);
-            // 
-            // twoBottomViewsToolStripMenuItem
-            // 
-            this.twoBottomViewsToolStripMenuItem.Name = "twoBottomViewsToolStripMenuItem";
-            this.twoBottomViewsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.twoBottomViewsToolStripMenuItem.Text = "2 Bottom views";
-            this.twoBottomViewsToolStripMenuItem.Click += new System.EventHandler(this.twoBottomViewsToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
-            // 
-            // oneTopViewToolStripMenuItem
-            // 
-            this.oneTopViewToolStripMenuItem.Checked = true;
-            this.oneTopViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.oneTopViewToolStripMenuItem.Enabled = false;
-            this.oneTopViewToolStripMenuItem.Name = "oneTopViewToolStripMenuItem";
-            this.oneTopViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.oneTopViewToolStripMenuItem.Text = "1 Top view";
-            // 
-            // twoTopViewsToolStripMenuItem
-            // 
-            this.twoTopViewsToolStripMenuItem.Name = "twoTopViewsToolStripMenuItem";
-            this.twoTopViewsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.twoTopViewsToolStripMenuItem.Text = "2 Top views";
-            // 
-            // gripBottomView
-            // 
-            this.gripBottomView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gripBottomView.Location = new System.Drawing.Point(0, 0);
-            this.gripBottomView.Name = "gripBottomView";
-            // 
-            // gripBottomView.Panel1
-            // 
-            this.gripBottomView.Panel1.Controls.Add(this.detailsTabControl);
-            this.gripBottomView.Panel2Collapsed = true;
-            this.gripBottomView.Size = new System.Drawing.Size(1008, 263);
-            this.gripBottomView.SplitterDistance = 504;
-            this.gripBottomView.SplitterWidth = 7;
-            this.gripBottomView.TabIndex = 1;
             // 
             // FormMain
             // 
@@ -724,6 +724,8 @@ namespace inSSIDer.UI.Forms
             this.gripContainer1.Panel1.ResumeLayout(false);
             this.gripContainer1.Panel2.ResumeLayout(false);
             this.gripContainer1.ResumeLayout(false);
+            this.gripBottomView.Panel1.ResumeLayout(false);
+            this.gripBottomView.ResumeLayout(false);
             this.detailsTabControl.ResumeLayout(false);
             this.tabNews.ResumeLayout(false);
             this.tabTimeGraph.ResumeLayout(false);
@@ -731,8 +733,6 @@ namespace inSSIDer.UI.Forms
             this.tab58Chan.ResumeLayout(false);
             this.tabFilters.ResumeLayout(false);
             this.tabGps.ResumeLayout(false);
-            this.gripBottomView.Panel1.ResumeLayout(false);
-            this.gripBottomView.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
