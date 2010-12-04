@@ -380,7 +380,6 @@ namespace inSSIDer.UI.Controls
             Tab t = data.GetData(typeof(Tab)) as Tab;
 
             if (t == null) return;
-            //DeselectAllTabs();
 
             //Generate a new Id for the tab
             t.Id = Guid.NewGuid();
@@ -391,10 +390,9 @@ namespace inSSIDer.UI.Controls
             else
                 Tabs.Add(t);
 
-            //Tabs.Add(t);
+            DeselectAllTabs();
             SelectedTab = t;
             Invalidate();
-            //CheckDrag(drgevent, true);
         }
 
         private void moveToExternalWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -418,6 +416,35 @@ namespace inSSIDer.UI.Controls
 
             Invalidate();
 
+        }
+
+        public static void ReplaceTabControl(TabControl tabControl)
+        {
+            ETabControl et = new ETabControl();
+            et.Parent = tabControl.Parent;
+            et.Dock = tabControl.Dock;
+            et.Anchor = tabControl.Anchor;
+            et.Location = tabControl.Location;
+            et.Size = tabControl.Size;
+
+            tabControl.Hide();
+
+            Tab t;
+
+            foreach (TabPage page in tabControl.TabPages)
+            {
+                //Create tab and move control over
+                t = new Tab(page.Text, tabControl.Font);
+                //only the first control
+                page.Controls[0].Parent = t;
+
+                et.Tabs.Add(t);
+            }
+            et.SelectedTab = et.Tabs[0];
+            et.Invalidate();
+            et.Show();
+
+            //tabControl.Parent = null;
         }
 
     }

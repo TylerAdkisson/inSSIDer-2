@@ -170,6 +170,9 @@ namespace inSSIDer.UI.Mini
 
             //Hook the interface error event
             _scanner.NetworkScanner.InterfaceError += NetworkScanner_InterfaceError;
+
+            //Replace the tab control
+            ETabControl.ReplaceTabControl(detailsTabControl);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

@@ -119,19 +119,26 @@ namespace inSSIDer.HTML
                         BackgroundWorker bw = new BackgroundWorker();
                         bw.RunWorkerCompleted += (s, e) =>
                                                      {
-                                                         int count = 0;
-                                                         Stop();
-                                                         while (IsBusy && count < 4)
+                                                         try
                                                          {
-                                                             //Simply to prevent high CPU usage.
-                                                             Thread.Sleep(300);
+                                                             int count = 0;
                                                              Stop();
-                                                             count++;
+                                                             while (IsBusy && count < 4)
+                                                             {
+                                                                 //Simply to prevent high CPU usage.
+                                                                 Thread.Sleep(300);
+                                                                 Stop();
+                                                                 count++;
+                                                             }
+                                                             if (e.Error == null && count < 4)
+                                                             {
+                                                                 //Refresh();
+                                                                 Navigate(LocalFileName);
+                                                             }
                                                          }
-                                                         if (e.Error == null && count < 4)
+                                                         catch (ObjectDisposedException)
                                                          {
-                                                             //Refresh();
-                                                             Navigate(LocalFileName);
+                                                             //I don't want to do this, but there didn't seem to be another way.
                                                          }
                                                      };
                         bw.DoWork += (s, e) => Download.UpdateFile(rssFile, UpdateUrl);

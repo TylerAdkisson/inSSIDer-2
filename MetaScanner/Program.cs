@@ -97,8 +97,10 @@ namespace inSSIDer
 #endif
             // Create new instance of UnhandledExceptionDlg:
             // NOTE: this hooks up the exception handler functions 
+#if !DEBUG
             UnhandledExceptionDlg exDlg = new UnhandledExceptionDlg();
             InitializeExceptionHandler(exDlg);
+#endif
 
             //Check for config system condition here
             if(!Settings.Default.CheckSettingsSystem())

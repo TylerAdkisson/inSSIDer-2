@@ -235,28 +235,7 @@ namespace inSSIDer.UI.Forms
             _scanner.NetworkScanner.InterfaceError += NetworkScanner_InterfaceError;
 
             //Change tab control
-            ETabControl et = new ETabControl();
-            et.Parent = gripBottomView.Panel1;
-            et.Dock = DockStyle.Fill;
-
-            detailsTabControl.Hide();
-
-            Tab t;
-
-            foreach (TabPage page in detailsTabControl.TabPages)
-            {
-                //Create tab and move control over
-                t = new Tab(page.Text, Font);
-                //only the first control
-                page.Controls[0].Parent = t;
-
-                et.Tabs.Add(t);
-            }
-            et.SelectedTab = et.Tabs[0];
-            et.Invalidate();
-            et.Show();
-
-            detailsTabControl.Parent = this;
+            ETabControl.ReplaceTabControl(detailsTabControl);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
