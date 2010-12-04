@@ -131,14 +131,16 @@ namespace inSSIDer.Scanning
 
                 if (Utilities.IsXp())
                 {
-                    foreach (NetworkInterface net in NetworkInterface.GetAllNetworkInterfaces())
-                    {
-                        if(new Guid(net.Id).Equals(Settings.Default.scanLastInterfaceId))
-                        {
-                            //Found it
-                            return net;
-                        }
-                    }
+                    //It doesn't work right on XP.
+                    return null;
+                    //foreach (NetworkInterface net in NetworkInterface.GetAllNetworkInterfaces())
+                    //{
+                    //    if(new Guid(net.Id).Equals(Settings.Default.scanLastInterfaceId))
+                    //    {
+                    //        //Found it
+                    //        return net;
+                    //    }
+                    //}
                 }
                 else
                 {
