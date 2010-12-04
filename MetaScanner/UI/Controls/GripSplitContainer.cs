@@ -18,6 +18,7 @@
 
 using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace inSSIDer.UI.Controls
 {
@@ -33,16 +34,19 @@ namespace inSSIDer.UI.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
+            Image grip = Properties.Resources.longGripOff;
             if (Orientation == Orientation.Horizontal)
             {
-                int x = (SplitterRectangle.Width - Properties.Resources.longGripOff.Width) / 2;
-                e.Graphics.DrawImageUnscaled(Properties.Resources.longGripOff, x, SplitterRectangle.Top);
+                int x = (SplitterRectangle.Width - grip.Width) / 2;
+                e.Graphics.DrawImageUnscaled(grip, x, SplitterRectangle.Top);
             }
             else
             {
-                int y = (SplitterRectangle.Height - Properties.Resources.longGripOff.Height) / 2;
-                e.Graphics.DrawImageUnscaled(Properties.Resources.longGripOff, SplitterRectangle.Left, y);
+                //Image Splitter = Properties.Resources.longGripOff;
+                //Splitter.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                grip.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                int y = (SplitterRectangle.Height - grip.Height) / 2;
+                e.Graphics.DrawImageUnscaled(grip, SplitterRectangle.Left, y);
             }
         }
 
