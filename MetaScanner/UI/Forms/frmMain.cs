@@ -813,7 +813,6 @@ namespace inSSIDer.UI.Forms
 
             gripBottomView.Panel2Collapsed = true;
 
-            //TODO: dump all tabs from hidden view to visible view
             ETabControl et = gripBottomView.Panel2.Controls[0] as ETabControl;
             if (et == null || et.Tabs.Count == 0) return;
 
@@ -844,6 +843,52 @@ namespace inSSIDer.UI.Forms
 
             ETabControl et = new ETabControl();
             et.Parent = gripBottomView.Panel2;
+            et.Dock = DockStyle.Fill;
+            et.Show();
+
+        }
+
+        private void oneTopViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oneTopViewToolStripMenuItem.Enabled = false;
+            oneTopViewToolStripMenuItem.Checked = true;
+
+            twoTopViewsToolStripMenuItem.Enabled = true;
+            twoTopViewsToolStripMenuItem.Checked = false;
+
+            gripTopView.Panel2Collapsed = true;
+
+            ETabControl et = gripTopView.Panel2.Controls[0] as ETabControl;
+            if (et == null || et.Tabs.Count == 0) return;
+
+            //TODO: put grid in tab
+            ETabControl et1 = gripBottomView.Panel1.Controls[0] as ETabControl;
+            if (et1 == null) return;
+
+            foreach (Tab tab in et.Tabs)
+            {
+                tab.Selected = false;
+                et1.Tabs.Add(tab);
+            }
+            et.Tabs.RemoveAll(tab => true);
+
+            gripTopView.Panel2.Controls.Remove(et);
+            et = null;
+            et1.Invalidate();
+        }
+
+        private void twoTopViewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oneTopViewToolStripMenuItem.Enabled = true;
+            oneTopViewToolStripMenuItem.Checked = false;
+
+            twoTopViewsToolStripMenuItem.Enabled = false;
+            twoTopViewsToolStripMenuItem.Checked = true;
+
+            gripTopView.Panel2Collapsed = false;
+
+            ETabControl et = new ETabControl();
+            et.Parent = gripTopView.Panel2;
             et.Dock = DockStyle.Fill;
             et.Show();
 

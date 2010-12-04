@@ -111,7 +111,7 @@ namespace inSSIDer.UI.Controls
                     //e.Graphics.DrawRectangle(Pens.White, x, 0, width, TabMargin);
 
                     //e.Graphics.DrawString(tab, Font, Brushes.White, new RectangleF(x, 0, width, TabMargin), new StringFormat() { LineAlignment = StringAlignment.Center });
-                    x += width + 1.0f;
+                    x += width + 1.1f;
 
                     //Show contents if selected
                     if (tab.Selected)

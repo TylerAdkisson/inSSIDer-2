@@ -42,8 +42,6 @@ namespace inSSIDer.UI.Controls
             }
             else
             {
-                //Image Splitter = Properties.Resources.longGripOff;
-                //Splitter.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 grip.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 int y = (SplitterRectangle.Height - grip.Height) / 2;
                 e.Graphics.DrawImageUnscaled(grip, SplitterRectangle.Left, y);
