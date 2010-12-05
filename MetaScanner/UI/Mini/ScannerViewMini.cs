@@ -40,6 +40,8 @@ namespace inSSIDer.UI.Mini
 
         public event EventHandler RequireRefresh;
 
+        delegate void DelInvokeEvent(object sender, EventArgs e);
+
         public ScannerViewMini()
         {
             InitializeComponent();
@@ -53,6 +55,12 @@ namespace inSSIDer.UI.Mini
 
         private void Cache_DataReset(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                Invoke(new DelInvokeEvent(Cache_DataReset), new object[] { sender, e });
+                return;
+            }
+
             scannerGrid.Rows.Clear();
             _ignoreSelection = true;
         }
