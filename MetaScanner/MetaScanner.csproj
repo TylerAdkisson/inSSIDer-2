@@ -126,6 +126,7 @@
     <Compile Include="Misc\Settings.cs" />
     <Compile Include="Misc\SignalBars.cs" />
     <Compile Include="Misc\SignalColor.cs" />
+    <Compile Include="Misc\TabUtil.cs" />
     <Compile Include="Scanning\InterfaceManager.cs" />
     <Compile Include="Scanning\Interfaces\NdisScanInterface.cs" />
     <Compile Include="Scanning\ScanCompleteEventArgs.cs">
@@ -143,11 +144,14 @@
     </Compile>
     <Compile Include="UI\Controls\SparkLineCell.cs" />
     <Compile Include="UI\Controls\SparkLineColumn.cs" />
-    <Compile Include="UI\Controls\TabControl.cs">
+    <Compile Include="UI\Controls\ETab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\ETabControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Controls\TabControl.Designer.cs">
-      <DependentUpon>TabControl.cs</DependentUpon>
+    <Compile Include="UI\Controls\ETabControl.Designer.cs">
+      <DependentUpon>ETabControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\frmAbout.cs">
       <SubType>Form</SubType>
@@ -241,8 +245,8 @@
     <Compile Include="FileIO\NS1Writer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UI\Controls\TabControl.resx">
-      <DependentUpon>TabControl.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Controls\ETabControl.resx">
+      <DependentUpon>ETabControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
@@ -290,9 +294,6 @@
     <EmbeddedResource Include="UI\Controls\TimeGraph.resx">
       <DependentUpon>TimeGraph.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\frmTest.resx">
-      <DependentUpon>frmTest.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Mini\frmMini.resx">
       <DependentUpon>frmMini.cs</DependentUpon>
     </EmbeddedResource>
@@ -331,12 +332,6 @@
     </Compile>
     <Compile Include="UI\Controls\TimeGraph.designer.cs">
       <DependentUpon>TimeGraph.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Forms\frmTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\frmTest.Designer.cs">
-      <DependentUpon>frmTest.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Mini\frmMini.cs">
       <SubType>Form</SubType>
