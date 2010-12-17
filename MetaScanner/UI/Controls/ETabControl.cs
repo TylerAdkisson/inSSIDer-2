@@ -179,12 +179,19 @@ namespace inSSIDer.UI.Controls
             int index = -1;
             foreach (ETab tab in Tabs)
             {
-                if (point.X >= tab.TabBounds.Left && point.X <= tab.TabBounds.Right)
+                if (point.X >= tab.TabBounds.Left && point.X < (tab.TabBounds.Left + (tab.TabBounds.Width / 2f)))
                 {
+                    //It's within the first half
                     index = Tabs.IndexOf(tab);
+                }
+                else if (point.X >= (tab.TabBounds.Left + (tab.TabBounds.Width / 2f)) && point.X < tab.TabBounds.Right)
+                {
+                    //It's within the second half
+                    index = Tabs.IndexOf(tab) + 1 == Tabs.Count ? -1 : Tabs.IndexOf(tab) + 1;
                 }
                 else if (point.X >= tab.TabBounds.Right)
                 {
+                    //It's all the way to the right, put on end
                     index = -1;
                 }
                 else
@@ -267,6 +274,7 @@ namespace inSSIDer.UI.Controls
         //Simply so the ref isn't SO long
         Size dragSize = SystemInformation.DragSize;
         bool _mouseDown = false;
+        bool _dragging = false;
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
@@ -305,6 +313,7 @@ namespace inSSIDer.UI.Controls
             if (DesignMode) return;
             if (_startDrag && !LastLocDrag.Contains(e.Location))
             {
+                _dragging = true;
                 Console.WriteLine("DragStart");
                 _startDrag = false;
 
@@ -312,13 +321,13 @@ namespace inSSIDer.UI.Controls
                 ETab t = SelectedTab;
                 DragDropEffects de = DoDragDrop(t, DragDropEffects.Move);
                 Console.WriteLine("EndDragDrop");
+                _dragging = false;
                 //Only remove the tab if the drop was successful
                 if (de == DragDropEffects.Move)
                 {
                     RemoveTab(t);
                     SelectLast();
                 }
-                //this.Parent
 
                 Invalidate();
 
@@ -345,6 +354,11 @@ namespace inSSIDer.UI.Controls
             //Tab t = Tabs[index];
             //divider = t.TabBounds.Left;
             //Invalidate();
+        }
+
+        protected override void OnQueryContinueDrag(QueryContinueDragEventArgs qcdevent)
+        {
+            base.OnQueryContinueDrag(qcdevent);
         }
 
         private bool CheckData(IDataObject data)
