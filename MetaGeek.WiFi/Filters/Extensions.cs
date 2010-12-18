@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace MetaGeek.WiFi.Filters
+{
+    public static class Extensions
+    {
+        public static Operator ParseOperator(string data)
+        {
+            if (data == "==") return Operator.Equal;
+            if (data == "!=") return Operator.NotEqual;
+            if (data == ">") return Operator.GreaterThan;
+            if (data == ">=") return Operator.GreaterEqual;
+            if (data == "<") return Operator.LessThan;
+            if (data == "<=") return Operator.LessEqual;
+            if (data.ToLower() == "sw") return Operator.StartsWith;
+            if (data.ToLower() == "ew") return Operator.EndsWith;
+            if (data.ToLower() == "!sw") return Operator.NotStartsWith;
+            if (data.ToLower() == "!ew") return Operator.NotEndsWith;
+            return Operator.None;
+        }
+
+        public static CompareAs ParseCompareAs(string expr)
+        {
+            if (expr.Contains('"')) return CompareAs.String;
+            if (expr.ToLower().Contains("true") || expr.ToLower().Contains("false")) return CompareAs.Bool;
+            else return CompareAs.Int;
+        }
+
+        public static bool ParseBool(string expr)
+        {
+            return expr.ToLower().Contains("true");
+        }
+
+        //None, WEP, WPA_TKIP, WPA_CCMP, WPA2_TKIP, WPA2_CCMP
+        public static int SecurityRanking(string security)
+        {
+            security = security.ToLower();
+            if (security.Contains("tkip"))
+            {
+                if (security.Contains("wpa2") || security.Contains("rsna"))
+                {
+                    return (int)SecurityType.Wpa2Tkip;
+                }
+                if (security.Contains("wpa"))
+                {
+                    return (int)SecurityType.WpaTkip;
+                }
+            }
+            else if (security.Contains("ccmp") || security.Contains("aes"))
+            {
+                if (security.Contains("wpa2") || security.Contains("rsna"))
+                {
+                    return (int)SecurityType.Wpa2Ccmp;
+                }
+                if (security.Contains("wpa"))
+                {
+                    return (int)SecurityType.WpaCcmp;
+                }
+            }
+            else if (security.StartsWith("wpa2") || security.StartsWith("rsna")) return (int)SecurityType.Wpa2Ccmp;
+            else if (security.StartsWith("wpa")) return (int)SecurityType.WpaTkip;
+            else if (security.StartsWith("wep")) return (int)SecurityType.Wep;
+            else if (security.StartsWith("none")) return (int)SecurityType.None;
+
+            return -1;
+        }
+    }
+}

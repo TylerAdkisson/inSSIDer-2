@@ -90,6 +90,15 @@
     <Compile Include="AdapterVendors.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Filter.cs" />
+    <Compile Include="Filters\Attributes.cs" />
+    <Compile Include="Filters\CorrectedExpressionParser.cs" />
+    <Compile Include="Filters\Enums.cs" />
+    <Compile Include="Filters\Extensions.cs" />
+    <Compile Include="Filters\FilterValue.cs" />
+    <Compile Include="Filters\FlakExpressionParser.cs" />
+    <Compile Include="Filters\IFilterComparible.cs" />
+    <Compile Include="Filters\RootSection.cs" />
+    <Compile Include="Filters\Section.cs" />
     <Compile Include="IncomingDataEventArgs.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MacAddress.cs" />

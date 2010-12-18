@@ -23,6 +23,7 @@ using System.Linq;
 using System.Drawing;
 using MetaGeek.Gps;
 using ManagedWifi;
+using MetaGeek.WiFi.Filters;
 
 namespace MetaGeek.WiFi
 {
@@ -47,16 +48,19 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// The SSID of the AP
         /// </summary>
+        [Filterable(CompareAs.String)]
         public string Ssid { get { return LastData.Ssid; } }
 
         /// <summary>
         /// The MAC address of the AP
         /// </summary>
+        [Filterable(CompareAs.String)]
         public MacAddress MacAddress { get { return _orignalData.MyMacAddress; } }
 
         /// <summary>
         /// The AP vendor
         /// </summary>
+        [Filterable(CompareAs.String)]
         public string Vendor { get; set; }
 
         /// <summary>
@@ -97,6 +101,7 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// How many seconds it has been since the AP was last heard from
         /// </summary>
+        [Filterable(CompareAs.Int)]
         public int Age { get { return (int)(Timestamp.Subtract(LastSeenTimestamp)).TotalSeconds; } }
 
         /// <summary>
@@ -112,11 +117,13 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// The Maximum data rate supported by this AP
         /// </summary>
+        [Filterable(CompareAs.Int)]
         public double MaxRate { get { return _orignalData.MaxRate; } }
 
         /// <summary>
         /// The security mode supported by this AP
         /// </summary>
+        [Filterable(CompareAs.SecurityInt, "Security")]
         public string Privacy { get { return _orignalData.Privacy; } }
 
         /// <summary>
