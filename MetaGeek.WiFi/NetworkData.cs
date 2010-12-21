@@ -23,6 +23,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using ManagedWifi;
+using MetaGeek.WiFi.Filters;
 
 namespace MetaGeek.WiFi
 {
@@ -33,9 +34,11 @@ namespace MetaGeek.WiFi
         public int Age { get; private set; }
 
         [DisplayName("RSSI")]
+        [Filterable(CompareAs.Int)]
         public int Rssi { get; set; }
 
         [DisplayName("Signal Quality")]
+        [Filterable(CompareAs.Int)]
         public uint SignalQuality { get; set; }
 
         public uint Channel { get; set; }

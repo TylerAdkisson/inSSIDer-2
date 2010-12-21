@@ -10,6 +10,9 @@ using MetaGeek.Utils;
 using inSSIDer.Localization;
 using inSSIDer.Properties;
 using System.Net.NetworkInformation;
+using MetaGeek.WiFi.Filters;
+using MetaGeek.WiFi;
+using System.Diagnostics;
 
 namespace inSSIDer
 {
@@ -91,6 +94,28 @@ namespace inSSIDer
         [STAThread]
         static void Main(string[] args)
         {
+            object o = -50;
+            double d = Convert.ToDouble(o);
+
+            IFilterComparable ifc = CorrectedExpressionParser.Parse("(Is40MHz == True && (macaddress sw 00:00:00 && Rssi > -40))");
+
+            NetworkData nd = new NetworkData(DateTime.Now, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, "None", "Test", 6, -50, 78, "1/2/5.5/6/7/9/11/24/36/48/54", "Access Point", 0);
+            nd.NSettings =new ManagedWifi.IeParser.TypeNSettings() { Is40MHz = true };
+            AccessPoint ap = new AccessPoint(nd);
+
+            bool b2 = true;
+            Stopwatch sw = new Stopwatch();
+            sw.Reset();
+            sw.Start();
+            for (int i = 0; i < 100; i++)
+            {
+                b2 &= ifc.Solve(ap);
+            }
+            sw.Stop();
+
+            Console.WriteLine("Time: {0}ms\tResult: {1}", sw.ElapsedMilliseconds,b2);
+
+            return;
             //TODO: Make conmmand line option to enable logging on debug builds. Like /log
 #if DEBUG && LOG
             Log.Start();

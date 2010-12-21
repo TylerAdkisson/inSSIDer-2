@@ -19,7 +19,7 @@ namespace MetaGeek.WiFi.Filters
                     Value = value.ToString();
                     break;
                 case CompareAs.Int:
-                    Value = double.Parse(value.ToString());
+                    Value = Convert.ToDouble(value);
                     break;
                 case CompareAs.Bool:
                     Value = bool.Parse(value.ToString());

@@ -17,7 +17,7 @@ namespace MetaGeek.WiFi.Filters
 
     public enum CompareAs
     {
-        None, String, Int, Bool, SecurityInt
+        None, String, Int, Bool, SecurityInt, Class
     }
 
     public enum SecurityType

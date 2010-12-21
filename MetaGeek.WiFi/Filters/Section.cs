@@ -13,7 +13,11 @@ namespace MetaGeek.WiFi.Filters
         Operator Operator;
 
         PropertyInfo CachedInfo = null;
+        PropertyInfo CachedParentInfo = null;
         CompareAs CachedCompare = CompareAs.None;
+
+        object compareProperty = null;
+        Type comparentType = null;
 
         public bool Solve(AccessPoint ap)
         {
@@ -25,24 +29,37 @@ namespace MetaGeek.WiFi.Filters
             }
             if (CachedCompare != RightValue.CompareAs) return false;
 
+            if (CachedParentInfo != null)
+            {
+                // Get instance of sub-property
+                compareProperty = CachedParentInfo.GetValue(ap, null);
+                if (compareProperty == null) return false;
+            }
+            else
+            {
+                // Compare to property of parent
+                compareProperty = ap;
+            }
+
             switch (CachedCompare)
             {
                 case CompareAs.String:
-                    return CompareString((string)CachedInfo.GetValue(ap,null), Operator, (string)RightValue.Value);
+                    return CompareString(CachedInfo.GetValue(compareProperty, null).ToString(), Operator, (string)RightValue.Value);
                 case CompareAs.Int:
-                    return CompareInt((double)CachedInfo.GetValue(ap, null), Operator, (double)RightValue.Value);
+                    return CompareInt(Convert.ToDouble(CachedInfo.GetValue(compareProperty, null)), Operator, (double)RightValue.Value);
                 case CompareAs.Bool:
                     switch (Operator)
                     {
                         case Operator.Equal:
-                            return (bool)CachedInfo.GetValue(ap, null) == (bool)RightValue.Value;
+                            return (bool)CachedInfo.GetValue(compareProperty, null) == (bool)RightValue.Value;
                         case Operator.NotEqual:
-                            return (bool)CachedInfo.GetValue(ap, null) != (bool)RightValue.Value;
+                            return (bool)CachedInfo.GetValue(compareProperty, null) != (bool)RightValue.Value;
                         default:
                             return false;
                     }
                 case CompareAs.SecurityInt:
-                    return CompareInt(Extensions.SecurityRanking((string)CachedInfo.GetValue(ap, null)), Operator, Extensions.SecurityRanking((string)RightValue.Value));
+                    // Security is ranked as an int, then compares as such
+                    return CompareInt(Extensions.SecurityRanking((string)CachedInfo.GetValue(compareProperty, null)), Operator, Extensions.SecurityRanking((string)RightValue.Value));
                 default:
                     return false;
             }
@@ -52,25 +69,92 @@ namespace MetaGeek.WiFi.Filters
         {
             Type t = typeof(AccessPoint);
             PropertyInfo pi = null;
+            PropertyInfo pip = null;
+            bool foundIt = false;
+            object[] attrs;
+            FilterableAttribute fa = null;
+            //FilterableAttribute faOverride = null;
 
             foreach (PropertyInfo info in t.GetProperties())
             {
                 if (info.Name.Equals(FieldName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     pi = info;
+                    foundIt = true;
                     break;
                 }
             }
+            
+            if (!foundIt)
+            {
+                // If we haven't found the property, look in all properties makred with filter-class
+                foreach (PropertyInfo info in t.GetProperties())
+                {
+                    if (foundIt) break;
+                    attrs = info.GetCustomAttributes(typeof(FilterableAttribute), false);
+                    if (attrs.Length == 0) continue;
+                    fa = attrs[0] as FilterableAttribute;
+                    if (fa.CompareAs != CompareAs.Class) continue;
 
-            if (pi == null) return false;
+                    // Ok, We've found a class of filterable objects
+                    //TODO: Make a recursive function to look into more than 1 level deep
+
+                    Type t2 = info.PropertyType;
+                    comparentType = t2;
+                    foreach (PropertyInfo info2 in t2.GetProperties())
+                    {
+                        //TODO: Check for filterable attr?
+                        if (info2.Name.Equals(FieldName, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            pip = info;
+                            pi = info2;
+                            foundIt = true;
+
+                            // Check for filterable attribute
+                            if (pip.PropertyType.Assembly == Assembly.GetExecutingAssembly())
+                            {
+                                attrs = pi.GetCustomAttributes(typeof(FilterableAttribute), false);
+                                if (attrs.Length < 1) continue;
+
+                                fa = attrs[0] as FilterableAttribute;
+                            }
+                            else
+                            {
+                                fa = new FilterableAttribute(Extensions.EstimateCompare(pi));
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (pi == null || !foundIt) return false;
 
             //Save the property info for later
             CachedInfo = pi;
+            CachedParentInfo = pip;
 
-            object[] attrs = pi.GetCustomAttributes(typeof(FilterableAttribute), false);
-            if (attrs.Length < 1) return false;
+            //if (faOverride == null)
+            //{
+            //if (pi.PropertyType.Assembly == Assembly.GetExecutingAssembly())
+            //{
+            if (fa == null)
+            {
+                attrs = pi.GetCustomAttributes(typeof(FilterableAttribute), false);
+                if (attrs.Length < 1) return false;
 
-            FilterableAttribute fa = attrs[0] as FilterableAttribute;
+                fa = attrs[0] as FilterableAttribute;
+            }
+            //}
+            //else
+            //{
+            //    fa = new FilterableAttribute(Extensions.EstimateCompare(pi));
+            //}
+            //}
+            //else
+            //{
+            //    fa = faOverride;
+            //}
             if (fa == null) return false;
 
             //Save the CompareAs too
@@ -159,8 +243,8 @@ namespace MetaGeek.WiFi.Filters
             Operator = Extensions.ParseOperator(parts[1]);
 
             parts[2] = parts[2].Replace('|', ' ');
-            RightValue = new FilterValue(parts[2].Replace("\"", string.Empty), 
-                                         FieldName.Equals("Security", StringComparison.InvariantCultureIgnoreCase) ? CompareAs.SecurityInt : Extensions.ParseCompareAs(parts[2]));
+            RightValue = new FilterValue(parts[2].Replace("\"", string.Empty),
+                                         FieldName.Equals("Security", StringComparison.InvariantCultureIgnoreCase) ? CompareAs.SecurityInt : Extensions.ParseCompareAs(parts[2], Operator));
 
             CacheValues();
         }

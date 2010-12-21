@@ -26,11 +26,11 @@ namespace ManagedWifi
     {
         public class TypeNSettings
         {
-            public bool Is40MHz;
-            public bool ShortGi20MHz;
-            public bool ShortGi40MHz;
-            public uint PrimaryChannel;
-            public bool SecondaryChannelLower;
+            public bool Is40MHz { get; set; }
+            public bool ShortGi20MHz { get; set; }
+            public bool ShortGi40MHz { get; set; }
+            public uint PrimaryChannel;// { get; set; }
+            public bool SecondaryChannelLower { get; set; }
             //public uint MaxMcs;
             public List<double> Rates;
 

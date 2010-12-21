@@ -76,6 +76,7 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// Determines if the AP shows up on any graphs
         /// </summary>
+        [Filterable(CompareAs.Bool)]
         public bool Graph { get; set; }
 
         /// <summary>
@@ -107,11 +108,13 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// The alias of this AP. FOR FUTURE USE.
         /// </summary>
+        [Filterable(CompareAs.String)]
         public string Alias { get; set; }
 
         /// <summary>
         /// Details about 802.11n features of this AP
         /// </summary>
+        [Filterable(CompareAs.Class)]
         public IeParser.TypeNSettings NSettings { get {return LastData.NSettings; } }
 
         /// <summary>
@@ -129,16 +132,19 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// The channel used by this AP
         /// </summary>
+        [Filterable(CompareAs.Int)]
         public uint Channel { get { return MyNetworkDataCollection.Last().Channel; } }
 
         /// <summary>
         /// The last data added for this AP
         /// </summary>
+        [Filterable(CompareAs.Class)]
         public NetworkData LastData { get { return MyNetworkDataCollection.Last(); } }
 
         /// <summary>
         /// Is this AP operating in 802.11N mode
         /// </summary>
+        [Filterable(CompareAs.Bool)]
         public bool IsN { get { return _orignalData.IsTypeN; } }
 
         /// <summary>
@@ -149,6 +155,7 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// A slash delimited list of supported data rates
         /// </summary>
+        [Filterable(CompareAs.String)]
         public string SupportedRates { get { return LastData.SupportedRates; } }
 
         /// <summary>
@@ -159,6 +166,7 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// Gets the network type of this AP
         /// </summary>
+        [Filterable(CompareAs.String)]
         public string NetworkType { get { return _orignalData.NetworkType; } }
 
         /// <summary>
@@ -189,6 +197,7 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// Gets the connection status of this AP
         /// </summary>
+        [Filterable(CompareAs.Bool)]
         public bool Connected
         {
             get { return LastData.Connected; }

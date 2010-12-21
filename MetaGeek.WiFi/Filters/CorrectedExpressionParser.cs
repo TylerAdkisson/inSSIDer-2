@@ -10,8 +10,8 @@ namespace MetaGeek.WiFi.Filters
         public static IFilterComparable Parse(string expr)
         {
             //Sections can be enclosed in (). remove for processing
-            /*if (expr.StartsWith("("))*/ //expr = expr.Remove(0, 1);
-            /*if (expr.EndsWith(")"))*/ //expr = expr.Remove(expr.Length - 1, 1);
+            /*if (expr.StartsWith("("))*/ expr = expr.Remove(0, 1);
+            /*if (expr.EndsWith(")"))*/ expr = expr.Remove(expr.Length - 1, 1);
 
             int paraTally = 0;
             char tempChar = '\0';

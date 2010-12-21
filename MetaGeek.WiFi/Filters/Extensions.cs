@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace MetaGeek.WiFi.Filters
 {
@@ -22,8 +23,36 @@ namespace MetaGeek.WiFi.Filters
             return Operator.None;
         }
 
-        public static CompareAs ParseCompareAs(string expr)
+        //public static CompareAs ParseCompareAs(string expr)
+        //{
+        //    if (expr.Contains('"')) return CompareAs.String;
+        //    if (expr.ToLower().Contains("true") || expr.ToLower().Contains("false")) return CompareAs.Bool;
+        //    else return CompareAs.Int;
+        //}
+
+        public static CompareAs ParseCompareAs(string expr, Operator operation)
         {
+            // Check by operation bias first
+            switch (operation)
+            {
+                case Operator.LessThan:
+                case Operator.GreaterThan:
+                case Operator.LessEqual:
+                case Operator.GreaterEqual:
+                    // Int
+                    return CompareAs.Int;
+                case Operator.StartsWith:
+                case Operator.EndsWith:
+                case Operator.NotStartsWith:
+                case Operator.NotEndsWith:
+                    // String
+                    return CompareAs.String;
+                case Operator.Equal:
+                case Operator.NotEqual:
+                default:
+                    // Anything else goes through normal compare
+                    break;
+            }
             if (expr.Contains('"')) return CompareAs.String;
             if (expr.ToLower().Contains("true") || expr.ToLower().Contains("false")) return CompareAs.Bool;
             else return CompareAs.Int;
@@ -66,6 +95,20 @@ namespace MetaGeek.WiFi.Filters
             else if (security.StartsWith("none")) return (int)SecurityType.None;
 
             return -1;
+        }
+
+        public static CompareAs EstimateCompare(PropertyInfo pinfo)
+        {
+            if (pinfo == null) return CompareAs.String;
+
+            if (typeof(double).IsAssignableFrom(pinfo.PropertyType))
+                return CompareAs.Int;
+
+            if (typeof(bool).IsAssignableFrom(pinfo.PropertyType))
+                return CompareAs.Bool;
+
+            return CompareAs.String;
+
         }
     }
 }
