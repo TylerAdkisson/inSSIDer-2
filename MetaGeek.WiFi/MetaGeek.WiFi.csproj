@@ -94,6 +94,7 @@
     <Compile Include="Filters\CorrectedExpressionParser.cs" />
     <Compile Include="Filters\Enums.cs" />
     <Compile Include="Filters\Extensions.cs" />
+    <Compile Include="Filters\Filter2.cs" />
     <Compile Include="Filters\FilterValue.cs" />
     <Compile Include="Filters\FlakExpressionParser.cs" />
     <Compile Include="Filters\IFilterComparible.cs" />

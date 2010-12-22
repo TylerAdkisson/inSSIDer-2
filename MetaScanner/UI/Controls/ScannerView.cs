@@ -380,26 +380,6 @@ namespace inSSIDer.UI.Controls
             //}
             
 
-            switch(e.ColumnIndex)
-            {
-                case 1:
-                    if(e.Button == MouseButtons.Left)
-                    {
-                        //if((int) scannerView.Rows[e.RowIndex].Cells["idColumn"].Value > 20)
-                        //    Console.WriteLine("Hi");
-                        AccessPoint ap =
-                            _sc.Cache.GetAccessPointByMacAddress(scannerGrid.Rows[e.RowIndex].Cells["macColumn"].Value.ToString());
-                        if(ap == null) break;
-                        ap.Graph = !ap.Graph;
-
-                        scannerGrid.Rows[e.RowIndex].Cells["checkColumn"].Value = ap.Graph;
-                    }
-                    OnRequireRefresh();
-                    break;
-            }
-            //Console.WriteLine(scannerView.Rows[e.RowIndex].Cells["checkColumn"].Value);
-
-            //Console.WriteLine(scannerView.Rows[e.RowIndex].Selected);
             if(scannerGrid.Rows[e.RowIndex].Selected && _selectedRow != e.RowIndex)
             {
                 _selectedRow = e.RowIndex;
@@ -409,6 +389,25 @@ namespace inSSIDer.UI.Controls
                 //If the selected row is the current row and is selected, deselect it.
                 scannerGrid.Rows[e.RowIndex].Selected = false;
                 _selectedRow = -1;
+            }
+
+            // Do this AFTER the selection
+            switch (e.ColumnIndex)
+            {
+                case 1:
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        //if((int) scannerView.Rows[e.RowIndex].Cells["idColumn"].Value > 20)
+                        //    Console.WriteLine("Hi");
+                        AccessPoint ap =
+                            _sc.Cache.GetAccessPointByMacAddress(scannerGrid.Rows[e.RowIndex].Cells["macColumn"].Value.ToString());
+                        if (ap == null) break;
+                        ap.Graph = !ap.Graph;
+
+                        scannerGrid.Rows[e.RowIndex].Cells["checkColumn"].Value = ap.Graph;
+                    }
+                    OnRequireRefresh();
+                    break;
             }
             //if(scannerView.SelectedRows.Count >=1)
             //{

@@ -22,6 +22,7 @@ using System.Linq;
 using inSSIDer.Misc;
 using MetaGeek.Gps;
 using MetaGeek.WiFi;
+using MetaGeek.WiFi.Filters;
 
 namespace inSSIDer.Scanning
 {
@@ -29,7 +30,7 @@ namespace inSSIDer.Scanning
     {
         //This is a list of AccessPointN2 objects
         private readonly Dictionary<MacAddress, AccessPoint> _cache = new Dictionary<MacAddress, AccessPoint>();
-        private readonly List<Filter> _filters = new List<Filter>();
+        private readonly List<Filter2> _filters = new List<Filter2>();
         private readonly AdapterVendors _av;
 
         public event EventHandler FiltersChanged;
@@ -37,7 +38,7 @@ namespace inSSIDer.Scanning
 
         public NetworkDataCacheN()
         {
-            _filters = new List<Filter>();
+            _filters = new List<Filter2>();
             _av = new AdapterVendors();
             //OUI lookup
             _av.LoadFromOui();
@@ -187,7 +188,7 @@ namespace inSSIDer.Scanning
         /// Add a filter to the list
         /// </summary>
         /// <param name="filter"></param>
-        public void AddFilter(Filter filter)
+        public void AddFilter(Filter2 filter)
         {
             _filters.Add(filter);
             OnFilterChanged();
@@ -215,7 +216,7 @@ namespace inSSIDer.Scanning
         /// </summary>
         /// <param name="id">The ID if the filter to retrieve</param>
         /// <returns>The FilterN object if found, otherwise FilterN.Empty</returns>
-        public Filter GetFilterById(Guid id)
+        public Filter2 GetFilterById(Guid id)
         {
             try
             {
@@ -226,14 +227,14 @@ namespace inSSIDer.Scanning
             }
             catch (InvalidOperationException) //If there isn't a filter by that id, this is thrown
             {
-                return Filter.Empty;
+                return null;//Filter.Empty;
             }
         }
 
         /// <summary>
         /// Gets the array of filters used by this data cache
         /// </summary>
-        public IEnumerable<Filter> Filters { get { return _filters.ToArray(); } }
+        public IEnumerable<Filter2> Filters { get { return _filters.ToArray(); } }
 
         /// <summary>
         /// Determines if the AP should be filtered out. APs must pass ALL filters for this to return true

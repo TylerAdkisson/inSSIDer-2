@@ -26,6 +26,7 @@ using inSSIDer.UI.Controls;
 using inSSIDer.UI.Mini;
 using MetaGeek.Gps;
 using MetaGeek.WiFi;
+using MetaGeek.WiFi.Filters;
 
 namespace inSSIDer
 {
@@ -283,7 +284,7 @@ namespace inSSIDer
         /// Saves a list of filters to the last filters list
         /// </summary>
         /// <param name="filters">The filters to save</param>
-        public static void SaveFilterList(Filter[] filters)
+        public static void SaveFilterList(Filter2[] filters)
         {
             if (filters != null && filters.Length > 0)
             {
@@ -293,7 +294,7 @@ namespace inSSIDer
                 try
                 {
                     string pipe = "";
-                    foreach (Filter f in filters)
+                    foreach (Filter2 f in filters)
                     {
                         sbOut.Append(pipe);
                         sbOut.Append(f.ToString());
@@ -317,25 +318,25 @@ namespace inSSIDer
         /// Gets the list of filters from settings
         /// </summary>
         /// <returns>The list of last use filters</returns>
-        public static Filter[] GetFilterList()
+        public static Filter2[] GetFilterList()
         {
-            if(string.IsNullOrEmpty(Settings.Default.lastFilters)) return new Filter[0];
+            if(string.IsNullOrEmpty(Settings.Default.lastFilters)) return new Filter2[0];
             //The format is:
             //<filterExpr>|<filterExpr>|<filterExpr>|etc.
 
             try
             {
                 string[] parts = Settings.Default.lastFilters.Split('|');
-                List<Filter> filters = new List<Filter>();
+                List<Filter2> filters = new List<Filter2>();
                 foreach (string s in parts)
                 {
-                    filters.Add(new Filter(s));
+                    filters.Add(new Filter2(s));
                 }
                 return filters.ToArray();
             }
             catch
             {
-                return new Filter[0];
+                return new Filter2[0];
             }
         }
 

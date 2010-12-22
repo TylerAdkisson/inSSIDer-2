@@ -110,5 +110,48 @@ namespace MetaGeek.WiFi.Filters
             return CompareAs.String;
 
         }
+
+        public static string ToSymbolic(this Operator operation)
+        {
+            switch (operation)
+            {
+                case Operator.Equal:
+                    return "==";
+                case Operator.NotEqual:
+                    return "!=";
+                case Operator.LessThan:
+                    return "<";
+                case Operator.GreaterThan:
+                    return ">";
+                case Operator.LessEqual:
+                    return "<=";
+                case Operator.GreaterEqual:
+                    return ">=";
+                case Operator.StartsWith:
+                    return "sw";
+                case Operator.EndsWith:
+                    return "ew";
+                case Operator.NotStartsWith:
+                    return "!sw";
+                case Operator.NotEndsWith:
+                    return "!ew";
+                default:
+                    return string.Empty;
+                    break;
+            }
+        }
+
+        public static string ToSymbolic(this LogicOperator operation)
+        {
+            switch (operation)
+            {
+                case LogicOperator.And:
+                    return "&&";
+                case LogicOperator.Or:
+                    return "||";
+                default:
+                    return string.Empty;
+            }
+        }
     }
 }

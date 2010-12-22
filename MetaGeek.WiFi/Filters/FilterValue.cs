@@ -35,5 +35,22 @@ namespace MetaGeek.WiFi.Filters
             if (value.CompareAs != CompareAs) return false;
             return false;
         }
+
+        public override string ToString()
+        {
+            switch (CompareAs)
+            {
+                case CompareAs.String:
+                    return "\"" + Value.ToString() + "\"";
+                case CompareAs.Int:
+                case CompareAs.Bool:
+                    return Value.ToString();
+                //case CompareAs.SecurityInt:
+                //    break;
+                default:
+                    return Value.ToString();
+                    break;
+            }
+        }
     }
 }

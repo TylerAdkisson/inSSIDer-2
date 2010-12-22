@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using inSSIDer.Scanning;
 using inSSIDer.UI.Forms;
 using MetaGeek.WiFi;
+using MetaGeek.WiFi.Filters;
 
 namespace inSSIDer.UI.Controls
 {
@@ -57,7 +58,7 @@ namespace inSSIDer.UI.Controls
         {
             List<DataGridViewRow> allrows = new List<DataGridViewRow>();
             allrows.AddRange(dgvFilters.Rows.Cast<DataGridViewRow>());
-            foreach (Filter filter in _sc.Cache.Filters)
+            foreach (Filter2 filter in _sc.Cache.Filters)
             {
                 DataGridViewRow row = FindRow(filter.Id);
                 if (row == null)
@@ -133,7 +134,7 @@ namespace inSSIDer.UI.Controls
                         //if (ap == null) break;
                         //ap.Graph = !ap.Graph;
 
-                        Filter f = _sc.Cache.GetFilterById((Guid)dgvFilters.Rows[e.RowIndex].Cells["idColumn"].Value);
+                        Filter2 f = _sc.Cache.GetFilterById((Guid)dgvFilters.Rows[e.RowIndex].Cells["idColumn"].Value);
                         f.Enabled = !f.Enabled;
                         dgvFilters.Rows[e.RowIndex].Cells["checkColumn"].Value = f.Enabled;
                     }
@@ -186,7 +187,7 @@ namespace inSSIDer.UI.Controls
             {
                 if(form.ShowDialog(ParentForm) == DialogResult.OK && !string.IsNullOrEmpty(form.Expr))
                 {
-                    _sc.Cache.AddFilter(new Filter(form.Expr));
+                    _sc.Cache.AddFilter(new Filter2(form.Expr));
                 }
             }
         }
@@ -194,7 +195,7 @@ namespace inSSIDer.UI.Controls
         private void EditSelectedToolStripMenuItemClick(object sender, EventArgs e)
         {
             if (dgvFilters.SelectedRows.Count < 1) return;
-            Filter f = _sc.Cache.GetFilterById((Guid)dgvFilters.SelectedRows[0].Cells["idColumn"].Value);
+            Filter2 f = _sc.Cache.GetFilterById((Guid)dgvFilters.SelectedRows[0].Cells["idColumn"].Value);
             if (f == null) return;
 
             using (FormFilterBuilder form = new FormFilterBuilder(f.ToString()))
@@ -209,13 +210,13 @@ namespace inSSIDer.UI.Controls
 
         private void Is80211NToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Filter fNew = new Filter("IsTypeN == True");
+            Filter2 fNew = new Filter2("IsN == True");
             _sc.Cache.AddFilter(fNew);
         }
 
         private void Uses40MHzChannelToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Filter fNew = new Filter("Is40MHz == True");
+            Filter2 fNew = new Filter2("Is40MHz == True");
             _sc.Cache.AddFilter(fNew);
         }
 
@@ -223,32 +224,32 @@ namespace inSSIDer.UI.Controls
         {
             if (e.ClickedItem == null) return;
             string rssi = e.ClickedItem.Text.Split(' ')[1];
-            Filter fNew = new Filter("Rssi > " + rssi);
+            Filter2 fNew = new Filter2("Rssi > " + rssi);
             _sc.Cache.AddFilter(fNew);
         }
 
         private void OnlyOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Filter fNew = new Filter("Security == None");
+            Filter2 fNew = new Filter2("Security == None");
             _sc.Cache.AddFilter(fNew);
         }
 
         private void OnlySecuredToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Filter fNew = new Filter("Security > None");
+            Filter2 fNew = new Filter2("Security > None");
             _sc.Cache.AddFilter(fNew);
         }
 
         private void FilterMgr_Load(object sender, EventArgs e)
         {
             //Load last filters ro menu
-            Filter[] lastfilters = SettingsMgr.GetFilterList();
+            Filter2[] lastfilters = SettingsMgr.GetFilterList();
             if(lastfilters.Length > 0)
             {
                 lastFiltersUsedToolStripMenuItem.Visible = true;
                 lastFiltersUsedToolStripMenuItem.DropDownItems.Clear();
                 ToolStripMenuItem newItem;
-                foreach (Filter f in lastfilters)
+                foreach (Filter2 f in lastfilters)
                 {
                     newItem = new ToolStripMenuItem(f.ToString().Replace("&&", "&&&&")) {Name = f.Id + "_LastFilter"};
                     lastFiltersUsedToolStripMenuItem.DropDownItems.Add(newItem);
@@ -265,7 +266,7 @@ namespace inSSIDer.UI.Controls
             //Console.WriteLine(e.ClickedItem.Name);
             if(e.ClickedItem.Name.EndsWith("LastFilter"))
             {
-                Filter fNew = new Filter(e.ClickedItem.Text);
+                Filter2 fNew = new Filter2(e.ClickedItem.Text);
                 _sc.Cache.AddFilter(fNew);
             }
         }
@@ -276,7 +277,7 @@ namespace inSSIDer.UI.Controls
             {
                 if(item.Name.EndsWith("LastFilter"))
                 {
-                    Filter fNew = new Filter(item.Text);
+                    Filter2 fNew = new Filter2(item.Text);
                     _sc.Cache.AddFilter(fNew);
                 }
             }
@@ -294,37 +295,37 @@ namespace inSSIDer.UI.Controls
 
         private void oneSecondToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Age <= 1"));
+            _sc.Cache.AddFilter(new Filter2("Age <= 1"));
         }
 
         private void fiveSecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Age <= 5"));
+            _sc.Cache.AddFilter(new Filter2("Age <= 5"));
         }
 
         private void tenSecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Age <= 10"));
+            _sc.Cache.AddFilter(new Filter2("Age <= 10"));
         }
 
         private void twentySecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Age <= 20"));
+            _sc.Cache.AddFilter(new Filter2("Age <= 20"));
         }
 
         private void thirtySecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Age <= 30"));
+            _sc.Cache.AddFilter(new Filter2("Age <= 30"));
         }
 
         private void oneMinuteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Age <= 60"));
+            _sc.Cache.AddFilter(new Filter2("Age <= 60"));
         }
 
         private void twoMinutesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Age <= 120"));
+            _sc.Cache.AddFilter(new Filter2("Age <= 120"));
         }
 
         #endregion
@@ -333,82 +334,82 @@ namespace inSSIDer.UI.Controls
 
         private void TwoFourGHzBandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel <= 14"));
+            _sc.Cache.AddFilter(new Filter2("Channel <= 14"));
         }
 
         private void FiveGHzBandToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel >= 36"));
+            _sc.Cache.AddFilter(new Filter2("Channel >= 36"));
         }
 
         private void channel1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 1"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 1"));
         }
 
         private void channel2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 2"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 2"));
         }
 
         private void channel3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 3"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 3"));
         }
 
         private void channel4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 4"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 4"));
         }
 
         private void channel5ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 5"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 5"));
         }
 
         private void channel6ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 6"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 6"));
         }
 
         private void channel7ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 7"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 7"));
         }
 
         private void channel8ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 8"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 8"));
         }
 
         private void channel9ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 9"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 9"));
         }
 
         private void channel10ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 10"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 10"));
         }
 
         private void channel11ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 11"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 11"));
         }
 
         private void channel12ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 12"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 12"));
         }
 
         private void channel13ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 13"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 13"));
         }
 
         private void channel14ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sc.Cache.AddFilter(new Filter("Channel == 14"));
+            _sc.Cache.AddFilter(new Filter2("Channel == 14"));
         }
 
         #endregion

@@ -77,7 +77,13 @@ namespace MetaGeek.WiFi.Filters
 
             foreach (PropertyInfo info in t.GetProperties())
             {
-                if (info.Name.Equals(FieldName, StringComparison.InvariantCultureIgnoreCase))
+                // Look for the display name too
+                attrs = info.GetCustomAttributes(typeof(FilterableAttribute), false);
+                if (attrs.Length == 0) continue;
+                fa = attrs[0] as FilterableAttribute;
+
+                if (info.Name.Equals(FieldName, StringComparison.InvariantCultureIgnoreCase) ||
+                    (!string.IsNullOrEmpty(fa.DisplayName) && FieldName.Equals(fa.DisplayName, StringComparison.InvariantCultureIgnoreCase)))
                 {
                     pi = info;
                     foundIt = true;
@@ -247,6 +253,11 @@ namespace MetaGeek.WiFi.Filters
                                          FieldName.Equals("Security", StringComparison.InvariantCultureIgnoreCase) ? CompareAs.SecurityInt : Extensions.ParseCompareAs(parts[2], Operator));
 
             CacheValues();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1} {2}", FieldName, Operator.ToSymbolic(), RightValue.ToString());
         }
     }
 }

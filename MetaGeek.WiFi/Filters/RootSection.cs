@@ -30,5 +30,10 @@ namespace MetaGeek.WiFi.Filters
             Right = right;
             Operator = operation;
         }
+
+        public override string ToString()
+        {
+            return string.Format("({0} {1} {2})", Left.ToString(), Operator.ToSymbolic(), Right.ToString());
+        }
     }
 }

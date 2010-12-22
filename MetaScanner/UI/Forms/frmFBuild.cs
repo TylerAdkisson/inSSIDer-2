@@ -21,6 +21,7 @@ using System.Linq;
 using System.Windows.Forms;
 using inSSIDer.Misc;
 using MetaGeek.WiFi;
+using MetaGeek.WiFi.Filters;
 
 namespace inSSIDer.UI.Forms
 {
@@ -172,7 +173,7 @@ namespace inSSIDer.UI.Forms
             else if (rbTemp == channelButton)
                 _tempAddProperty = "Channel";
             else if (rbTemp == isNButton)
-                _tempAddProperty = "IsTypeN";
+                _tempAddProperty = "IsN";
             else if (rbTemp == is40MHzButton)
                 _tempAddProperty = "Is40MHz";
             else if (rbTemp == macButton)
@@ -239,21 +240,21 @@ namespace inSSIDer.UI.Forms
                 Close();
                 return;
             }
-            Filter f = new Filter();
-            string error = f.SetExpression(ExprParser.Fix(textExpression.Text));
-            if (error != string.Empty)
-            {
-                //MSG: means the Parser is sending a message up the line
-                if (error.StartsWith("MSG:"))
-                {
-                    MessageBox.Show(error.Replace("MSG:",""), "Error parsing expression", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    MessageBox.Show("Error near \"" + error + "\"","Error parsing expression", MessageBoxButtons.OK);
-                }
-                return;
-            }
+            Filter2 f = new Filter2(textExpression.Text);
+            //string error = f.SetExpression(ExprParser.Fix(textExpression.Text));
+            //if (error != string.Empty)
+            //{
+            //    //MSG: means the Parser is sending a message up the line
+            //    if (error.StartsWith("MSG:"))
+            //    {
+            //        MessageBox.Show(error.Replace("MSG:",""), "Error parsing expression", MessageBoxButtons.OK);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Error near \"" + error + "\"","Error parsing expression", MessageBoxButtons.OK);
+            //    }
+            //    return;
+            //}
             Expr = f.ToString();
             DialogResult = DialogResult.OK;
             Close();
