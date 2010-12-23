@@ -94,6 +94,8 @@ namespace inSSIDer
         [STAThread]
         static void Main(string[] args)
         {
+            string expr = "true || false && true && (false || false)";//"(Ssid == \"fuji-2\" && Ssid sw \"Hot\" && Channel == 11)";
+            string expr2 = FlakExpressionParser.Parenthesize(expr);
             //IFilterComparable ifc = CorrectedExpressionParser.Parse("(Is40MHz == True && (macaddress sw 00:00:00 && Rssi > -60))");
 
             //NetworkData nd = new NetworkData(DateTime.Now, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, "None", "Test", 6, -50, 78, "1/2/5.5/6/7/9/11/24/36/48/54", "Access Point", 0);
