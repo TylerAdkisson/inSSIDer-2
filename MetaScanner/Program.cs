@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 using MetaGeek.WiFi.Filters;
 using MetaGeek.WiFi;
 using System.Diagnostics;
+using System.Linq;
 
 namespace inSSIDer
 {
@@ -249,6 +250,9 @@ namespace inSSIDer
 
             //GPS enabled setting
             Settings.Default.gpsEnabled = scanner.GpsControl.Enabled;
+
+            // Save Filters
+            SettingsMgr.SaveFilterList(scanner.Cache.Filters.ToArray());
 
             //Save settings before exit
             Settings.Default.Save();
