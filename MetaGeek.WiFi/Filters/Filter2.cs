@@ -27,7 +27,7 @@ namespace MetaGeek.WiFi.Filters
         // /// <remarks>WARNING: THE EXPRESSION MUST BE IN CORRECT SYNTAX</remarks>
         public void SetExpression(string expr)
         {
-            string error;
+            ParsingError error;
             InnerExpression = CorrectedExpressionParser.Parse(FlakExpressionParser.Parse(expr, out error));
         }
 

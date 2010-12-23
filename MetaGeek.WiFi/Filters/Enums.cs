@@ -29,4 +29,13 @@ namespace MetaGeek.WiFi.Filters
         Wpa2Tkip = 4,
         Wpa2Ccmp = 5
     }
+
+    //[Flags]
+    public enum ErrorType
+    {
+        None,
+        ParentheseMismatch,
+        QuoteMismatch,
+        SectionLengthError
+    }
 }
