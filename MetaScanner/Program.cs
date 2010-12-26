@@ -14,6 +14,7 @@ using MetaGeek.WiFi.Filters;
 using MetaGeek.WiFi;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace inSSIDer
 {
@@ -95,15 +96,15 @@ namespace inSSIDer
         [STAThread]
         static void Main(string[] args)
         {
-            var props = FlakExpressionParser.GetFilterableProperties(typeof(AccessPoint));
+            //var props = FlakExpressionParser.GetFilterableProperties(typeof(AccessPoint));
 
-            foreach (var item in props)
-            {
-                if(item.Key[1] == "")
-                    Console.WriteLine("{0}\t{1}", item.Key[0], item.Value);
-                else
-                    Console.WriteLine("{0}({1})\t{2}", item.Key[0], item.Key[1], item.Value);
-            }
+            //foreach (var item in props)
+            //{
+            //    if(item.Key[1] == "")
+            //        Console.WriteLine("{0}\t{1}", item.Key[0], item.Value);
+            //    else
+            //        Console.WriteLine("{0}({1})\t{2}", item.Key[0], item.Key[1], item.Value);
+            //}
 
             #region Filter Testing
             /*

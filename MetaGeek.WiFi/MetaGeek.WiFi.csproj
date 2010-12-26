@@ -101,7 +101,6 @@
     <Compile Include="Filters\ParsingError.cs" />
     <Compile Include="Filters\RootSection.cs" />
     <Compile Include="Filters\Section.cs" />
-    <Compile Include="Filters\StringSection.cs" />
     <Compile Include="IncomingDataEventArgs.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MacAddress.cs" />
