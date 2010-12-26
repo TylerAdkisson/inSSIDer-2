@@ -60,6 +60,15 @@ namespace inSSIDer.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string buildinfo {
+            get {
+                return ResourceManager.GetString("buildinfo", resourceCulture);
+            }
+        }
+        
         public static System.Drawing.Bitmap launch_inssider {
             get {
                 object obj = ResourceManager.GetObject("launch_inssider", resourceCulture);

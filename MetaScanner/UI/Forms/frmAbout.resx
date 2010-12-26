@@ -141,19 +141,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="copyrightLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="copyrightLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt</value>
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="copyrightLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>160, 142</value>
   </data>
   <data name="copyrightLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 13</value>
+    <value>183, 13</value>
   </data>
   <data name="copyrightLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -171,19 +171,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;copyrightLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="linkLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="linkLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt</value>
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="linkLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>367, 142</value>
   </data>
   <data name="linkLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 13</value>
+    <value>72, 13</value>
   </data>
   <data name="linkLabel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -201,19 +201,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;linkLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="versionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="versionLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt</value>
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="versionLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>41, 142</value>
   </data>
   <data name="versionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 13</value>
+    <value>69, 13</value>
   </data>
   <data name="versionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -231,7 +231,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="aboutHeaderImage.Location" type="System.Drawing.Point, System.Drawing">
     <value>32, 2</value>
@@ -252,7 +252,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;aboutHeaderImage.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="contributorsLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -279,7 +279,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;contributorsLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="contributorsTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>44, 191</value>
@@ -306,6 +306,33 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;contributorsTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblBuildInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 155</value>
+  </data>
+  <data name="lblBuildInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 17</value>
+  </data>
+  <data name="lblBuildInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="lblBuildInfo.Text" xml:space="preserve">
+    <value>Built by...</value>
+  </data>
+  <data name="lblBuildInfo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblBuildInfo.Name" xml:space="preserve">
+    <value>lblBuildInfo</value>
+  </data>
+  <data name="&gt;&gt;lblBuildInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblBuildInfo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblBuildInfo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

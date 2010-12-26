@@ -67,7 +67,7 @@ namespace inSSIDer.Localization
                     stringValue = _manager.GetString(key);
                 }
                 // format the string if arguments are provided
-                if (null != stringValue)
+                if (stringValue != null && args != null && args.Length > 0)
                 {
                     stringValue = String.Format(stringValue, args);
                 }

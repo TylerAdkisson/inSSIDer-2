@@ -35,6 +35,8 @@ namespace inSSIDer.UI.Forms
             InitializeComponent();
 
             versionLabel.Text = Localizer.GetString("Version") + " " + Application.ProductVersion;
+
+            lblBuildInfo.Text = string.Format(Localizer.GetString("BuildInfo"), Resources.buildinfo.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
              
             //aboutHeaderImage.Left = (Width - aboutHeaderImage.Width) / 2;
             //versionLabel.Left = (Width - versionLabel.Width) / 2;

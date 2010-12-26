@@ -411,6 +411,7 @@
     <Content Include="HTML\Content\news.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\buildinfo.txt" />
     <None Include="Resources\Signal5E.png" />
     <None Include="Resources\Signal5.png" />
     <None Include="Resources\Signal4E.png" />
@@ -434,4 +435,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>$(ProjectDir)\inSSIDerPrebuild.exe $(ProjectDir)\Resources\buildinfo.txt</PreBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -61,7 +61,7 @@ namespace inSSIDer.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Altitude {0}.
+        ///   Looks up a localized string similar to Altitude: {0}.
         /// </summary>
         internal static string AltitudePlusValue {
             get {
@@ -84,6 +84,15 @@ namespace inSSIDer.Localization {
         internal static string ApplicationUpToDate {
             get {
                 return ResourceManager.GetString("ApplicationUpToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Built by {0} on {1} at {2} (UTC {3}).
+        /// </summary>
+        internal static string BuildInfo {
+            get {
+                return ResourceManager.GetString("BuildInfo", resourceCulture);
             }
         }
         
@@ -217,6 +226,15 @@ namespace inSSIDer.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GPS on {0}.
+        /// </summary>
+        internal static string GpsOnPortPlusValue {
+            get {
+                return ResourceManager.GetString("GpsOnPortPlusValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error opening one of the selected log files. Make sure inSSIDer is not still logging to it..
         /// </summary>
         internal static string GpxFileOpenError {
@@ -273,7 +291,7 @@ namespace inSSIDer.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Longitude {0}.
+        ///   Looks up a localized string similar to Longitude: {0}.
         /// </summary>
         internal static string LongitudePlusValue {
             get {

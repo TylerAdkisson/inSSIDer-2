@@ -20,6 +20,7 @@ using System;
 using System.Windows.Forms;
 using inSSIDer.Scanning;
 using MetaGeek.Gps;
+using inSSIDer.Localization;
 
 namespace inSSIDer.UI.Controls
 {
@@ -76,17 +77,17 @@ namespace inSSIDer.UI.Controls
                 {
                     lblNoGps.Visible = !_scanner.GpsControl.Enabled;
 
-                    lblPortName.Text = "GPS on " + _scanner.GpsControl.PortName;
+                    lblPortName.Text = Localizer.GetString("GpsOnPortPlusValue", _scanner.GpsControl.PortName);
 
-                    lblLat.Text = "Latitude: " + _scanner.GpsControl.MyGpsData.Latitude.ToString("F6");
-                    lblLon.Text = "Longitude: " + _scanner.GpsControl.MyGpsData.Longitude.ToString("F6");
-                    lblAlt.Text = "Altitude: " + _scanner.GpsControl.MyGpsData.Altitude.ToString("F2");
-                    lblSpeed.Text = "Speed (km/h): " + _scanner.GpsControl.MyGpsData.Speed.ToString("F2");
-                    lblPdop.Text = "PDOP: " + _scanner.GpsControl.MyGpsData.Pdop;
-                    lblHdop.Text = "HDOP: " + _scanner.GpsControl.MyGpsData.Hdop;
-                    lblVdop.Text = "VDOP: " + _scanner.GpsControl.MyGpsData.Vdop;
-                    lblFixType.Text = "Fix Type: " + _scanner.GpsControl.MyGpsData.FixType;
-                    lblSatCount.Text = "Satellites (U/V): " + _scanner.GpsControl.MyGpsData.SatellitesUsed + "/" + _scanner.GpsControl.SatellitesVisible;
+                    lblLat.Text = Localizer.GetString("LatitudePlusValue",_scanner.GpsControl.MyGpsData.Latitude.ToString("F6"));
+                    lblLon.Text = Localizer.GetString("LongitudePlusValue",_scanner.GpsControl.MyGpsData.Longitude.ToString("F6"));
+                    lblAlt.Text = Localizer.GetString("AltitudePlusValue",_scanner.GpsControl.MyGpsData.Altitude.ToString("F2"));
+                    lblSpeed.Text = Localizer.GetString("SpeedPlusValue",_scanner.GpsControl.MyGpsData.Speed.ToString("F2"));
+                    lblPdop.Text = Localizer.GetString("PDOPPlusValue",_scanner.GpsControl.MyGpsData.Pdop);
+                    lblHdop.Text = Localizer.GetString("HDOPPlusValue",_scanner.GpsControl.MyGpsData.Hdop);
+                    lblVdop.Text = Localizer.GetString("VDOPPlusValue",_scanner.GpsControl.MyGpsData.Vdop);
+                    lblFixType.Text = Localizer.GetString("FixTypePlusValue",_scanner.GpsControl.MyGpsData.FixType);
+                    lblSatCount.Text = Localizer.GetString("SatellitesUVPlusValue",_scanner.GpsControl.MyGpsData.SatellitesUsed,_scanner.GpsControl.SatellitesVisible);
 
                     //Refresh the gps signal graph
                     gpsGraph1.Invalidate();

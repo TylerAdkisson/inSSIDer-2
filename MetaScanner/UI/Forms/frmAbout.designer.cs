@@ -39,6 +39,7 @@ namespace inSSIDer.UI.Forms
             this.aboutHeaderImage = new System.Windows.Forms.PictureBox();
             this.contributorsLabel = new System.Windows.Forms.Label();
             this.contributorsTextBox = new System.Windows.Forms.TextBox();
+            this.lblBuildInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.aboutHeaderImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,11 +92,17 @@ namespace inSSIDer.UI.Forms
             this.contributorsTextBox.Name = "contributorsTextBox";
             this.contributorsTextBox.ReadOnly = true;
             // 
-            // formAbout
+            // lblBuildInfo
+            // 
+            resources.ApplyResources(this.lblBuildInfo, "lblBuildInfo");
+            this.lblBuildInfo.Name = "lblBuildInfo";
+            // 
+            // FormAbout
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.lblBuildInfo);
             this.Controls.Add(this.contributorsTextBox);
             this.Controls.Add(this.contributorsLabel);
             this.Controls.Add(this.versionLabel);
@@ -122,5 +129,6 @@ namespace inSSIDer.UI.Forms
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.Label contributorsLabel;
         private System.Windows.Forms.TextBox contributorsTextBox;
+        private System.Windows.Forms.Label lblBuildInfo;
     }
 }
