@@ -350,6 +350,12 @@ namespace inSSIDer.Misc
             return Environment.OSVersion.ServicePack;
         }
 
+        public static float PercentToAngle(float percent)
+        {
+            float percentOfCircle = 360 * percent;
+            return percentOfCircle;
+        }
+
         #endregion
 
         public struct ValueString

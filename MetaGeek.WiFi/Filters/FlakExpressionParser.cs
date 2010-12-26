@@ -268,7 +268,7 @@ namespace MetaGeek.WiFi.Filters
                     return false;
 
                 Operator operation = Extensions.ParseOperator(parts[1]);
-                if (operation == Operator.None)
+                if (operation == Operator.None || !CheckOperator(operation,compareAs))
                 {
                     error.SetError(ErrorType.InvalidOperator, parts[1]);
                     return false;
@@ -296,32 +296,33 @@ namespace MetaGeek.WiFi.Filters
 
             Type apType = typeof(AccessPoint);
 
-            PropertyInfo info = FindProperty(name, apType);
+            PropertyInfo info = FindProperty(name, apType, out compareAs);
             if (info == null)
                 error.SetError(ErrorType.PropertyNameInvalid, name);
             else
             {
                 output = info.Name;
-                if (info.PropertyType.Assembly == Assembly.GetExecutingAssembly())
-                {
-                    compareAs = ((FilterableAttribute)info.GetCustomAttributes(typeof(FilterableAttribute), false)[0]).CompareAs;
-                }
-                else
-                {
-                    compareAs = Extensions.EstimateCompare(info);
-                }
+                //if (info.PropertyType.Assembly == Assembly.GetExecutingAssembly())
+                //{
+                //    compareAs = ((FilterableAttribute)info.GetCustomAttributes(typeof(FilterableAttribute), false)[0]).CompareAs;
+                //}
+                //else
+                //{
+                //    compareAs = Extensions.EstimateCompare(info);
+                //}
             }
 
             return output;
         }
 
-        private static PropertyInfo FindProperty(string name, Type type)
+        private static PropertyInfo FindProperty(string name, Type type, out CompareAs compare)
         {
             IEnumerable<PropertyInfo> filterable = type.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(FilterableAttribute), false).Length > 0);
             IEnumerable<PropertyInfo> classes = filterable.Where(pi => ((FilterableAttribute)pi.GetCustomAttributes(typeof(FilterableAttribute), false)[0]).CompareAs == CompareAs.Class);
 
             PropertyInfo output = null;
             FilterableAttribute fa;
+            compare = CompareAs.None;
 
             if (type.Assembly == Assembly.GetExecutingAssembly())
             {
@@ -330,14 +331,18 @@ namespace MetaGeek.WiFi.Filters
                     fa = (FilterableAttribute)prop.GetCustomAttributes(typeof(FilterableAttribute), false)[0];
                     if (prop.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) ||
                         fa.DisplayName.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compare = fa.CompareAs;
                         return prop;
+                    }
                 }
 
                 // We've not found the property, look in sub-properties
                 foreach (PropertyInfo prop in classes)
                 {
-                    output = FindProperty(name, prop.PropertyType);
-                    if (output != null) return output;
+                    output = FindProperty(name, prop.PropertyType, out compare);
+                    if (output != null)
+                        return output;
                 }
             }
             else
@@ -346,7 +351,10 @@ namespace MetaGeek.WiFi.Filters
                 foreach (PropertyInfo prop in type.GetProperties())
                 {
                     if (prop.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        compare = Extensions.EstimateCompare(prop);
                         return prop;
+                    }
                 }
             }
             return output;
@@ -366,6 +374,30 @@ namespace MetaGeek.WiFi.Filters
                     return bool.TryParse(value, out result);
                 case CompareAs.SecurityInt:
                     return true;
+                default:
+                    return false;
+            }
+        }
+
+        public static bool CheckOperator(Operator operation, CompareAs compareAs)
+        {
+            if (operation == Operator.None || compareAs == CompareAs.None) return false;
+            // Everything supports equals and not equals
+            if (operation == Operator.Equal || operation == Operator.NotEqual) return true;
+            switch (compareAs)
+            {
+                case CompareAs.String:
+                    return operation != Operator.LessEqual && 
+                        operation != Operator.LessThan && 
+                        operation != Operator.GreaterEqual && 
+                        operation != Operator.GreaterThan; 
+                    // Security is evaluated as an int
+                case CompareAs.Int:
+                case CompareAs.SecurityInt:
+                    return operation == Operator.LessEqual ||
+                        operation == Operator.LessThan ||
+                        operation == Operator.GreaterEqual ||
+                        operation == Operator.GreaterThan;
                 default:
                     return false;
             }
