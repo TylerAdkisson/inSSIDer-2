@@ -185,9 +185,9 @@ namespace inSSIDer.UI.Controls
         {
             using(FormFilterBuilder form = new FormFilterBuilder())
             {
-                if(form.ShowDialog(ParentForm) == DialogResult.OK && !string.IsNullOrEmpty(form.Expr))
+                if(form.ShowDialog(ParentForm) == DialogResult.OK && !string.IsNullOrEmpty(form.Expression))
                 {
-                    _sc.Cache.AddFilter(new Filter2(form.Expr));
+                    _sc.Cache.AddFilter(new Filter2(form.Expression));
                 }
             }
         }
@@ -200,9 +200,9 @@ namespace inSSIDer.UI.Controls
 
             using (FormFilterBuilder form = new FormFilterBuilder(f.ToString()))
             {
-                if (form.ShowDialog(ParentForm) == DialogResult.OK && !string.IsNullOrEmpty(form.Expr))
+                if (form.ShowDialog(ParentForm) == DialogResult.OK && !string.IsNullOrEmpty(form.Expression))
                 {
-                    f.SetExpression(form.Expr);
+                    f.SetExpression(form.Expression);
                 }
             }
             UpdateFilters();

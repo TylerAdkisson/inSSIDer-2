@@ -10,6 +10,7 @@ namespace MetaGeek.WiFi.Filters
     {
         public static Operator ParseOperator(string data)
         {
+            data = data.Trim();
             if (data == "==") return Operator.Equal;
             if (data == "!=") return Operator.NotEqual;
             if (data == ">") return Operator.GreaterThan;
@@ -20,6 +21,8 @@ namespace MetaGeek.WiFi.Filters
             if (data.ToLower() == "ew") return Operator.EndsWith;
             if (data.ToLower() == "!sw") return Operator.NotStartsWith;
             if (data.ToLower() == "!ew") return Operator.NotEndsWith;
+            if (data.ToLower() == "con") return Operator.Contains;
+            if (data.ToLower() == "!con") return Operator.NotContains;
             return Operator.None;
         }
 
@@ -135,6 +138,10 @@ namespace MetaGeek.WiFi.Filters
                     return "!sw";
                 case Operator.NotEndsWith:
                     return "!ew";
+                case Operator.Contains:
+                    return "con";
+                case Operator.NotContains:
+                    return "!con";
                 default:
                     return string.Empty;
                     break;

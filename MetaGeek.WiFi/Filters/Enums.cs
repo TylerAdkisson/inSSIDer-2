@@ -12,7 +12,19 @@ namespace MetaGeek.WiFi.Filters
 
     public enum Operator
     {
-        None, Equal, NotEqual, LessThan, GreaterThan, LessEqual, GreaterEqual, StartsWith, EndsWith, NotStartsWith, NotEndsWith
+        None,
+        Equal,
+        NotEqual,
+        LessThan,
+        GreaterThan,
+        LessEqual,
+        GreaterEqual,
+        StartsWith,
+        EndsWith,
+        NotStartsWith,
+        NotEndsWith,
+        Contains,
+        NotContains
     }
 
     public enum CompareAs
@@ -36,6 +48,12 @@ namespace MetaGeek.WiFi.Filters
         None,
         ParentheseMismatch,
         QuoteMismatch,
-        SectionLengthError
+        SectionLengthToShort,
+        SectionLengthToLong,
+        PropertyNameInvalid,
+        ExpressionBlank,
+        InvalidOperator,
+        ValueNotComparable,
+        OtherError
     }
 }

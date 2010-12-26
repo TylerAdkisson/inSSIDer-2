@@ -30,7 +30,7 @@ namespace inSSIDer.UI.Forms
         private string _tempAddProperty = "";
         private string _tempAddOperation = "";
 
-        public string Expr = "";
+        public string Expression = "";
 
         private readonly string[] _booleanStrings = new[] { "True", "False" };
         private readonly string[] _securityStrings = new[] { "None", "WEP", "WPA-TKIP", "WPA-CCMP", "WPA2-TKIP", "WPA2-CCMP", "RSNA-CCMP" };
@@ -240,22 +240,31 @@ namespace inSSIDer.UI.Forms
                 Close();
                 return;
             }
-            Filter2 f = new Filter2(textExpression.Text);
-            //string error = f.SetExpression(ExprParser.Fix(textExpression.Text));
-            //if (error != string.Empty)
-            //{
-            //    //MSG: means the Parser is sending a message up the line
-            //    if (error.StartsWith("MSG:"))
-            //    {
-            //        MessageBox.Show(error.Replace("MSG:",""), "Error parsing expression", MessageBoxButtons.OK);
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Error near \"" + error + "\"","Error parsing expression", MessageBoxButtons.OK);
-            //    }
-            //    return;
-            //}
-            Expr = f.ToString();
+
+            ParsingError pe = null;
+
+            // First level error checking
+            Expression = FlakExpressionParser.MiscCheck(textExpression.Text, out pe);
+            if (pe.IsError)
+            {
+                DisplayError(pe);
+                return;
+            }
+            Expression = FlakExpressionParser.Parenthesize(Expression, out pe);
+            if (pe.IsError)
+            {
+                DisplayError(pe);
+                return;
+            }
+
+            FlakExpressionParser.CheckSections(Expression, out pe);
+            if (pe.IsError)
+            {
+                DisplayError(pe);
+                return;
+            }
+           
+            //Expr = f.ToString();
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -270,6 +279,46 @@ namespace inSSIDer.UI.Forms
         private void TextExpressionTextChanged(object sender, EventArgs e)
         {
             removeButton.Enabled = textExpression.Text.Length >= 1;
+        }
+
+        private void DisplayError(ParsingError pe)
+        {
+            // Parse error
+            //TODO: localization
+            switch (pe.Error)
+            {
+                case ErrorType.None:
+                    MessageBox.Show("No Error", "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.ParentheseMismatch:
+                    MessageBox.Show(string.Format("Parenthese count mismatch", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.QuoteMismatch:
+                    MessageBox.Show(string.Format("Quotation mark count mismatch near '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.SectionLengthToShort:
+                    MessageBox.Show(string.Format("Expression too short: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.SectionLengthToLong:
+                    MessageBox.Show(string.Format("Expression too long: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.PropertyNameInvalid:
+                    MessageBox.Show(string.Format("Property name invalid: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.ExpressionBlank:
+                    MessageBox.Show("Expression is blank", "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.InvalidOperator:
+                    MessageBox.Show(string.Format("Invalid operator: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.ValueNotComparable:
+                    MessageBox.Show(string.Format("Value '{0}' not comparable with property '{1}'", pe.ErrorData, pe.ErrorData2), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+                case ErrorType.OtherError:
+                default:
+                    MessageBox.Show(string.Format("Undefined error. Data: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                    break;
+            }
         }
     }
 }

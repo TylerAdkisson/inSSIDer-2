@@ -9,4 +9,9 @@ namespace MetaGeek.WiFi.Filters
     {
         bool Solve(AccessPoint ap);
     }
+
+    public interface IStringSection
+    {
+        ParsingError CheckLength();
+    }
 }

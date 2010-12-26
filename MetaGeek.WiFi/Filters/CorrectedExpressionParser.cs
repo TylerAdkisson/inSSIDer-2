@@ -36,43 +36,25 @@ namespace MetaGeek.WiFi.Filters
                 // If we aren't in quotes, set true, if we are, set false
                 if (tempChar == '"') isInQuotes = !isInQuotes;
 
-                if (tempChar == '(' && !isInQuotes)
-                {
+                // Preserve/ignore anything in quotes
+                if (isInQuotes) continue;
+
+                if (tempChar == '(')
                     paraTally++;
-                    if (paraTally == 1)
-                    {
-                        // Only mark the outermost
-                        indexLastOpen = i;
-                    }
-                }
-                else if (tempChar == ')' && !isInQuotes)
-                {
-                    //if (string.IsNullOrEmpty(sectionLeft))
-                    //{
-                    //    sectionLeft = expr.Substring(indexLastOpen, i - indexLastOpen + 1);
-                    //}
-                    //else
-                    //{
-                    //    sectionRight = expr.Substring(indexLastOpen, i - indexLastOpen + 1);
-                    //}
+                if (tempChar == ')')
                     paraTally--;
-                }
 
-                if (paraTally == 0)
+                if (paraTally == 0 && 
+                    ((expr[i] == '&' && expr[i + 1] == '&') ||
+                    (expr[i] == '|' && expr[i + 1] == '|')))
                 {
-                    if ((expr[i] == '&' && expr[i + 1] == '&') ||
-                        (expr[i] == '|' && expr[i + 1] == '|'))
-                    {
-                        //We've found the delimiter
-                        sectionLeft = expr.Substring(0, i - 1);
-                        sectionRight = expr.Substring(i + 3);
-                        op = expr[i] == '&' ? LogicOperator.And : LogicOperator.Or;
-                        // This is dial expression, return a RootSection
-                        dualExpr = true;
-                    }
+                    //We've found the delimiter
+                    sectionLeft = expr.Substring(0, i - 1);
+                    sectionRight = expr.Substring(i + 3);
+                    op = expr[i] == '&' ? LogicOperator.And : LogicOperator.Or;
+                    // This is dial expression, return a RootSection
+                    dualExpr = true;
                 }
-
-
             }
             if (dualExpr)
             {

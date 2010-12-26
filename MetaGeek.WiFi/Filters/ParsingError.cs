@@ -7,36 +7,59 @@ namespace MetaGeek.WiFi.Filters
 {
     public class ParsingError
     {
-        public List<ErrorType> Errors { get; private set; }
-        public static ParsingError None = new ParsingError(ErrorType.None);
+        public /*List<*/ErrorType/*>*/ Error { get; private set; }
+        public static readonly ParsingError None = new ParsingError(ErrorType.None);
 
         public ParsingError()
         {
-            Errors = new List<ErrorType>();
+            Error = ErrorType.None;
+            ErrorData = string.Empty;
         }
 
-        public ParsingError(params ErrorType[] errors) : this()
+        public ParsingError(ErrorType error) : this()
         {
-            Errors.AddRange(errors);
+            Error = error;
+        }
+
+        public void SetError(ErrorType error)
+        {
+            Error = error;
+        }
+
+        public void SetError(ErrorType error, string data)
+        {
+            SetError(error);
+            ErrorData = data;
+        }
+
+        public void SetError(ErrorType error, string data, string data2)
+        {
+            SetError(error);
+            ErrorData = data;
+            ErrorData2 = data2;
         }
 
         public bool IsError
         {
             get
             {
-                return Errors.Where(er => er != ErrorType.None).Count() > 0;
+                return Error != ErrorType.None;
             }
         }
+
+        public string ErrorData { get; private set; }
+
+        public string ErrorData2 { get; private set; }
 
         public override bool Equals(object obj)
         {
             if (!(obj is ParsingError)) return false;
-            return ((ParsingError)obj).Errors == Errors;
+            return ((ParsingError)obj).Error == Error;
         }
 
         public override int GetHashCode()
         {
-            return Errors.GetHashCode();
+            return Error.GetHashCode();
         }
     }
 }

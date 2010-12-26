@@ -14,6 +14,7 @@ namespace MetaGeek.WiFi.Filters
         public FilterableAttribute(CompareAs compareAs)
         {
             CompareAs = compareAs;
+            DisplayName = string.Empty;
         }
 
         public FilterableAttribute(CompareAs compareAs, string displayName) : this(compareAs)

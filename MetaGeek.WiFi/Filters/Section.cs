@@ -33,27 +33,32 @@ namespace MetaGeek.WiFi.Filters
             {
                 // Get instance of sub-property
                 compareProperty = CachedParentInfo.GetValue(ap, null);
-                if (compareProperty == null) return false;
+                if (compareProperty == null)
+                {
+                    compareProperty = Activator.CreateInstance(CachedParentInfo.PropertyType);
+                    //return false;
+                }
             }
             else
             {
                 // Compare to property of parent
                 compareProperty = ap;
             }
+            object obj = CachedInfo.GetValue(compareProperty, null);
 
             switch (CachedCompare)
             {
                 case CompareAs.String:
-                    return CompareString(CachedInfo.GetValue(compareProperty, null).ToString(), Operator, (string)RightValue.Value);
+                    return CompareString(obj.ToString(), Operator, (string)RightValue.Value);
                 case CompareAs.Int:
-                    return CompareInt(Convert.ToDouble(CachedInfo.GetValue(compareProperty, null)), Operator, (double)RightValue.Value);
+                    return CompareInt(Convert.ToDouble(obj), Operator, (double)RightValue.Value);
                 case CompareAs.Bool:
                     switch (Operator)
                     {
                         case Operator.Equal:
-                            return (bool)CachedInfo.GetValue(compareProperty, null) == (bool)RightValue.Value;
+                            return obj == null ? false : (bool)obj == (bool)RightValue.Value;
                         case Operator.NotEqual:
-                            return (bool)CachedInfo.GetValue(compareProperty, null) != (bool)RightValue.Value;
+                            return obj == null ? false : (bool)obj != (bool)RightValue.Value;
                         default:
                             return false;
                     }
@@ -93,7 +98,7 @@ namespace MetaGeek.WiFi.Filters
             
             if (!foundIt)
             {
-                // If we haven't found the property, look in all properties makred with filter-class
+                // If we haven't found the property, look in all properties marked with filter-class
                 foreach (PropertyInfo info in t.GetProperties())
                 {
                     if (foundIt) break;
@@ -109,7 +114,6 @@ namespace MetaGeek.WiFi.Filters
                     comparentType = t2;
                     foreach (PropertyInfo info2 in t2.GetProperties())
                     {
-                        //TODO: Check for filterable attr?
                         if (info2.Name.Equals(FieldName, StringComparison.InvariantCultureIgnoreCase))
                         {
                             pip = info;
@@ -171,20 +175,26 @@ namespace MetaGeek.WiFi.Filters
 
         private bool CompareString(string string1, Operator operation, string string2)
         {
+            string1 = string1.ToLower();
+            string2 = string2.ToLower();
             switch (operation)
             {
                 case Operator.Equal:
-                    return string1.Equals(string2, StringComparison.InvariantCultureIgnoreCase);
+                    return string1.Equals(string2);
                 case Operator.NotEqual:
-                    return !string1.Equals(string2, StringComparison.InvariantCultureIgnoreCase);
+                    return !string1.Equals(string2);
                 case Operator.StartsWith:
-                    return string1.StartsWith(string2, StringComparison.InvariantCultureIgnoreCase);
+                    return string1.StartsWith(string2);
                 case Operator.EndsWith:
-                    return string1.EndsWith(string2, StringComparison.InvariantCultureIgnoreCase);
+                    return string1.EndsWith(string2);
                 case Operator.NotStartsWith:
-                    return !string1.StartsWith(string2, StringComparison.InvariantCultureIgnoreCase);
+                    return !string1.StartsWith(string2);
                 case Operator.NotEndsWith:
-                    return !string1.EndsWith(string2, StringComparison.InvariantCultureIgnoreCase);
+                    return !string1.EndsWith(string2);
+                case Operator.Contains:
+                    return string1.Contains(string2);
+                case Operator.NotContains:
+                    return !string1.Contains(string2);
                 default:
                     return false;
             }
@@ -237,7 +247,7 @@ namespace MetaGeek.WiFi.Filters
 
                     if (isInQuote && newExpr[i] == ' ')
                     {
-                        newExpr[i] = '|';
+                        newExpr[i] = '\x1F';
                     }
                 }
                 expr = new string(newExpr);
@@ -248,7 +258,7 @@ namespace MetaGeek.WiFi.Filters
 
             Operator = Extensions.ParseOperator(parts[1]);
 
-            parts[2] = parts[2].Replace('|', ' ');
+            parts[2] = parts[2].Replace('\x1F', ' ');
             RightValue = new FilterValue(parts[2].Replace("\"", string.Empty),
                                          FieldName.Equals("Security", StringComparison.InvariantCultureIgnoreCase) ? CompareAs.SecurityInt : Extensions.ParseCompareAs(parts[2], Operator));
 

@@ -95,14 +95,75 @@ namespace inSSIDer
         [STAThread]
         static void Main(string[] args)
         {
-            string expr = "(true || false) && true && (false || false)";//"(Ssid == \"fuji-2\" && Ssid sw \"Hot\" && Channel == 11)";
+            var props = FlakExpressionParser.GetFilterableProperties(typeof(AccessPoint));
+
+            foreach (var item in props)
+            {
+                if(item.Key[1] == "")
+                    Console.WriteLine("{0}\t{1}", item.Key[0], item.Value);
+                else
+                    Console.WriteLine("{0}({1})\t{2}", item.Key[0], item.Key[1], item.Value);
+            }
+
+            #region Filter Testing
+            /*
+            string expr = "ssId == \"fuji-2\" (&& SSID sw \"Hot Rod\" && Channel == 1";
             ParsingError pe;
-            string expr2 = FlakExpressionParser.Parenthesize(expr, out pe);
+
+            string expr2 = expr;
+
+            expr2 = FlakExpressionParser.MiscCheck(expr2, out pe);
+            if (!pe.IsError)
+            {
+                expr2 = FlakExpressionParser.Parenthesize(expr2, out pe);
+                if (!pe.IsError)
+                {
+                    bool isGood = FlakExpressionParser.CheckSections(expr2, out pe);
+                }
+            }
+            
 
             if (pe.IsError)
             {
-
+                // Parse error
+                switch (pe.Error)
+                {
+                    case ErrorType.None:
+                        MessageBox.Show("No Error", "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.ParentheseMismatch:
+                        MessageBox.Show(string.Format("Parenthese count mismatch", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.QuoteMismatch:
+                        MessageBox.Show(string.Format("Quotation mark count mismatch near '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.SectionLengthToShort:
+                        MessageBox.Show(string.Format("Expression too short: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.SectionLengthToLong:
+                        MessageBox.Show(string.Format("Expression too long: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.PropertyNameInvalid:
+                        MessageBox.Show(string.Format("Property name invalid: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.ExpressionBlank:
+                        MessageBox.Show("Expression is blank", "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.InvalidOperator:
+                        MessageBox.Show(string.Format("Invalid operator: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.ValueNotComparable:
+                        MessageBox.Show(string.Format("Value '{0}' not comparable with property '{1}'", pe.ErrorData, pe.ErrorData2), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                    case ErrorType.OtherError:
+                    default:
+                        MessageBox.Show(string.Format("Undefined error. Data: '{0}'", pe.ErrorData), "Parsing Error", MessageBoxButtons.OK);
+                        break;
+                }
             }
+            */
+            #endregion
+            #region Base filter testing
             //IFilterComparable ifc = CorrectedExpressionParser.Parse("(Is40MHz == True && (macaddress sw 00:00:00 && Rssi > -60))");
 
             //NetworkData nd = new NetworkData(DateTime.Now, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, "None", "Test", 6, -50, 78, "1/2/5.5/6/7/9/11/24/36/48/54", "Access Point", 0);
@@ -122,6 +183,7 @@ namespace inSSIDer
             //Console.WriteLine("Time: {0}ms\tResult: {1}", sw.ElapsedMilliseconds,b2);
 
             //return;
+            #endregion
             //TODO: Make conmmand line option to enable logging on debug builds. Like /log
 #if DEBUG && LOG
             Log.Start();
