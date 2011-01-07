@@ -24,6 +24,7 @@ namespace MetaGeek.WiFi
 {
     public static class Logger
     {
+        [Conditional("DEBUG")]
         public static void Start()
         {
             Log.Enable();
@@ -46,12 +47,14 @@ namespace MetaGeek.WiFi
         //    WriteLine((object)message,category);
         //}
 
+        [Conditional("DEBUG")]
         public static void WriteLine(object message)
         {
             if (!_init) Init();
             Debug.WriteLine(message);
         }
 
+        [Conditional("DEBUG")]
         public static void WriteLine(object message, string category)
         {
             if (!_init) Init();
@@ -68,12 +71,14 @@ namespace MetaGeek.WiFi
                                                 }));
         }
 
+        [Conditional("DEBUG")]
         public static void Write(object message)
         {
             if (!_init) Init();
             Debug.Write(message);
         }
 
+        [Conditional("DEBUG")]
         public static void Write(object message, string category)
         {
             if (!_init) Init();
@@ -90,6 +95,7 @@ namespace MetaGeek.WiFi
                                                    }));
         }
 
+        [Conditional("DEBUG")]
         private static void Init()
         {
 #if !DEBUG
@@ -116,6 +122,7 @@ namespace MetaGeek.WiFi
 #endif
         }
 
+        [Conditional("DEBUG")]
         public static void Start()
         {
             _enable = true;
@@ -125,6 +132,7 @@ namespace MetaGeek.WiFi
         /// <summary>
         /// Enables Logger. Use this if logging is already enabled from another location
         /// </summary>
+        [Conditional("DEBUG")]
         public static void Enable()
         {
             _enable = true;

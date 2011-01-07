@@ -38,12 +38,14 @@ namespace inSSIDer.Misc
         //    WriteLine((object)message,category);
         //}
 
+        [Conditional("DEBUG")]
         public static void WriteLine(object message)
         {
             if (!_init) Init();
             Debug.WriteLine(message);
         }
 
+        [Conditional("DEBUG")]
         public static void WriteLine(object message, string category)
         {
             if (!_init) Init();
@@ -60,12 +62,14 @@ namespace inSSIDer.Misc
                                                 }));
         }
 
+        [Conditional("DEBUG")]
         public static void Write(object message)
         {
             if (!_init) Init();
             Debug.Write(message);
         }
 
+        [Conditional("DEBUG")]
         public static void Write(object message, string category)
         {
             if (!_init) Init();
@@ -82,6 +86,7 @@ namespace inSSIDer.Misc
                                                    }));
         }
 
+        [Conditional("DEBUG")]
         private static void Init()
         {
 #if !DEBUG
@@ -108,6 +113,7 @@ namespace inSSIDer.Misc
 #endif
         }
 
+        [Conditional("DEBUG")]
         public static void Start()
         {
             _enable = true;
