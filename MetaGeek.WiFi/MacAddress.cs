@@ -92,7 +92,7 @@ namespace MetaGeek.WiFi
 
             foreach (byte b in _bytes)
             {
-                _myValue = _myValue << 4;
+                _myValue = _myValue << 8;
                 _myValue |= b;
             }
         }
@@ -139,8 +139,16 @@ namespace MetaGeek.WiFi
         // </summary>
         // <returns>integer hash value</returns>
         // this is here so that resharper doesn't whine, it just hacks MyValue down to 32 bits
-        public override int GetHashCode() {
-            return (int)MyValue;
+        public override int GetHashCode()
+        {
+            Int64 key = _myValue;
+            key = (~key) + (key << 18);
+            key ^= key >> 31;
+            key *= 21;
+            key ^= key >> 11;
+            key += key << 6;
+            key ^= key >> 22;
+            return (int)key;
         }
 
         /// <summary>

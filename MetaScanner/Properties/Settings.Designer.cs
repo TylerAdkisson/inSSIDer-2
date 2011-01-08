@@ -501,5 +501,17 @@ namespace inSSIDer.Properties {
                 this["scanLastEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public global::inSSIDer.UI.Controls.TabConfig tabConfig {
+            get {
+                return ((global::inSSIDer.UI.Controls.TabConfig)(this["tabConfig"]));
+            }
+            set {
+                this["tabConfig"] = value;
+            }
+        }
     }
 }

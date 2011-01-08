@@ -122,5 +122,8 @@
     <Setting Name="scanLastEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="tabConfig" Type="inSSIDer.UI.Controls.TabConfig" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
