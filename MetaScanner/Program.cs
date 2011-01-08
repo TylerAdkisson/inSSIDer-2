@@ -15,6 +15,7 @@ using MetaGeek.WiFi;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace inSSIDer
 {
@@ -22,6 +23,7 @@ namespace inSSIDer
     {
         //Mode of switch
         public static Utilities.SwitchMode Switching = Utilities.SwitchMode.None;
+        public static Utilities.SwitchMode LastSwitch = Utilities.SwitchMode.None;
         public static bool WasScanning;
 
         static void InitializeExceptionHandler(UnhandledExceptionDlg exDlg)
@@ -189,11 +191,13 @@ namespace inSSIDer
 #if DEBUG && LOG
             Log.Start();
 #endif
+            Debug.WriteLine("Hook exception handlers");
             // Create new instance of UnhandledExceptionDlg:
             // NOTE: this hooks up the exception handler functions 
             UnhandledExceptionDlg exDlg = new UnhandledExceptionDlg();
             InitializeExceptionHandler(exDlg);
 
+            Debug.WriteLine("Check .NET configuration system");
             //Check for config system condition here
             if(!Settings.Default.CheckSettingsSystem())
             {
@@ -208,10 +212,17 @@ namespace inSSIDer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+#if DEBUG && LOG
+            frmTest ft = new frmTest();
+            Thread debugThread = new Thread(() => Application.Run(ft));
+            debugThread.Start();
+#endif
+
             //Initalize the scanner object before passing it to any interface
             ScanController scanner = new ScanController();
             Exception error;
 
+            Debug.WriteLine("Initalize ScanController");
             scanner.Initalize(out error);
             if (error != null)
             {
@@ -255,6 +266,7 @@ namespace inSSIDer
             NetworkInterface netInterface = InterfaceManager.Instance.LastInterface;
             if (netInterface != null)
             {
+                Debug.WriteLine("We have a last interface, start scanning with it.");
                 //Set the interface
                 scanner.Interface = netInterface;
                 if (Settings.Default.scanLastEnabled)
@@ -262,24 +274,26 @@ namespace inSSIDer
             }
 
             //The main form will run unless mini is specified
-            IScannerUi form;
+            IScannerUi form = null;
 
-            if(Settings.Default.lastMini)
-            {
-                form = new FormMini();
-                SettingsMgr.ApplyMiniFormSettings((Form)form);
-            }
-            else
-            {
-                form = new FormMain();
-                SettingsMgr.ApplyMainFormSettings((Form)form);
-            }
+            Switching = Settings.Default.lastMini ? Utilities.SwitchMode.ToMini : Utilities.SwitchMode.ToMain;
+
+            //if(Settings.Default.lastMini)
+            //{
+            //    Switching = Utilities.SwitchMode.ToMini;
+            //    form = new FormMini();
+            //    SettingsMgr.ApplyMiniFormSettings((Form)form);
+            //}
+            //else
+            //{
+            //    Switching = Utilities.SwitchMode.ToMain;
+            //    form = new FormMain();
+            //    SettingsMgr.ApplyMainFormSettings((Form)form);
+            //}
 
             //Apply settings now 
             SettingsMgr.ApplyGpsSettings(scanner.GpsControl);
             
-            //Start GPS if it was started last time
-
 
             do
             {
@@ -291,15 +305,18 @@ namespace inSSIDer
                         break;
                     case Utilities.SwitchMode.ToMain:
                         //We're switching to the main form
+                        Debug.WriteLine("Switch to main form");
                         form = new FormMain();
                         SettingsMgr.ApplyMainFormSettings((Form)form);
                         break;
                     case Utilities.SwitchMode.ToMini:
                         //We're switching to the mini form
+                        Debug.WriteLine("Switch to mini form");
                         form = new FormMini();
                         SettingsMgr.ApplyMiniFormSettings((Form)form);
                         break;
                 }
+                LastSwitch = Switching;
                 //If we've switched, we don't need to get stuck in a loop
                 Switching = Utilities.SwitchMode.None;
 
@@ -312,6 +329,16 @@ namespace inSSIDer
                 {
 
                 }
+                catch (AccessViolationException)
+                {
+                    Debug.WriteLine("AccessViolationException, attempt to recover");
+                    if (Application.VisualStyleState == System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled)
+                        throw;
+                    // This could be caused by visual styles
+                    Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NonClientAreaEnabled;
+                    // Trigger restart
+                    Switching = LastSwitch;//Utilities.SwitchMode.ToMain;
+                }
 
             } while (Switching != Utilities.SwitchMode.None);
 
@@ -319,6 +346,9 @@ namespace inSSIDer
 
             //GPS enabled setting
             Settings.Default.gpsEnabled = scanner.GpsControl.Enabled;
+			
+            // Save Filters
+            SettingsMgr.SaveFilterList(scanner.Cache.Filters.ToArray());
 
             // Save Filters
             SettingsMgr.SaveFilterList(scanner.Cache.Filters.ToArray());
@@ -328,6 +358,8 @@ namespace inSSIDer
 
             //Dispose the scanner, we're done with it
             scanner.Dispose();
+
+            Debug.WriteLine("Execution Finished, you may now close this window", "Program.Main()");
         }
     }
 }

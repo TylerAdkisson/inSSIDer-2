@@ -41,14 +41,14 @@ namespace inSSIDer.Misc
         [Conditional("DEBUG")]
         public static void WriteLine(object message)
         {
-            if (!_init) Init();
+            if (!_init && _enable) Init();
             Debug.WriteLine(message);
         }
 
         [Conditional("DEBUG")]
         public static void WriteLine(object message, string category)
         {
-            if (!_init) Init();
+            if (!_init && _enable) Init();
             Debug.WriteLine(message, string.Format("[{0}-{1}-{2} {3}:{4}:{5}] {6}",
                                             new object[]
                                                 {
@@ -65,14 +65,14 @@ namespace inSSIDer.Misc
         [Conditional("DEBUG")]
         public static void Write(object message)
         {
-            if (!_init) Init();
+            if (!_init && _enable) Init();
             Debug.Write(message);
         }
 
         [Conditional("DEBUG")]
         public static void Write(object message, string category)
         {
-            if (!_init) Init();
+            if (!_init && _enable) Init();
             Debug.Write(message, string.Format("[{0}-{1}-{2} {3}:{4}:{5}] {6}",
                                                new object[]
                                                    {
