@@ -429,7 +429,7 @@ namespace inSSIDer.UI.Controls
 
         }
 
-        public static void ReplaceTabControl(TabControl tabControl)
+        public static ETabControl ReplaceTabControl(TabControl tabControl)
         {
             ETabControl et = new ETabControl();
             et.Parent = tabControl.Parent;
@@ -451,11 +451,12 @@ namespace inSSIDer.UI.Controls
 
                 et.Tabs.Add(t);
             }
-            et.SelectedTab = et.Tabs[0];
+            et.SelectedTab = et.Tabs[tabControl.SelectedIndex];
             et.Invalidate();
             et.Show();
 
             tabControl.Parent = null;
+            return et;
         }
 
     }

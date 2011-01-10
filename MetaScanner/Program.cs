@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace inSSIDer
 {
@@ -360,6 +361,14 @@ namespace inSSIDer
             scanner.Dispose();
 
             Debug.WriteLine("Execution Finished, you may now close this window", "Program.Main()");
+        }
+
+        [DllImport("psapi", SetLastError = true)]
+        public static extern bool EmptyWorkingSet(IntPtr hProcess);
+
+        internal static void ClearMem()
+        {
+            EmptyWorkingSet(Process.GetCurrentProcess().Handle);
         }
     }
 }

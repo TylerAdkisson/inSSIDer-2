@@ -141,6 +141,7 @@ namespace MetaGeek.WiFi
         // this is here so that resharper doesn't whine, it just hacks MyValue down to 32 bits
         public override int GetHashCode()
         {
+            // Hash the mac address into a 32-bit hash
             Int64 key = _myValue;
             key = (~key) + (key << 18);
             key ^= key >> 31;

@@ -93,6 +93,7 @@ namespace inSSIDer.UI.Forms
             this.tabGps = new System.Windows.Forms.TabPage();
             this.gpsMon1 = new inSSIDer.UI.Controls.GpsMon();
             this.networkInterfaceSelector1 = new inSSIDer.UI.Controls.NetworkInterfaceSelector();
+            this.clearMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gripContainer1.Panel1.SuspendLayout();
@@ -230,7 +231,7 @@ namespace inSSIDer.UI.Forms
             // 
             this.switchToMiniModeToolStripMenuItem.Name = "switchToMiniModeToolStripMenuItem";
             this.switchToMiniModeToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.switchToMiniModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.switchToMiniModeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.switchToMiniModeToolStripMenuItem.Text = "Mini Mode";
             this.switchToMiniModeToolStripMenuItem.Click += new System.EventHandler(this.SwitchToMiniModeToolStripMenuItemClick);
             // 
@@ -240,7 +241,7 @@ namespace inSSIDer.UI.Forms
             this.normalModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.normalModeToolStripMenuItem.Enabled = false;
             this.normalModeToolStripMenuItem.Name = "normalModeToolStripMenuItem";
-            this.normalModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.normalModeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.normalModeToolStripMenuItem.Text = "Normal Mode";
             this.normalModeToolStripMenuItem.Click += new System.EventHandler(this.NormalModeToolStripMenuItemClick);
             // 
@@ -248,14 +249,14 @@ namespace inSSIDer.UI.Forms
             // 
             this.fullscreenToolStripMenuItem.Name = "fullscreenToolStripMenuItem";
             this.fullscreenToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.fullscreenToolStripMenuItem.Text = "Fullscreen";
             this.fullscreenToolStripMenuItem.Click += new System.EventHandler(this.FullscreenToolStripMenuItemClick);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(145, 6);
             // 
             // oneTopViewToolStripMenuItem
             // 
@@ -263,21 +264,21 @@ namespace inSSIDer.UI.Forms
             this.oneTopViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.oneTopViewToolStripMenuItem.Enabled = false;
             this.oneTopViewToolStripMenuItem.Name = "oneTopViewToolStripMenuItem";
-            this.oneTopViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.oneTopViewToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.oneTopViewToolStripMenuItem.Text = "1 Top view";
             this.oneTopViewToolStripMenuItem.Click += new System.EventHandler(this.oneTopViewToolStripMenuItem_Click);
             // 
             // twoTopViewsToolStripMenuItem
             // 
             this.twoTopViewsToolStripMenuItem.Name = "twoTopViewsToolStripMenuItem";
-            this.twoTopViewsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.twoTopViewsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.twoTopViewsToolStripMenuItem.Text = "2 Top views";
             this.twoTopViewsToolStripMenuItem.Click += new System.EventHandler(this.twoTopViewsToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(145, 6);
             // 
             // oneBottomViewToolStripMenuItem
             // 
@@ -285,14 +286,14 @@ namespace inSSIDer.UI.Forms
             this.oneBottomViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.oneBottomViewToolStripMenuItem.Enabled = false;
             this.oneBottomViewToolStripMenuItem.Name = "oneBottomViewToolStripMenuItem";
-            this.oneBottomViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.oneBottomViewToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.oneBottomViewToolStripMenuItem.Text = "1 Bottom view";
             this.oneBottomViewToolStripMenuItem.Click += new System.EventHandler(this.oneBottomViewToolStripMenuItem_Click);
             // 
             // twoBottomViewsToolStripMenuItem
             // 
             this.twoBottomViewsToolStripMenuItem.Name = "twoBottomViewsToolStripMenuItem";
-            this.twoBottomViewsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.twoBottomViewsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.twoBottomViewsToolStripMenuItem.Text = "2 Bottom views";
             this.twoBottomViewsToolStripMenuItem.Click += new System.EventHandler(this.twoBottomViewsToolStripMenuItem_Click);
             // 
@@ -380,7 +381,8 @@ namespace inSSIDer.UI.Forms
             // 
             this.developerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startNullScanningToolStripMenuItem,
-            this.stopNullScanningToolStripMenuItem});
+            this.stopNullScanningToolStripMenuItem,
+            this.clearMemoryToolStripMenuItem});
             this.developerToolStripMenuItem.Name = "developerToolStripMenuItem";
             this.developerToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.developerToolStripMenuItem.Text = "Developer";
@@ -692,6 +694,13 @@ namespace inSSIDer.UI.Forms
             this.networkInterfaceSelector1.TabIndex = 2;
             this.networkInterfaceSelector1.SizeChanged += new System.EventHandler(this.NetworkInterfaceSelector1SizeChanged);
             // 
+            // clearMemoryToolStripMenuItem
+            // 
+            this.clearMemoryToolStripMenuItem.Name = "clearMemoryToolStripMenuItem";
+            this.clearMemoryToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.clearMemoryToolStripMenuItem.Text = "Clear Memory";
+            this.clearMemoryToolStripMenuItem.Click += new System.EventHandler(this.clearMemoryToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -797,5 +806,6 @@ namespace inSSIDer.UI.Forms
         private System.Windows.Forms.ToolStripMenuItem twoBottomViewsToolStripMenuItem;
         private GripSplitContainer gripTopView;
         private GripSplitContainer gripBottomView;
+        private System.Windows.Forms.ToolStripMenuItem clearMemoryToolStripMenuItem;
     }
 }

@@ -813,5 +813,10 @@ namespace inSSIDer.UI.Forms
 
         }
 
+        private void clearMemoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.ClearMem();
+        }
+
     }
 }
