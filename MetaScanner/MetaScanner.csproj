@@ -126,7 +126,9 @@
     <Compile Include="Misc\Settings.cs" />
     <Compile Include="Misc\SignalBars.cs" />
     <Compile Include="Misc\SignalColor.cs" />
+    <Compile Include="Misc\TabLayout.cs" />
     <Compile Include="Misc\TabUtil.cs" />
+    <Compile Include="UI\Theme\ProgramAdd.cs" />
     <Compile Include="Scanning\InterfaceManager.cs" />
     <Compile Include="Scanning\Interfaces\NdisScanInterface.cs" />
     <Compile Include="Scanning\ScanCompleteEventArgs.cs">
@@ -351,6 +353,7 @@
     <Compile Include="UI\Mini\ScannerViewMini.designer.cs">
       <DependentUpon>ScannerViewMini.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Theme\Theme.cs" />
     <Compile Include="UnhandledException\MapiMailMessage.cs" />
     <Compile Include="UnhandledException\PathRemover.cs" />
     <Compile Include="UnhandledException\SendExceptionClickEventArgs.cs" />

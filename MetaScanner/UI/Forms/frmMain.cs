@@ -43,6 +43,12 @@ namespace inSSIDer.UI.Forms
         private Timer _gpsStatTimer = new Timer(1000);
         //private GpxDataLogger _logger;
 
+        // Tab layout variables
+        ETabControl BottomLeft,
+                    BottomRight,
+                    TopLeft,
+                    TopRight;
+
         private FormWindowState _lastState;
 
         private delegate void DelVoidCall();
@@ -235,7 +241,10 @@ namespace inSSIDer.UI.Forms
             _scanner.NetworkScanner.InterfaceError += NetworkScanner_InterfaceError;
 
             //Change tab control
-            ETabControl.ReplaceTabControl(detailsTabControl);
+            BottomLeft = ETabControl.ReplaceTabControl(detailsTabControl);
+
+            // Restore tab layout
+            RestoreTabLayouts();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -249,6 +258,8 @@ namespace inSSIDer.UI.Forms
             }
             SettingsMgr.SaveScannerViewSettings(scannerView);
             Settings.Default.formTabIndex = detailsTabControl.SelectedIndex;
+            // Save tab layouts
+            SaveTabLayouts();
 
             //Settings.Default.Save();
 
@@ -724,34 +735,32 @@ namespace inSSIDer.UI.Forms
 
         private void oneTopViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            oneTopViewToolStripMenuItem.Enabled = false;
-            oneTopViewToolStripMenuItem.Checked = true;
-
-            twoTopViewsToolStripMenuItem.Enabled = true;
-            twoTopViewsToolStripMenuItem.Checked = false;
-
-            gripTopView.Panel2Collapsed = true;
-
-            ETabControl et = gripTopView.Panel2.Controls[0] as ETabControl;
-            if (et == null || et.Tabs.Count == 0) return;
-
-            //TODO: put grid in tab
-            ETabControl et1 = gripBottomView.Panel1.Controls[0] as ETabControl;
-            if (et1 == null) return;
-
-            foreach (ETab tab in et.Tabs)
-            {
-                tab.Selected = false;
-                et1.Tabs.Add(tab);
-            }
-            et.Tabs.RemoveAll(tab => true);
-
-            gripTopView.Panel2.Controls.Remove(et);
-            et = null;
-            et1.Invalidate();
+            OneTopView();
         }
 
         private void twoTopViewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TwoTopViews();
+        }
+
+        private void oneBottomViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OneBottomView();
+        }
+
+        private void twoBottomViewsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TwoBottomViews();
+        }
+
+        private void clearMemoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.ClearMem();
+        }
+
+        #region Tab layout
+
+        private void TwoTopViews()
         {
             oneTopViewToolStripMenuItem.Enabled = true;
             oneTopViewToolStripMenuItem.Checked = false;
@@ -761,42 +770,41 @@ namespace inSSIDer.UI.Forms
 
             gripTopView.Panel2Collapsed = false;
 
-            ETabControl et = new ETabControl();
-            et.Parent = gripTopView.Panel2;
-            et.Dock = DockStyle.Fill;
-            et.Show();
-
+            TopRight = new ETabControl();
+            TopRight.Parent = gripTopView.Panel2;
+            TopRight.Dock = DockStyle.Fill;
+            TopRight.Show();
         }
 
-        private void oneBottomViewToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OneTopView()
         {
-            oneBottomViewToolStripMenuItem.Enabled = false;
-            oneBottomViewToolStripMenuItem.Checked = true;
+            oneTopViewToolStripMenuItem.Enabled = false;
+            oneTopViewToolStripMenuItem.Checked = true;
 
-            twoBottomViewsToolStripMenuItem.Enabled = true;
-            twoBottomViewsToolStripMenuItem.Checked = false;
+            twoTopViewsToolStripMenuItem.Enabled = true;
+            twoTopViewsToolStripMenuItem.Checked = false;
 
-            gripBottomView.Panel2Collapsed = true;
+            gripTopView.Panel2Collapsed = true;
 
-            ETabControl et = gripBottomView.Panel2.Controls[0] as ETabControl;
-            if (et == null || et.Tabs.Count == 0) return;
+            if (TopRight == null || TopRight.Tabs.Count == 0) return;
 
-            ETabControl et1 = gripBottomView.Panel1.Controls[0] as ETabControl;
-            if (et1 == null) return;
+            //TODO: put grid in tab and dump tabs into it?
+            //ETabControl et1 = gripBottomView.Panel1.Controls[0] as ETabControl;
+            //if (et1 == null) return;
 
-            foreach (ETab tab in et.Tabs)
+            foreach (ETab tab in TopRight.Tabs)
             {
                 tab.Selected = false;
-                et1.Tabs.Add(tab);
+                BottomLeft.Tabs.Add(tab);
             }
-            et.Tabs.RemoveAll(tab => true);
+            TopRight.Tabs.RemoveAll(tab => true);
 
-            gripBottomView.Panel2.Controls.Remove(et);
-            et = null;
-            et1.Invalidate();
+            gripTopView.Panel2.Controls.Remove(TopRight);
+            TopRight = null;
+            BottomLeft.Invalidate();
         }
 
-        private void twoBottomViewsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TwoBottomViews()
         {
             oneBottomViewToolStripMenuItem.Enabled = true;
             oneBottomViewToolStripMenuItem.Checked = false;
@@ -806,17 +814,149 @@ namespace inSSIDer.UI.Forms
 
             gripBottomView.Panel2Collapsed = false;
 
-            ETabControl et = new ETabControl();
-            et.Parent = gripBottomView.Panel2;
-            et.Dock = DockStyle.Fill;
-            et.Show();
-
+            BottomRight = new ETabControl();
+            BottomRight.Parent = gripBottomView.Panel2;
+            BottomRight.Dock = DockStyle.Fill;
+            BottomRight.Show();
         }
 
-        private void clearMemoryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OneBottomView()
         {
-            Program.ClearMem();
+            oneBottomViewToolStripMenuItem.Enabled = false;
+            oneBottomViewToolStripMenuItem.Checked = true;
+
+            twoBottomViewsToolStripMenuItem.Enabled = true;
+            twoBottomViewsToolStripMenuItem.Checked = false;
+
+            gripBottomView.Panel2Collapsed = true;
+
+
+            if (BottomRight == null || BottomRight.Tabs.Count == 0) return;
+
+            foreach (ETab tab in BottomRight.Tabs)
+            {
+                tab.Selected = false;
+                BottomLeft.Tabs.Add(tab);
+            }
+            BottomLeft.Tabs.RemoveAll(tab => true);
+
+            gripBottomView.Panel2.Controls.Remove(BottomRight);
+            BottomRight = null;
+            BottomLeft.Invalidate();
         }
+
+
+        private void SaveTabLayouts()
+        {
+            TabLayout tempLayout;
+            if (TopLeft != null)
+            {
+                tempLayout = new TabLayout();
+                tempLayout.SelectedTabIndex = TopLeft.SelectedIndex;
+
+                tempLayout.TabNames = TopLeft.Tabs.Select(et => et.Text).ToArray();
+                // Save it
+                Settings.Default.tabTopLeftConfig = tempLayout.ToString();
+            }
+
+            if (TopRight != null)
+            {
+                tempLayout = new TabLayout();
+                tempLayout.SelectedTabIndex = TopRight.SelectedIndex;
+
+                tempLayout.TabNames = TopRight.Tabs.Select(et => et.Text).ToArray();
+                // Save it
+                Settings.Default.tabTopRightConfig = tempLayout.ToString();
+            }
+
+            if (BottomRight != null)
+            {
+                tempLayout = new TabLayout();
+                tempLayout.SelectedTabIndex = BottomRight.SelectedIndex;
+
+                tempLayout.TabNames = BottomRight.Tabs.Select(et => et.Text).ToArray();
+                // Save it
+                Settings.Default.tabBottomRightConfig = tempLayout.ToString();
+            }
+
+            if (BottomLeft != null)
+            {
+                tempLayout = new TabLayout();
+                tempLayout.SelectedTabIndex = BottomLeft.SelectedIndex;
+
+                tempLayout.TabNames = BottomLeft.Tabs.Select(et => et.Text).ToArray();
+                // Save it
+                Settings.Default.tabBottomLeftConfig = tempLayout.ToString();
+            }
+
+            // Save splitter sizes
+            Settings.Default.tabTopSplitter = gripTopView.SplitterDistance;
+            Settings.Default.tabBottomSplitter = gripBottomView.SplitterDistance;
+            Settings.Default.tabMiddleSplitter = gripContainer1.SplitterDistance;
+        }
+
+        private void RestoreTabLayouts()
+        {
+            // When this function is first run, all tabs will be in the bottom-left tab control
+            TabLayout tempLayout = TabLayout.Empty;
+            ETab tempTab;
+            if (tempLayout.FromString(Settings.Default.tabTopLeftConfig))
+            {
+                // Not used yet
+            }
+
+            if (tempLayout.FromString(Settings.Default.tabTopRightConfig))
+            {
+                TwoTopViews();
+                // Add tabs back
+                foreach (string name in tempLayout.TabNames)
+                {
+                    tempTab = BottomLeft.Tabs.FirstOrDefault(tab => tab.Text == name);
+                    if (tempTab == null) continue;
+                    TopRight.Tabs.Add(tempTab);
+                    BottomLeft.Tabs.Remove(tempTab);
+                }
+                TopRight.SelectedIndex = tempLayout.SelectedTabIndex;
+            }
+
+            
+            if (tempLayout.FromString(Settings.Default.tabBottomRightConfig))
+            {
+                TwoBottomViews();
+                // Add tabs back
+                foreach (string name in tempLayout.TabNames)
+                {
+                    tempTab = BottomLeft.Tabs.FirstOrDefault(tab => tab.Text == name);
+                    if (tempTab == null) continue;
+                    BottomRight.Tabs.Add(tempTab);
+                    BottomLeft.Tabs.Remove(tempTab);
+                }
+                BottomRight.SelectedIndex = tempLayout.SelectedTabIndex;
+            }
+
+            if (tempLayout.FromString(Settings.Default.tabBottomLeftConfig))
+            {
+                // This is the root tab control, only set the tab order
+                foreach (string name in tempLayout.TabNames)
+                {
+                    tempTab = BottomLeft.Tabs.FirstOrDefault(tab => tab.Text == name);
+                    if (tempTab == null) continue;
+                    BottomLeft.Tabs.Remove(tempTab);
+                    //Insert tab at end
+                    BottomLeft.Tabs.Insert(BottomLeft.Tabs.Count - 1, tempTab);
+                }
+            }
+
+            // Load splitter sizes
+            if (Settings.Default.tabTopSplitter != -1)
+                gripTopView.SplitterDistance = Settings.Default.tabTopSplitter;
+            if (Settings.Default.tabBottomSplitter != -1)
+                gripBottomView.SplitterDistance = Settings.Default.tabBottomSplitter;
+            if (Settings.Default.tabMiddleSplitter != -1)
+                gripContainer1.SplitterDistance = Settings.Default.tabMiddleSplitter;
+        }
+
+        #endregion
 
     }
 }

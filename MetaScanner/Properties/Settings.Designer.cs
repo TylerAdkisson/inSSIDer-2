@@ -504,13 +504,85 @@ namespace inSSIDer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public global::inSSIDer.UI.Controls.TabConfig tabConfig {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string tabTopLeftConfig {
             get {
-                return ((global::inSSIDer.UI.Controls.TabConfig)(this["tabConfig"]));
+                return ((string)(this["tabTopLeftConfig"]));
             }
             set {
-                this["tabConfig"] = value;
+                this["tabTopLeftConfig"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string tabTopRightConfig {
+            get {
+                return ((string)(this["tabTopRightConfig"]));
+            }
+            set {
+                this["tabTopRightConfig"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string tabBottomLeftConfig {
+            get {
+                return ((string)(this["tabBottomLeftConfig"]));
+            }
+            set {
+                this["tabBottomLeftConfig"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string tabBottomRightConfig {
+            get {
+                return ((string)(this["tabBottomRightConfig"]));
+            }
+            set {
+                this["tabBottomRightConfig"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int tabBottomSplitter {
+            get {
+                return ((int)(this["tabBottomSplitter"]));
+            }
+            set {
+                this["tabBottomSplitter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int tabTopSplitter {
+            get {
+                return ((int)(this["tabTopSplitter"]));
+            }
+            set {
+                this["tabTopSplitter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int tabMiddleSplitter {
+            get {
+                return ((int)(this["tabMiddleSplitter"]));
+            }
+            set {
+                this["tabMiddleSplitter"] = value;
             }
         }
     }

@@ -26,6 +26,7 @@ using inSSIDer.Misc;
 using inSSIDer.Scanning;
 using MetaGeek.WiFi;
 using inSSIDer.Localization;
+using System.Linq;
 
 namespace inSSIDer.UI.Controls
 {
@@ -401,15 +402,35 @@ namespace inSSIDer.UI.Controls
             SizeF szString = new SizeF(0,0);
             SizeF szBox = new Size(0,0);
 
-            foreach (AccessPoint ap in _scanner.Cache.GetAccessPoints())
+            AccessPoint[] tempAps = _scanner.Cache.GetAccessPoints();
+            float avgHeight = 0;
+            int avgCount = 0;
+
+            // Find the largest dimentions for the SSIDs
+            foreach (AccessPoint ap in tempAps)
             {
-                if (!ap.Graph) continue;
-                //Meassure the SSIDs to find the longest
+                if (!ap.Graph || string.IsNullOrEmpty(ap.Ssid)) continue;
+                // Measure the SSIDs to find the average height, but longest width
                 SizeF tempSz = graphics.MeasureString(ap.Ssid, ap.Highlight ? _boldFont : Font);
                 if (tempSz.Width > szString.Width) szString.Width = tempSz.Width;
-                if (tempSz.Height > szString.Height) szString.Height = tempSz.Height;
-                szBox.Height += tempSz.Height + 2;
+                avgHeight += tempSz.Height;
+                avgCount++;
             }
+            //szString.Width = avgWidth / avgCount;
+            szString.Height = avgHeight / avgCount;
+            szBox.Height = (szString.Height + 2) * avgCount;
+
+            //foreach (AccessPoint ap in _scanner.Cache.GetAccessPoints())
+            //{
+            //    if (!ap.Graph) continue;
+            //    // Measure the SSIDs to find the longest
+            //    SizeF tempSz = graphics.MeasureString(ap.Ssid, ap.Highlight ? _boldFont : Font);
+            //    if (tempSz.Width > szString.Width) szString.Width = tempSz.Width;
+            //    if (tempSz.Height > szString.Height) szString.Height = tempSz.Height;
+            //    szBox.Height += tempSz.Height + 2;
+            //    // If we've gone past the maximum visible SSIDs, stop measuring
+            //    if (szBox.Height > Height - BottomMargin - TopMargin) break;
+            //}
 
             szBox.Height += 5;
 

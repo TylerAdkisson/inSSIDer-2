@@ -202,6 +202,11 @@ namespace inSSIDer.UI.Controls
             return -1;
         }
 
+        private int GetTabIndex(ETab tab)
+        {
+            return Tabs.IndexOf(tab);
+        }
+
         public void MoveTab(ETab t, int index)
         {
             Tabs.Remove(t);
@@ -232,6 +237,16 @@ namespace inSSIDer.UI.Controls
                 DeselectAllTabs();
                 value.Selected = true;
                 
+            }
+        }
+
+        public int SelectedIndex
+        {
+            get { return GetTabIndex(SelectedTab); }
+            set
+            {
+                if (value < 0 || value > Tabs.Count - 1) return;
+                SelectedTab = Tabs[value];
             }
         }
 

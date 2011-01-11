@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 
 namespace inSSIDer
 {
-    static class Program
+    static partial class Program
     {
         //Mode of switch
         public static Utilities.SwitchMode Switching = Utilities.SwitchMode.None;
