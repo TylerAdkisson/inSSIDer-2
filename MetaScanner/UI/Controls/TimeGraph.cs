@@ -84,7 +84,7 @@ namespace inSSIDer.UI.Controls
 
             _boldFont = new Font(Font, FontStyle.Bold);
 
-            ToolStripMenuItem copyItem = new ToolStripMenuItem("Copy to clipboard");
+            ToolStripMenuItem copyItem = new ToolStripMenuItem(Localizer.GetString("CopyToClipboard"));
             copyItem.Click += CopyItemClick;
 
             _cmsCopy = new ContextMenuStrip();

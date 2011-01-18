@@ -43,7 +43,7 @@ namespace inSSIDer.UI.Forms
         private Timer _gpsStatTimer = new Timer(1000);
         //private GpxDataLogger _logger;
 
-        // Tab layout variables
+        // Tab controls
         ETabControl BottomLeft,
                     BottomRight,
                     TopLeft,
@@ -258,6 +258,7 @@ namespace inSSIDer.UI.Forms
             }
             SettingsMgr.SaveScannerViewSettings(scannerView);
             Settings.Default.formTabIndex = detailsTabControl.SelectedIndex;
+
             // Save tab layouts
             SaveTabLayouts();
 

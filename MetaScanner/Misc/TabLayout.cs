@@ -39,8 +39,8 @@ namespace inSSIDer.Misc
             string expr = string.Empty;
 
             // Tabnames|selectedIndex
-            if(TabNames != null || TabNames.Length > 0)
-                expr += TabNames.Aggregate((total, current) => total += current + ",").TrimEnd(',');
+            if(TabNames != null && TabNames.Length > 0)
+                expr += TabNames.Aggregate((total, current) => total += "," + current);
             expr += "|" + SelectedTabIndex.ToString();
 
             return expr;

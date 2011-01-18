@@ -70,7 +70,7 @@ namespace inSSIDer.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amplitude [dB].
+        ///   Looks up a localized string similar to Amplitude [dBm].
         /// </summary>
         internal static string AmplitudedBm {
             get {
@@ -113,6 +113,15 @@ namespace inSSIDer.Localization {
         internal static string CopyGraphError {
             get {
                 return ResourceManager.GetString("CopyGraphError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to clipboard.
+        /// </summary>
+        internal static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
             }
         }
         
