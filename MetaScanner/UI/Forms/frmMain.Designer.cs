@@ -68,6 +68,7 @@ namespace inSSIDer.UI.Forms
             this.developerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startNullScanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopNullScanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sdlgLog = new System.Windows.Forms.SaveFileDialog();
             this.sdlgNs1 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -93,7 +94,6 @@ namespace inSSIDer.UI.Forms
             this.tabGps = new System.Windows.Forms.TabPage();
             this.gpsMon1 = new inSSIDer.UI.Controls.GpsMon();
             this.networkInterfaceSelector1 = new inSSIDer.UI.Controls.NetworkInterfaceSelector();
-            this.clearMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gripContainer1.Panel1.SuspendLayout();
@@ -402,6 +402,13 @@ namespace inSSIDer.UI.Forms
             this.stopNullScanningToolStripMenuItem.Text = "Stop Null Scanning";
             this.stopNullScanningToolStripMenuItem.Click += new System.EventHandler(this.StopNullScanningToolStripMenuItemClick);
             // 
+            // clearMemoryToolStripMenuItem
+            // 
+            this.clearMemoryToolStripMenuItem.Name = "clearMemoryToolStripMenuItem";
+            this.clearMemoryToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.clearMemoryToolStripMenuItem.Text = "Clear Memory";
+            this.clearMemoryToolStripMenuItem.Click += new System.EventHandler(this.clearMemoryToolStripMenuItem_Click);
+            // 
             // sdlgLog
             // 
             this.sdlgLog.DefaultExt = "gpx";
@@ -579,15 +586,19 @@ namespace inSSIDer.UI.Forms
             // timeGraph1
             // 
             this.timeGraph1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timeGraph1.GraphBackColor = System.Drawing.Color.Black;
+            this.timeGraph1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.timeGraph1.Location = new System.Drawing.Point(0, 0);
             this.timeGraph1.MaxAmplitude = -10F;
             this.timeGraph1.MaxTime = new System.DateTime(2010, 7, 28, 12, 8, 7, 739);
             this.timeGraph1.MinAmplitude = -100F;
             this.timeGraph1.Name = "timeGraph1";
+            this.timeGraph1.OutlineColor = System.Drawing.Color.DimGray;
             this.timeGraph1.RightMargin = 32;
             this.timeGraph1.ShowSSIDs = true;
             this.timeGraph1.Size = new System.Drawing.Size(1000, 239);
             this.timeGraph1.TabIndex = 0;
+            this.timeGraph1.TickColor = System.Drawing.Color.LightGray;
             this.timeGraph1.TimeSpan = System.TimeSpan.Parse("00:05:00");
             // 
             // tab24Chan
@@ -693,13 +704,6 @@ namespace inSSIDer.UI.Forms
             this.networkInterfaceSelector1.Size = new System.Drawing.Size(181, 25);
             this.networkInterfaceSelector1.TabIndex = 2;
             this.networkInterfaceSelector1.SizeChanged += new System.EventHandler(this.NetworkInterfaceSelector1SizeChanged);
-            // 
-            // clearMemoryToolStripMenuItem
-            // 
-            this.clearMemoryToolStripMenuItem.Name = "clearMemoryToolStripMenuItem";
-            this.clearMemoryToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.clearMemoryToolStripMenuItem.Text = "Clear Memory";
-            this.clearMemoryToolStripMenuItem.Click += new System.EventHandler(this.clearMemoryToolStripMenuItem_Click);
             // 
             // FormMain
             // 

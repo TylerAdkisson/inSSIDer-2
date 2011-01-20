@@ -24,6 +24,8 @@ using ManagedWifi;
 using MetaGeek.IoctlNdis;
 using MetaGeek.WiFi;
 using inSSIDer.Localization;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace inSSIDer.Misc
 {
@@ -354,6 +356,22 @@ namespace inSSIDer.Misc
         {
             float percentOfCircle = 360 * percent;
             return percentOfCircle;
+        }
+
+        public static PropertyInfo GetPropertyByName(Type type, string name)
+        {
+            foreach (PropertyInfo item in type.GetProperties())
+            {
+                if (item.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) return item;
+            }
+            return null;
+        }
+
+        public static object ConvertType(string value, Type type)
+        {
+            // might need ConvertFromString
+            // (rather than Invariant)
+            return TypeDescriptor.GetConverter(type).ConvertFromInvariantString(value);
         }
 
         #endregion

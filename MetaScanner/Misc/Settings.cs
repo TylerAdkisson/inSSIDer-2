@@ -22,6 +22,7 @@ using System.Configuration;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
+using inSSIDer.Misc;
 
 namespace inSSIDer.Properties
 {
@@ -77,7 +78,7 @@ namespace inSSIDer.Properties
                     {
                         try
                         {
-                            return ConvertType(_overrides[propertyName], sp.PropertyType);
+                            return Utilities.ConvertType(_overrides[propertyName], sp.PropertyType);
                         }
                         catch
                         {
@@ -158,13 +159,6 @@ namespace inSSIDer.Properties
                 //_useSettings = false;
                 return false;
             }
-        }
-
-        static object ConvertType(string value, Type type)
-        {
-            // might need ConvertFromString
-            // (rather than Invariant)
-            return TypeDescriptor.GetConverter(type).ConvertFromInvariantString(value);
         }
     }
 }

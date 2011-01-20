@@ -27,20 +27,23 @@ using inSSIDer.Scanning;
 using MetaGeek.WiFi;
 using inSSIDer.Localization;
 using System.Linq;
+using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class TimeGraph : UserControl
+    public partial class TimeGraph : UserControl, ThemeableControl
     {
         //Graph size
         private int _graphWidth;
         private int _graphHeight;
 
         //Colors
-        private readonly Color _gridColor = Color.FromArgb(100, Color.Gray);
-        private readonly Color _graphBackColor = Color.Black;
-        private readonly Color _outlineColor = Color.DimGray;
-        private readonly Color _tickColor = Color.LightGray;
+        public Color GridColor { get; set; }
+        public Color GraphBackColor { get; set; }
+        public Color OutlineColor { get; set; }
+        public Color TickColor { get; set; }
+        public Color SsidBoxColor { get; set; }
+        public bool UseRssiGradient { get; set; }
 
         //Pixel multipilers
         private float _pixelsPerDbm = 1;
@@ -66,7 +69,15 @@ namespace inSSIDer.UI.Controls
 
         public TimeGraph()
         {
+            // Set defaults
             _minTime = _maxTime - _timeSpan;
+            GridColor = Color.FromArgb(100, Color.Gray);
+            GraphBackColor = BackColor;
+            OutlineColor = Color.DimGray;
+            TickColor = Color.LightGray;
+            SsidBoxColor = Color.FromArgb(29, 29, 29);
+            UseRssiGradient = true;
+
             MinAmplitude = -100;
             MaxAmplitude = -10;
             BottomMargin = 20;
@@ -204,8 +215,8 @@ namespace inSSIDer.UI.Controls
 
         private void DrawGrid(Graphics graphics)
         {
-            Pen pen = new Pen(_outlineColor);
-            SolidBrush brush = new SolidBrush(_graphBackColor);
+            Pen pen = new Pen(OutlineColor);
+            SolidBrush brush = new SolidBrush(GraphBackColor);
 
             graphics.FillRectangle(brush, LeftMargin - 1, TopMargin - 1, _graphWidth + 1, _graphHeight);
 
@@ -232,7 +243,7 @@ namespace inSSIDer.UI.Controls
             while (labelAmplitude < maxAmpToLabel)
             {
                 //Get the color
-                brush.Color = SignalColor.GetColor(labelAmplitude);
+                brush.Color = UseRssiGradient ? SignalColor.GetColor(labelAmplitude) : ForeColor;
                 //Left side
                 sfAmp.Alignment = StringAlignment.Far;
                 // amplitude label
@@ -240,7 +251,7 @@ namespace inSSIDer.UI.Controls
                 graphics.DrawString(labelAmplitude.ToString(), Font, brush, LeftMargin - 5, y - 7,sfAmp);
 
                 // Tick marks next to amplitude labels
-                pen.Color = _tickColor;
+                pen.Color = TickColor;
                 pen.DashStyle = DashStyle.Solid;
                 graphics.DrawLine(pen, LeftMargin - 3, y, LeftMargin + 1, y);
 
@@ -252,24 +263,22 @@ namespace inSSIDer.UI.Controls
                 graphics.DrawString(labelAmplitude.ToString(), Font, brush, Width - RightMargin + 3, y - 7, sfAmp);
 
                 // Tick marks next to amplitude labels
-                pen.Color = _tickColor;
+                pen.Color = TickColor;
                 pen.DashStyle = DashStyle.Solid;
                 graphics.DrawLine(pen, Width - RightMargin + 2, y, Width - RightMargin - 2, y);
 
-                //Neutral
-
                 // draw the horizontal graph lines
-                pen.Color = _gridColor;
+                pen.Color = GridColor;
                 pen.DashStyle = DashStyle.Dot;
                 graphics.DrawLine(pen, LeftMargin, y, LeftMargin + _graphWidth, y);
 
                 labelAmplitude += _amplitudeLabelSpacing;
             }
 
-            brush.Color = SignalColor.GetColor(-100);
+            brush.Color = UseRssiGradient ? SignalColor.GetColor((int)MinAmplitude) : ForeColor;
             //Draw floor label and tick
             y = DbToY((int)MinAmplitude);
-            pen.Color = _tickColor;
+            pen.Color = TickColor;
             pen.DashStyle = DashStyle.Solid;
 
             //Left
@@ -292,7 +301,7 @@ namespace inSSIDer.UI.Controls
 
         private void DrawTimeLabels(Graphics graphics)
         {
-            Pen pen = new Pen(_tickColor);
+            Pen pen = new Pen(TickColor);
             Brush bLabel = new SolidBrush(ForeColor);
 
             SizeF szString;
@@ -396,8 +405,8 @@ namespace inSSIDer.UI.Controls
             if(_scanner == null) return;
             if(_scanner.Cache.Count < 1) return;
 
-            Brush brush = new SolidBrush(Color.FromArgb(29,29,29));
-            Pen pen = new Pen(_outlineColor);
+            Brush brush = new SolidBrush(SsidBoxColor);
+            Pen pen = new Pen(OutlineColor);
 
             SizeF szString = new SizeF(0,0);
             SizeF szBox = new Size(0,0);
@@ -505,7 +514,26 @@ namespace inSSIDer.UI.Controls
             return Color.FromArgb(Math.Min(age*20 < 255 ? 255 - (age*20) : 0, 255), color);
         }
 
-        //Properties
+        public void SetColorScheme(ColorScheme scheme)
+        {
+            // Apply all settings for graph controls
+            foreach (SchemeElement element in scheme.GetElementsForClass(ColorClass.Graph))
+            {
+                System.Reflection.PropertyInfo pi = Utilities.GetPropertyByName(typeof(TimeGraph), element.Property);
+                if (pi == null)
+                {
+                    continue;
+                }
+                object obj = Utilities.ConvertType(element.Value,pi.PropertyType);
+                if (obj == null)
+                {
+                    continue;
+                }
+                pi.SetValue(this, obj, null);
+            }
+        }
+
+        #region Properties
 
         /// <summary>
         /// Pixels from right to place border
@@ -558,7 +586,7 @@ namespace inSSIDer.UI.Controls
         }
 
         /// <summary>
-        /// The ammount of time to display in the graph
+        /// The amount of time to display in the graph
         /// </summary>
         [Category("Configuration")]
         public TimeSpan TimeSpan
@@ -576,5 +604,7 @@ namespace inSSIDer.UI.Controls
         /// </summary>
         [Category("Configuration"), DefaultValue(false)]
         public bool ShowSSIDs { get; set; }
+
+        #endregion
     }
 }

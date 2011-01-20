@@ -35,6 +35,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Runtime.InteropServices;
+using inSSIDer.UI.Theme;
+using System.IO;
 
 namespace inSSIDer
 {
@@ -117,15 +119,8 @@ namespace inSSIDer
         [STAThread]
         static void Main(string[] args)
         {
-            //var props = FlakExpressionParser.GetFilterableProperties(typeof(AccessPoint));
-
-            //foreach (var item in props)
-            //{
-            //    if(item.Key[1] == "")
-            //        Console.WriteLine("{0}\t{1}", item.Key[0], item.Value);
-            //    else
-            //        Console.WriteLine("{0}({1})\t{2}", item.Key[0], item.Key[1], item.Value);
-            //}
+            string theme = File.ReadAllText("theme.txt");
+            CurrentColorScheme = ColorScheme.FromString(theme);
 
             #region Filter Testing
             /*

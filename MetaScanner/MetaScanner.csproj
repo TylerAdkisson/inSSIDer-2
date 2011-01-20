@@ -353,7 +353,9 @@
     <Compile Include="UI\Mini\ScannerViewMini.designer.cs">
       <DependentUpon>ScannerViewMini.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Theme\ColorScheme.cs" />
     <Compile Include="UI\Theme\Theme.cs" />
+    <Compile Include="UI\Theme\ThemeableControl.cs" />
     <Compile Include="UnhandledException\MapiMailMessage.cs" />
     <Compile Include="UnhandledException\PathRemover.cs" />
     <Compile Include="UnhandledException\SendExceptionClickEventArgs.cs" />

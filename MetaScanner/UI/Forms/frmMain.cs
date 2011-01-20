@@ -34,6 +34,7 @@ using inSSIDer.Localization;
 using System.Threading;
 using System.Globalization;
 using Timer = System.Timers.Timer;
+using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Forms
 {
@@ -245,6 +246,13 @@ namespace inSSIDer.UI.Forms
 
             // Restore tab layout
             RestoreTabLayouts();
+
+            // Apply theme
+            //foreach (ThemeableControl item in Controls.OfType<ThemeableControl>())
+            //{
+            //    item.SetColorScheme(Program.CurrentColorScheme);
+            //}
+            timeGraph1.SetColorScheme(Program.CurrentColorScheme);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

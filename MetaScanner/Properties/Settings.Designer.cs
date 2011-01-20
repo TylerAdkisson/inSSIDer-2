@@ -585,5 +585,29 @@ namespace inSSIDer.Properties {
                 this["tabMiddleSplitter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-10")]
+        public int graphsMaxRssi {
+            get {
+                return ((int)(this["graphsMaxRssi"]));
+            }
+            set {
+                this["graphsMaxRssi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-100")]
+        public int grapgsMinRssi {
+            get {
+                return ((int)(this["grapgsMinRssi"]));
+            }
+            set {
+                this["grapgsMinRssi"] = value;
+            }
+        }
     }
 }

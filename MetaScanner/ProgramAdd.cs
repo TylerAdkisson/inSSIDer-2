@@ -20,11 +20,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using inSSIDer.UI.Theme;
 
 namespace inSSIDer
 {
     public static partial class Program
     {
-
+        public static ColorScheme CurrentColorScheme { get; set; }
     }
 }
