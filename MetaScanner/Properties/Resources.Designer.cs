@@ -22,7 +22,7 @@ namespace inSSIDer.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace inSSIDer.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("inSSIDer.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace inSSIDer.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,134 +61,157 @@ namespace inSSIDer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to // This is the inSSIDer settings override file.
+        ///// Any settings set in here will override all other settings!
+        /////
+        ///// When a setting is overidden, any changes to that settings WILL NOT be saved at program close.
+        /////
+        ///// Any lines starting with // or are empty will be ignored
+        ///// The override format is as follows:
+        /////
+        /////[settings name]=[value]
+        ///// Make sure the value is in the correct format, otherwise it will be ignored.
+        ///// NOTE: Settings names and values are CASE SENSITIVE.
         /// </summary>
-        public static string buildinfo {
+        internal static string BlankOverride {
+            get {
+                return ResourceManager.GetString("BlankOverride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tyler
+        ///1/19/2011
+        ///11:00 PM
+        ///-5
+        ///.
+        /// </summary>
+        internal static string buildinfo {
             get {
                 return ResourceManager.GetString("buildinfo", resourceCulture);
             }
         }
         
-        public static System.Drawing.Bitmap launch_inssider {
+        internal static System.Drawing.Bitmap launch_inssider {
             get {
                 object obj = ResourceManager.GetObject("launch_inssider", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap longGripOff {
+        internal static System.Drawing.Bitmap longGripOff {
             get {
                 object obj = ResourceManager.GetObject("longGripOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap longGripOn {
+        internal static System.Drawing.Bitmap longGripOn {
             get {
                 object obj = ResourceManager.GetObject("longGripOn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap metageek_logo {
+        internal static System.Drawing.Bitmap metageek_logo {
             get {
                 object obj = ResourceManager.GetObject("metageek-logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal0 {
+        internal static System.Drawing.Bitmap Signal0 {
             get {
                 object obj = ResourceManager.GetObject("Signal0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal0E {
+        internal static System.Drawing.Bitmap Signal0E {
             get {
                 object obj = ResourceManager.GetObject("Signal0E", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal1 {
+        internal static System.Drawing.Bitmap Signal1 {
             get {
                 object obj = ResourceManager.GetObject("Signal1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal1E {
+        internal static System.Drawing.Bitmap Signal1E {
             get {
                 object obj = ResourceManager.GetObject("Signal1E", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal2 {
+        internal static System.Drawing.Bitmap Signal2 {
             get {
                 object obj = ResourceManager.GetObject("Signal2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal2E {
+        internal static System.Drawing.Bitmap Signal2E {
             get {
                 object obj = ResourceManager.GetObject("Signal2E", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal3 {
+        internal static System.Drawing.Bitmap Signal3 {
             get {
                 object obj = ResourceManager.GetObject("Signal3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal3E {
+        internal static System.Drawing.Bitmap Signal3E {
             get {
                 object obj = ResourceManager.GetObject("Signal3E", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal4 {
+        internal static System.Drawing.Bitmap Signal4 {
             get {
                 object obj = ResourceManager.GetObject("Signal4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal4E {
+        internal static System.Drawing.Bitmap Signal4E {
             get {
                 object obj = ResourceManager.GetObject("Signal4E", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal5 {
+        internal static System.Drawing.Bitmap Signal5 {
             get {
                 object obj = ResourceManager.GetObject("Signal5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap Signal5E {
+        internal static System.Drawing.Bitmap Signal5E {
             get {
                 object obj = ResourceManager.GetObject("Signal5E", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap wifiPlay {
+        internal static System.Drawing.Bitmap wifiPlay {
             get {
                 object obj = ResourceManager.GetObject("wifiPlay", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap wifiStop {
+        internal static System.Drawing.Bitmap wifiStop {
             get {
                 object obj = ResourceManager.GetObject("wifiStop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

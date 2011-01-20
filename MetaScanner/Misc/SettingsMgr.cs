@@ -290,7 +290,7 @@ namespace inSSIDer
             {
                 StringBuilder sbOut = new StringBuilder();
                 //The format is:
-                //<filterExpr>|<filterExpr>|<filterExpr>|etc.
+                //<filterExpr>0xFE<filterExpr>0xFE<filterExpr>0xFEetc.
                 try
                 {
                     string pipe = "";
@@ -298,7 +298,7 @@ namespace inSSIDer
                     {
                         sbOut.Append(pipe);
                         sbOut.Append(f.ToString());
-                        pipe = "|";
+                        pipe = "\xFE";
                     }
                 }
                 catch (Exception)
@@ -322,11 +322,11 @@ namespace inSSIDer
         {
             if(string.IsNullOrEmpty(Settings.Default.lastFilters)) return new Filter2[0];
             //The format is:
-            //<filterExpr>|<filterExpr>|<filterExpr>|etc.
+            //<filterExpr>0xFE<filterExpr>0xFE<filterExpr>0xFEetc.
 
             try
             {
-                string[] parts = Settings.Default.lastFilters.Split('|');
+                string[] parts = Settings.Default.lastFilters.Split('\xFE');
                 List<Filter2> filters = new List<Filter2>();
                 foreach (string s in parts)
                 {

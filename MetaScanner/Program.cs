@@ -1,4 +1,4 @@
-﻿//#define LOG
+﻿#define LOG
 using System;
 using System.Windows.Forms;
 using inSSIDer.Misc;
@@ -189,9 +189,9 @@ namespace inSSIDer
             //return;
             #endregion
             //TODO: Make conmmand line option to enable logging on debug builds. Like /log
-#if DEBUG && LOG
-            Log.Start();
-#endif
+//#if DEBUG && LOG
+//            Log.Start();
+//#endif
             Debug.WriteLine("Hook exception handlers");
             // Create new instance of UnhandledExceptionDlg:
             // NOTE: this hooks up the exception handler functions 

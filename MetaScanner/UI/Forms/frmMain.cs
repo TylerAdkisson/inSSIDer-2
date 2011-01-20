@@ -849,8 +849,14 @@ namespace inSSIDer.UI.Forms
 
         private void SaveTabLayouts()
         {
+            // Clear all layouts
+            Settings.Default.tabTopLeftConfig = "";
+            Settings.Default.tabTopRightConfig = "";
+            Settings.Default.tabBottomLeftConfig = "";
+            Settings.Default.tabBottomRightConfig = "";
+
             TabLayout tempLayout;
-            if (TopLeft != null)
+            if (TopLeft != null && TopLeft.Visible)
             {
                 tempLayout = new TabLayout();
                 tempLayout.SelectedTabIndex = TopLeft.SelectedIndex;
@@ -860,7 +866,7 @@ namespace inSSIDer.UI.Forms
                 Settings.Default.tabTopLeftConfig = tempLayout.ToString();
             }
 
-            if (TopRight != null)
+            if (TopRight != null && TopRight.Visible)
             {
                 tempLayout = new TabLayout();
                 tempLayout.SelectedTabIndex = TopRight.SelectedIndex;
@@ -870,7 +876,7 @@ namespace inSSIDer.UI.Forms
                 Settings.Default.tabTopRightConfig = tempLayout.ToString();
             }
 
-            if (BottomRight != null)
+            if (BottomRight != null && BottomRight.Visible)
             {
                 tempLayout = new TabLayout();
                 tempLayout.SelectedTabIndex = BottomRight.SelectedIndex;
@@ -880,7 +886,7 @@ namespace inSSIDer.UI.Forms
                 Settings.Default.tabBottomRightConfig = tempLayout.ToString();
             }
 
-            if (BottomLeft != null)
+            if (BottomLeft != null && BottomLeft.Visible)
             {
                 tempLayout = new TabLayout();
                 tempLayout.SelectedTabIndex = BottomLeft.SelectedIndex;
@@ -943,8 +949,8 @@ namespace inSSIDer.UI.Forms
                     tempTab = BottomLeft.Tabs.FirstOrDefault(tab => tab.Text == name);
                     if (tempTab == null) continue;
                     BottomLeft.Tabs.Remove(tempTab);
-                    //Insert tab at end
-                    BottomLeft.Tabs.Insert(BottomLeft.Tabs.Count - 1, tempTab);
+                    //Add tab at end
+                    BottomLeft.Tabs.Add(tempTab);
                 }
             }
 

@@ -128,7 +128,7 @@
     <Compile Include="Misc\SignalColor.cs" />
     <Compile Include="Misc\TabLayout.cs" />
     <Compile Include="Misc\TabUtil.cs" />
-    <Compile Include="UI\Theme\ProgramAdd.cs" />
+    <Compile Include="ProgramAdd.cs" />
     <Compile Include="Scanning\InterfaceManager.cs" />
     <Compile Include="Scanning\Interfaces\NdisScanInterface.cs" />
     <Compile Include="Scanning\ScanCompleteEventArgs.cs">
@@ -286,7 +286,7 @@
       <DependentUpon>NetworkInterfaceSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

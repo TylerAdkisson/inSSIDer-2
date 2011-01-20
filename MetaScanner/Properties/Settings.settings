@@ -39,7 +39,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="VersionNextUpdateCheck" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)">2010-08-01</Value>
+      <Value Profile="(Default)">2011-01-19</Value>
     </Setting>
     <Setting Name="VersionIgnoreThisVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.0.0.0</Value>

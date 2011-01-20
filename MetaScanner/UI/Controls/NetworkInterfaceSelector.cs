@@ -26,6 +26,7 @@ using inSSIDer.Misc;
 using inSSIDer.Scanning;
 using ManagedWifi;
 using inSSIDer.Localization;
+using inSSIDer.Properties;
 
 namespace inSSIDer.UI.Controls
 {
@@ -80,7 +81,7 @@ namespace inSSIDer.UI.Controls
             UpdateInterfaceList();
 
             //If we are not on XP and only have 1 interface, start scanning
-            if (!Utilities.IsXp() && InterfaceManager.Instance.Interfaces.Length == 1)
+            if (!Utilities.IsXp() && InterfaceManager.Instance.Interfaces.Length == 1 && Settings.Default.scanLastEnabled)
             {
                 StartScan();
             }

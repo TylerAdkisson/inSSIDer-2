@@ -175,4 +175,18 @@
   <data name="buildinfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buildinfo.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="BlankOverride" xml:space="preserve">
+    <value>// This is the inSSIDer settings override file.
+// Any settings set in here will override all other settings!
+//
+// When a setting is overidden, any changes to that settings WILL NOT be saved at program close.
+//
+// Any lines starting with // or are empty will be ignored
+// The override format is as follows:
+//
+//[settings name]=[value]
+// Make sure the value is in the correct format, otherwise it will be ignored.
+// NOTE: Settings names and values are CASE SENSITIVE</value>
+    <comment>Settings override header</comment>
+  </data>
 </root>

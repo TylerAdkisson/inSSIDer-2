@@ -169,7 +169,7 @@ namespace inSSIDer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2010-08-01")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2011-01-19")]
         public global::System.DateTime VersionNextUpdateCheck {
             get {
                 return ((global::System.DateTime)(this["VersionNextUpdateCheck"]));
