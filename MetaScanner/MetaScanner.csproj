@@ -123,6 +123,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Misc\Extensions.cs" />
+    <Compile Include="Misc\GenericComparer.cs" />
     <Compile Include="Misc\Settings.cs" />
     <Compile Include="Misc\SignalBars.cs" />
     <Compile Include="Misc\SignalColor.cs" />
@@ -167,7 +169,6 @@
     <Compile Include="UI\Controls\ChannelView.designer.cs">
       <DependentUpon>ChannelView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Misc\ExprParser.cs" />
     <Compile Include="UI\Controls\FilterManager.cs">
       <SubType>UserControl</SubType>
     </Compile>

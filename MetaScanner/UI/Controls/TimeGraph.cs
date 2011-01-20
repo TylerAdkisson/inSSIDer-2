@@ -517,14 +517,14 @@ namespace inSSIDer.UI.Controls
         public void SetColorScheme(ColorScheme scheme)
         {
             // Apply all settings for graph controls
-            foreach (SchemeElement element in scheme.GetElementsForClass(ColorClass.Graph))
+            foreach (SchemeElement element in scheme.GetElementsForClass(ColorClass.Graph, typeof(TimeGraph)))
             {
                 System.Reflection.PropertyInfo pi = Utilities.GetPropertyByName(typeof(TimeGraph), element.Property);
                 if (pi == null)
                 {
                     continue;
                 }
-                object obj = Utilities.ConvertType(element.Value,pi.PropertyType);
+                object obj = Utilities.ConvertType(element.Value, pi.PropertyType);
                 if (obj == null)
                 {
                     continue;
