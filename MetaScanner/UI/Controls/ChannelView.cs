@@ -26,21 +26,28 @@ using inSSIDer.Scanning;
 using MetaGeek.WiFi;
 using inSSIDer.Localization;
 using System.Diagnostics;
+using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class ChannelView : UserControl
+    public partial class ChannelView : UserControl,IThemeable
     {
         //Graph size
         private int _graphWidth;
         private int _graphHeight;
 
         //Colors
-        private readonly Color _gridColor = Color.FromArgb(100, Color.Gray);
-        private readonly Color _highChannelForeColor = Color.Green;
-        private readonly Color _graphBackColor = Color.Black;
-        private readonly Color _outlineColor = Color.DimGray;
-        private readonly Color _tickColor = Color.LightGray;
+        public Color GridColor { get; set; }
+        public Color GraphBackColor { get; set; }
+        public Color OutlineColor { get; set; }
+        public Color TickColor { get; set; }
+        public Color HighChannelForeColor { get; set; }
+        public bool UseRssiGradient { get; set; }
+        //private readonly Color GridColor = Color.FromArgb(100, Color.Gray);
+        //public Color HighChannelForeColor = Color.Green;
+        //private readonly Color GraphBackColor = Color.Black;
+        //private readonly Color OutlineColor = Color.DimGray;
+        //private readonly Color TickColor = Color.LightGray;
 
         //Pixel multipilers
         private float _pixelsPerDbm = 1f;
@@ -68,6 +75,13 @@ namespace inSSIDer.UI.Controls
 
         public ChannelView()
         {
+            GridColor = Color.FromArgb(100, Color.Gray);
+            HighChannelForeColor = Color.Green;
+            GraphBackColor = BackColor;
+            OutlineColor = Color.DimGray;
+            TickColor = Color.LightGray;
+            UseRssiGradient = true;
+
             MinFrequency = 2400;
             MaxFrequency = 2495;
             MinAmplitude = -100;
@@ -189,8 +203,8 @@ namespace inSSIDer.UI.Controls
 
         private void DrawGrid(Graphics graphics)
         {
-            Pen pen = new Pen(_outlineColor);
-            SolidBrush brush = new SolidBrush(_graphBackColor);
+            Pen pen = new Pen(OutlineColor);
+            SolidBrush brush = new SolidBrush(GraphBackColor);
 
             graphics.FillRectangle(brush, LeftMargin - 1, TopMargin - 1, _graphWidth + 1, _graphHeight);
 
@@ -219,29 +233,29 @@ namespace inSSIDer.UI.Controls
 
             while (labelAmplitude < maxAmpToLabel)
             {
-                brush.Color = SignalColor.GetColor(labelAmplitude);
+                brush.Color = UseRssiGradient ? SignalColor.GetColor(labelAmplitude) : ForeColor;
                 // amplitude label
                 y = TopMargin + _graphHeight - ((labelAmplitude - MinAmplitude) * _pixelsPerDbm);
                 graphics.DrawString(labelAmplitude.ToString(), Font, brush, LeftMargin - 5, y - 7,sfAmp);
 
                 // draw the horizontal graph lines
-                pen.Color = _gridColor;
+                pen.Color = GridColor;
                 pen.DashStyle = DashStyle.Dot;
                 graphics.DrawLine(pen, LeftMargin, y, LeftMargin + _graphWidth, y);
 
                 // Tick marks next to amplitude labels
-                pen.Color = _tickColor;
+                pen.Color = TickColor;
                 pen.DashStyle = DashStyle.Solid;
                 graphics.DrawLine(pen, LeftMargin - 3, y, LeftMargin + 1, y);
 
                 labelAmplitude += _amplitudeLabelSpacing;
             }
 
-            brush.Color = SignalColor.GetColor(-100);
+            brush.Color = UseRssiGradient ? SignalColor.GetColor((int)MinAmplitude) : ForeColor;
 
             //Draw floor label and tick
             y = DbToY((int) MinAmplitude);
-            pen.Color = _tickColor;
+            pen.Color = TickColor;
             pen.DashStyle = DashStyle.Solid;
             //Tick
             graphics.DrawLine(pen, LeftMargin - 3, y, LeftMargin + 1, y);
@@ -300,7 +314,7 @@ namespace inSSIDer.UI.Controls
                     }
                     else
                     {
-                        brush.Color = _highChannelForeColor;
+                        brush.Color = HighChannelForeColor;
                         graphics.DrawString((channel).ToString(), Font, brush, x - (channel > 99 ? 8 : 4), y);
                     }
 
@@ -548,13 +562,7 @@ namespace inSSIDer.UI.Controls
             return (int)(TopMargin + _graphHeight - ((db - MinAmplitude) * _pixelsPerDbm));
         }
 
-        //public void SetNetworks(AccessPoint[] networks)
-        //{
-        //    _networks = networks;
-        //    Invalidate();
-        //}
-
-        //Properties
+        #region Properties
 
         /// <summary>
         /// Sets the band of the graph
@@ -630,5 +638,17 @@ namespace inSSIDer.UI.Controls
         /// </summary>
         [Category("Configuration"), DefaultValue(2400)]
         public float MinFrequency { get; set; }
+
+        #endregion
+
+        #region IThemeable Members
+
+        public void SetColorScheme(ColorScheme scheme)
+        {
+            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Graph);
+            UpdateGraphDimensions();
+        }
+
+        #endregion
     }
 }

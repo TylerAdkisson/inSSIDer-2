@@ -30,10 +30,11 @@ using System.Threading;
 using inSSIDer.UI.Forms;
 using System.Runtime.Remoting;
 using System.Drawing.Drawing2D;
+using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class ETabControl : UserControl
+    public partial class ETabControl : UserControl,IThemeable
     {
         private int TabMargin = 24;
         public List<ETab> Tabs = new List<ETab>();
@@ -69,7 +70,7 @@ namespace inSSIDer.UI.Controls
 
             e.Graphics.SetClip(new RectangleF(0, 0, Width, TabMargin));
             //Clear the tab background
-            e.Graphics.FillRectangle(Brushes.Black, 0, 0, Width, TabMargin);
+            e.Graphics.FillRectangle(new SolidBrush(BackColor), 0, 0, Width, TabMargin);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             e.Graphics.DrawLine(Pens.Gray, 0, TabMargin-1, Width, TabMargin-1);
@@ -466,6 +467,9 @@ namespace inSSIDer.UI.Controls
         {
             ETabControl et = new ETabControl();
             et.Parent = tabControl.Parent;
+
+            // Add new control to tab control parent
+            tabControl.Parent.Controls.Add(et);
             et.Dock = tabControl.Dock;
             et.Anchor = tabControl.Anchor;
             et.Location = tabControl.Location;
@@ -479,8 +483,11 @@ namespace inSSIDer.UI.Controls
             {
                 //Create tab and move control over
                 t = new ETab(page.Text, tabControl.Font);
-                //only the first control
-                page.Controls[0].Parent = t;
+
+                // Add controll to us, then remove from other
+                // This also removes the control from the old tab control
+                t.Controls.Add(page.Controls[0]);
+                //page.Controls.RemoveAt(0);
 
                 et.Tabs.Add(t);
             }
@@ -488,10 +495,29 @@ namespace inSSIDer.UI.Controls
             et.Invalidate();
             et.Show();
 
-            tabControl.Parent = null;
+            // Remove tab control from parent
+            tabControl.Parent.Controls.Remove(tabControl);
+
             return et;
         }
 
+
+        #region IThemeable Members
+
+        public void SetColorScheme(ColorScheme scheme)
+        {
+            // Apply theme to self and all child themeable controls
+            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Custom);
+
+            IEnumerable<Control> controls = Tabs.SelectMany(tab => tab.Controls.Cast<Control>());
+            IEnumerable<IThemeable> themeable = controls.Where(control => control is IThemeable).Cast<IThemeable>();
+            foreach (IThemeable control in themeable)
+            {
+                control.SetColorScheme(scheme);
+            }
+        }
+
+        #endregion
     }
 
     public class TabRemovedEventArgs : EventArgs
@@ -502,14 +528,5 @@ namespace inSSIDer.UI.Controls
         }
 
         public bool AllRemoved { get; private set; }
-    }
-
-    [Flags]
-    public enum TabConfig
-    {
-        SingleBottom = 1,
-        DualBottom = 2,
-        SingleTop = 4,
-        DualTop = 8
     }
 }

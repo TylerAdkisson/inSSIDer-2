@@ -35,6 +35,7 @@ using System.Threading;
 using System.Globalization;
 using Timer = System.Timers.Timer;
 using inSSIDer.UI.Theme;
+using System.Collections.Generic;
 
 namespace inSSIDer.UI.Forms
 {
@@ -247,12 +248,8 @@ namespace inSSIDer.UI.Forms
             // Restore tab layout
             RestoreTabLayouts();
 
-            // Apply theme
-            //foreach (ThemeableControl item in Controls.OfType<ThemeableControl>())
-            //{
-            //    item.SetColorScheme(Program.CurrentColorScheme);
-            //}
-            timeGraph1.SetColorScheme(Program.CurrentColorScheme);
+            // Load theme
+            ReloadColorScheme();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -959,6 +956,8 @@ namespace inSSIDer.UI.Forms
                     BottomLeft.Tabs.Remove(tempTab);
                     //Add tab at end
                     BottomLeft.Tabs.Add(tempTab);
+                    if(tempLayout.SelectedTabIndex > -1)
+                        BottomLeft.SelectedIndex = tempLayout.SelectedTabIndex;
                 }
             }
 
@@ -973,5 +972,49 @@ namespace inSSIDer.UI.Forms
 
         #endregion
 
+
+        #region IThemeable Members
+
+        public void SetColorScheme(ColorScheme scheme)
+        {
+            //// Apply theme to self and all child themeable controls
+            //ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Custom);
+
+            //IEnumerable<IThemeable> themeable = Controls.Cast<Control>().Where(control => control is IThemeable).Cast<IThemeable>();
+
+            //foreach (IThemeable control in themeable)
+            //{
+            //    control.SetColorScheme(scheme);
+            //}
+        }
+
+        #endregion
+
+        public void ReloadColorScheme()
+        {
+            // Apply theme to self and all child themeable controls
+            ColorScheme.ApplyColorScheme(Program.CurrentColorScheme, this, ColorClass.Custom);
+
+            IEnumerable<IThemeable> themeable = Controls.Cast<Control>().Where(control => control is IThemeable).Cast<IThemeable>();
+
+            foreach (IThemeable control in themeable)
+            {
+                control.SetColorScheme(Program.CurrentColorScheme);
+            }
+            Invalidate();
+        }
+
+        private void reloadThemeFromDiskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.LoadThemeFromDisk();
+            ReloadColorScheme();
+        }
+
+        private void reloadFormToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Set to switch back to main window
+            Program.Switching = Utilities.SwitchMode.ToMain;
+            Close();
+        }
     }
 }

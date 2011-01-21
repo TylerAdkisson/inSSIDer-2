@@ -146,7 +146,7 @@
     <Setting Name="graphsMaxRssi" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-10</Value>
     </Setting>
-    <Setting Name="grapgsMinRssi" Type="System.Int32" Scope="User">
+    <Setting Name="graphsMinRssi" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-100</Value>
     </Setting>
   </Settings>

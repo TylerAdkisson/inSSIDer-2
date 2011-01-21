@@ -69,6 +69,7 @@ namespace inSSIDer.UI.Forms
             this.startNullScanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopNullScanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadThemeFromDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sdlgLog = new System.Windows.Forms.SaveFileDialog();
             this.sdlgNs1 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -94,6 +95,7 @@ namespace inSSIDer.UI.Forms
             this.tabGps = new System.Windows.Forms.TabPage();
             this.gpsMon1 = new inSSIDer.UI.Controls.GpsMon();
             this.networkInterfaceSelector1 = new inSSIDer.UI.Controls.NetworkInterfaceSelector();
+            this.reloadFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gripContainer1.Panel1.SuspendLayout();
@@ -382,7 +384,9 @@ namespace inSSIDer.UI.Forms
             this.developerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startNullScanningToolStripMenuItem,
             this.stopNullScanningToolStripMenuItem,
-            this.clearMemoryToolStripMenuItem});
+            this.clearMemoryToolStripMenuItem,
+            this.reloadThemeFromDiskToolStripMenuItem,
+            this.reloadFormToolStripMenuItem});
             this.developerToolStripMenuItem.Name = "developerToolStripMenuItem";
             this.developerToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.developerToolStripMenuItem.Text = "Developer";
@@ -391,23 +395,30 @@ namespace inSSIDer.UI.Forms
             // startNullScanningToolStripMenuItem
             // 
             this.startNullScanningToolStripMenuItem.Name = "startNullScanningToolStripMenuItem";
-            this.startNullScanningToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.startNullScanningToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.startNullScanningToolStripMenuItem.Text = "Start Null Scanning";
             this.startNullScanningToolStripMenuItem.Click += new System.EventHandler(this.StartNullScanningToolStripMenuItemClick);
             // 
             // stopNullScanningToolStripMenuItem
             // 
             this.stopNullScanningToolStripMenuItem.Name = "stopNullScanningToolStripMenuItem";
-            this.stopNullScanningToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.stopNullScanningToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.stopNullScanningToolStripMenuItem.Text = "Stop Null Scanning";
             this.stopNullScanningToolStripMenuItem.Click += new System.EventHandler(this.StopNullScanningToolStripMenuItemClick);
             // 
             // clearMemoryToolStripMenuItem
             // 
             this.clearMemoryToolStripMenuItem.Name = "clearMemoryToolStripMenuItem";
-            this.clearMemoryToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.clearMemoryToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.clearMemoryToolStripMenuItem.Text = "Clear Memory";
             this.clearMemoryToolStripMenuItem.Click += new System.EventHandler(this.clearMemoryToolStripMenuItem_Click);
+            // 
+            // reloadThemeFromDiskToolStripMenuItem
+            // 
+            this.reloadThemeFromDiskToolStripMenuItem.Name = "reloadThemeFromDiskToolStripMenuItem";
+            this.reloadThemeFromDiskToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.reloadThemeFromDiskToolStripMenuItem.Text = "Reload Theme from disk";
+            this.reloadThemeFromDiskToolStripMenuItem.Click += new System.EventHandler(this.reloadThemeFromDiskToolStripMenuItem_Click);
             // 
             // sdlgLog
             // 
@@ -439,6 +450,7 @@ namespace inSSIDer.UI.Forms
             // apCountLabel
             // 
             this.apCountLabel.AutoSize = false;
+            this.apCountLabel.BackColor = System.Drawing.SystemColors.Control;
             this.apCountLabel.Name = "apCountLabel";
             this.apCountLabel.Size = new System.Drawing.Size(100, 17);
             this.apCountLabel.Text = "0 / 0 AP(s)";
@@ -447,6 +459,7 @@ namespace inSSIDer.UI.Forms
             // gpsToolStripStatusLabel
             // 
             this.gpsToolStripStatusLabel.AutoSize = false;
+            this.gpsToolStripStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             this.gpsToolStripStatusLabel.Margin = new System.Windows.Forms.Padding(0, 3, 5, 2);
             this.gpsToolStripStatusLabel.Name = "gpsToolStripStatusLabel";
             this.gpsToolStripStatusLabel.Size = new System.Drawing.Size(118, 17);
@@ -456,6 +469,7 @@ namespace inSSIDer.UI.Forms
             // locationToolStripStatusLabel
             // 
             this.locationToolStripStatusLabel.AutoSize = false;
+            this.locationToolStripStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             this.locationToolStripStatusLabel.Name = "locationToolStripStatusLabel";
             this.locationToolStripStatusLabel.Size = new System.Drawing.Size(320, 17);
             this.locationToolStripStatusLabel.Text = "Location";
@@ -463,6 +477,7 @@ namespace inSSIDer.UI.Forms
             // 
             // loggingToolStripStatusLabel
             // 
+            this.loggingToolStripStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             this.loggingToolStripStatusLabel.Name = "loggingToolStripStatusLabel";
             this.loggingToolStripStatusLabel.Size = new System.Drawing.Size(78, 17);
             this.loggingToolStripStatusLabel.Text = "Logging Status";
@@ -597,9 +612,11 @@ namespace inSSIDer.UI.Forms
             this.timeGraph1.RightMargin = 32;
             this.timeGraph1.ShowSSIDs = true;
             this.timeGraph1.Size = new System.Drawing.Size(1000, 239);
+            this.timeGraph1.SsidBoxColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
             this.timeGraph1.TabIndex = 0;
             this.timeGraph1.TickColor = System.Drawing.Color.LightGray;
             this.timeGraph1.TimeSpan = System.TimeSpan.Parse("00:05:00");
+            this.timeGraph1.UseRssiGradient = true;
             // 
             // tab24Chan
             // 
@@ -616,15 +633,21 @@ namespace inSSIDer.UI.Forms
             // chanView24
             // 
             this.chanView24.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chanView24.GraphBackColor = System.Drawing.Color.Black;
+            this.chanView24.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.chanView24.HighChannelForeColor = System.Drawing.Color.Green;
             this.chanView24.Location = new System.Drawing.Point(0, 0);
             this.chanView24.MaxAmplitude = -10F;
             this.chanView24.MaxFrequency = 2495F;
             this.chanView24.MinAmplitude = -100F;
             this.chanView24.MinFrequency = 2400F;
             this.chanView24.Name = "chanView24";
+            this.chanView24.OutlineColor = System.Drawing.Color.DimGray;
             this.chanView24.RightMargin = 20;
             this.chanView24.Size = new System.Drawing.Size(1000, 239);
             this.chanView24.TabIndex = 0;
+            this.chanView24.TickColor = System.Drawing.Color.LightGray;
+            this.chanView24.UseRssiGradient = true;
             // 
             // tab58Chan
             // 
@@ -642,15 +665,21 @@ namespace inSSIDer.UI.Forms
             // 
             this.chanView58.Band = inSSIDer.UI.Controls.ChannelView.BandType.Band5000MHz;
             this.chanView58.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chanView58.GraphBackColor = System.Drawing.Color.Black;
+            this.chanView58.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.chanView58.HighChannelForeColor = System.Drawing.Color.Green;
             this.chanView58.Location = new System.Drawing.Point(0, 0);
             this.chanView58.MaxAmplitude = -10F;
             this.chanView58.MaxFrequency = 5850F;
             this.chanView58.MinAmplitude = -100F;
             this.chanView58.MinFrequency = 5150F;
             this.chanView58.Name = "chanView58";
+            this.chanView58.OutlineColor = System.Drawing.Color.DimGray;
             this.chanView58.RightMargin = 20;
             this.chanView58.Size = new System.Drawing.Size(1000, 239);
             this.chanView58.TabIndex = 1;
+            this.chanView58.TickColor = System.Drawing.Color.LightGray;
+            this.chanView58.UseRssiGradient = true;
             // 
             // tabFilters
             // 
@@ -704,6 +733,13 @@ namespace inSSIDer.UI.Forms
             this.networkInterfaceSelector1.Size = new System.Drawing.Size(181, 25);
             this.networkInterfaceSelector1.TabIndex = 2;
             this.networkInterfaceSelector1.SizeChanged += new System.EventHandler(this.NetworkInterfaceSelector1SizeChanged);
+            // 
+            // reloadFormToolStripMenuItem
+            // 
+            this.reloadFormToolStripMenuItem.Name = "reloadFormToolStripMenuItem";
+            this.reloadFormToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.reloadFormToolStripMenuItem.Text = "Reload form";
+            this.reloadFormToolStripMenuItem.Click += new System.EventHandler(this.reloadFormToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -811,5 +847,7 @@ namespace inSSIDer.UI.Forms
         private GripSplitContainer gripTopView;
         private GripSplitContainer gripBottomView;
         private System.Windows.Forms.ToolStripMenuItem clearMemoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadThemeFromDiskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadFormToolStripMenuItem;
     }
 }

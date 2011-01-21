@@ -32,6 +32,7 @@ using inSSIDer.Scanning;
 using inSSIDer.UI.Controls;
 using inSSIDer.UI.Forms;
 using inSSIDer.Version;
+using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Mini
 {
@@ -543,5 +544,15 @@ namespace inSSIDer.UI.Mini
                     "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
             networkInterfaceSelector1.StopScan();
         }
+
+        #region IThemeable Members
+
+        public void SetColorScheme(inSSIDer.UI.Theme.ColorScheme scheme)
+        {
+            // Apply theme to self and all child themeable controls
+            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.All);
+        }
+
+        #endregion
     }
 }

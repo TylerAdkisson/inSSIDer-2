@@ -5,7 +5,7 @@ using System.Text;
 
 namespace inSSIDer.UI.Theme
 {
-    public interface ThemeableControl
+    public interface IThemeable
     {
         /// <summary>
         /// Sets the controls's color scheme

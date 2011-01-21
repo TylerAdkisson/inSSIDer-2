@@ -24,10 +24,11 @@ using System.Linq;
 using System.Windows.Forms;
 using inSSIDer.Scanning;
 using MetaGeek.WiFi;
+using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class ScannerView : UserControl
+    public partial class ScannerView : UserControl,IThemeable
     {
         private ScanController _sc;
         //selection ignore flag - set to makes it ignore the first the auto-select when a new rows is added
@@ -587,5 +588,19 @@ namespace inSSIDer.UI.Controls
             cmsColumns.Invalidate();
         }
 
+
+        #region IThemeable Members
+
+        public void SetColorScheme(ColorScheme scheme)
+        {
+            //ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Datagrid);
+
+            //Apply to data grid
+            ColorScheme.ApplyColorScheme(scheme, scannerGrid, ColorClass.Datagrid);
+            //string v = System.ComponentModel.TypeDescriptor.GetConverter(scannerGrid.AlternatingRowsDefaultCellStyle.GetType()).ConvertToInvariantString(scannerGrid.AlternatingRowsDefaultCellStyle);
+            //Console.WriteLine(v);
+        }
+
+        #endregion
     }
 }

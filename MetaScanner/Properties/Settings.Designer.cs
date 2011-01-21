@@ -601,12 +601,12 @@ namespace inSSIDer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-100")]
-        public int grapgsMinRssi {
+        public int graphsMinRssi {
             get {
-                return ((int)(this["grapgsMinRssi"]));
+                return ((int)(this["graphsMinRssi"]));
             }
             set {
-                this["grapgsMinRssi"] = value;
+                this["graphsMinRssi"] = value;
             }
         }
     }

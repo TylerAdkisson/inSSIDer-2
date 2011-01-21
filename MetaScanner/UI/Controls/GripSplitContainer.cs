@@ -19,10 +19,13 @@
 using System;
 using System.Windows.Forms;
 using System.Drawing;
+using inSSIDer.UI.Theme;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace inSSIDer.UI.Controls
 {
-    public class GripSplitContainer : SplitContainer
+    public class GripSplitContainer : SplitContainer,IThemeable
     {
         public override bool Focused
         {
@@ -54,5 +57,32 @@ namespace inSSIDer.UI.Controls
 
             Invalidate();
         }
+
+        #region IThemeable Members
+
+        public void SetColorScheme(ColorScheme scheme)
+        {
+            Debug.WriteLine("SetColorScheme()", this.Name);
+            // Apply theme to self and all child themeable controls
+            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Custom);
+
+            // First panel
+            foreach (Control control in Panel1.Controls)
+            {
+                Debug.WriteLine("Control in first panel - " + control.GetType().Name, this.Name);
+                if(control is IThemeable)
+                ((IThemeable)control).SetColorScheme(scheme);
+            }
+
+            // Second panel
+            foreach (Control control in Panel2.Controls)
+            {
+                Debug.WriteLine("Control in second panel - " + control.GetType().Name, this.Name);
+                if (control is IThemeable)
+                    ((IThemeable)control).SetColorScheme(scheme);
+            }
+        }
+
+        #endregion
     }
 }

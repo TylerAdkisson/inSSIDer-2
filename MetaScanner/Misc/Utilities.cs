@@ -369,9 +369,14 @@ namespace inSSIDer.Misc
 
         public static object ConvertType(string value, Type type)
         {
-            // might need ConvertFromString
-            // (rather than Invariant)
-            return TypeDescriptor.GetConverter(type).ConvertFromInvariantString(value);
+            try
+            {
+                // might need ConvertFromString
+                // (rather than Invariant)
+                return TypeDescriptor.GetConverter(type).ConvertFromInvariantString(value);
+            }
+            catch { /* do nothing */ }
+            return null;
         }
 
         #endregion

@@ -119,8 +119,7 @@ namespace inSSIDer
         [STAThread]
         static void Main(string[] args)
         {
-            string theme = File.ReadAllText("theme.txt");
-            CurrentColorScheme = ColorScheme.FromString(theme);
+            LoadThemeFromDisk();
 
             #region Filter Testing
             /*

@@ -31,7 +31,7 @@ using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class TimeGraph : UserControl, ThemeableControl
+    public partial class TimeGraph : UserControl, IThemeable
     {
         //Graph size
         private int _graphWidth;
@@ -516,21 +516,8 @@ namespace inSSIDer.UI.Controls
 
         public void SetColorScheme(ColorScheme scheme)
         {
-            // Apply all settings for graph controls
-            foreach (SchemeElement element in scheme.GetElementsForClass(ColorClass.Graph, typeof(TimeGraph)))
-            {
-                System.Reflection.PropertyInfo pi = Utilities.GetPropertyByName(typeof(TimeGraph), element.Property);
-                if (pi == null)
-                {
-                    continue;
-                }
-                object obj = Utilities.ConvertType(element.Value, pi.PropertyType);
-                if (obj == null)
-                {
-                    continue;
-                }
-                pi.SetValue(this, obj, null);
-            }
+            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Graph);
+            UpdateGraphDimensions();
         }
 
         #region Properties

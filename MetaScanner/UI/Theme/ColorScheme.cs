@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Collections;
 using inSSIDer.Misc;
+using System.Windows.Forms;
 
 namespace inSSIDer.UI.Theme
 {
@@ -57,7 +58,7 @@ namespace inSSIDer.UI.Theme
 
         private bool CompareProperties(SchemeElement el1, SchemeElement el2)
         {
-            return el1.Property.Equals(el2.Property, StringComparison.InvariantCultureIgnoreCase);
+            return el1.Properties.SequenceEqual(el2.Properties, new GenericComparer<string>((s1, s2) => s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public static ColorScheme FromString(string input)
@@ -89,6 +90,9 @@ namespace inSSIDer.UI.Theme
                 tempElement = cClass == ColorClass.Custom ? 
                                             new SchemeElement(cClass, property[1], parts[1], property[0]) :
                                             new SchemeElement(cClass, property[1], parts[1]);
+                if (property.Length > 2)
+                    // Skip first 2 because their already there
+                    tempElement.Properties.AddRange(property.Skip(2));
 
                 // Add the element
                 cs.Elements.Add(tempElement);
@@ -110,27 +114,68 @@ namespace inSSIDer.UI.Theme
                 return ColorClass.Custom;
             }
         }
+
+        public static void ApplyColorScheme(ColorScheme scheme, Control control, ColorClass ctype)
+        {
+            // Apply all settings for graph controls
+            Type type = control.GetType();
+            IEnumerable<SchemeElement> elements = scheme.GetElementsForClass(ctype, type);
+            foreach (SchemeElement element in elements)
+            {
+                System.Reflection.PropertyInfo pi = Utilities.GetPropertyByName(type, element.Properties[0]);
+                if (pi == null)
+                    continue;
+                if (element.Properties.Count > 1)
+                {
+                    System.Reflection.PropertyInfo pi2 = Utilities.GetPropertyByName(pi.PropertyType, element.Properties[1]);
+                    object rootObj = pi.GetValue(control, null);
+                    object obj2 = Utilities.ConvertType(element.Value, pi2.PropertyType);
+                    if (obj2 == null || rootObj == null)
+                        continue;
+                    pi2.SetValue(rootObj, obj2, null);
+                }
+                
+                object obj = Utilities.ConvertType(element.Value, pi.PropertyType);
+                if (obj == null)
+                {
+                    continue;
+                }
+                pi.SetValue(control, obj, null);
+            }
+            control.Invalidate();
+        }
     }
 
     public class SchemeElement
     {
+        private List<string> _properties;
         public ColorClass Class { get; private set; }
-        public string Property { get; private set; }
+        public List<string> Properties { get { return _properties; } }
         public string Value { get; private set; }
         public string Control { get; private set; }
 
         public SchemeElement(ColorClass _class, string property, string value)
         {
+            _properties = new List<string>();
             Control = string.Empty;
             Class = _class;
-            Property = property;
+
+            if (!string.IsNullOrEmpty(property))
+                _properties.Add(property);
             Value = value;
         }
+
         public SchemeElement(ColorClass _class, string property, string value, string control)
             : this(_class, property, value)
         {
             Control = control;
         }
+
+        //public SchemeElement(ColorClass _class, string[] properties, string value, string control)
+        //    : this(_class, "", value)
+        //{
+        //    Control = control;
+        //}
     }
 
     public enum ColorClass

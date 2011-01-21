@@ -21,11 +21,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using inSSIDer.UI.Theme;
+using System.IO;
 
 namespace inSSIDer
 {
     public static partial class Program
     {
         public static ColorScheme CurrentColorScheme { get; set; }
+
+        public static void LoadThemeFromDisk()
+        {
+            if (!File.Exists("theme.txt")) return;
+            string theme = File.ReadAllText("theme.txt");
+            CurrentColorScheme = ColorScheme.FromString(theme);
+        }
     }
 }
