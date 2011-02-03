@@ -27,11 +27,10 @@ using inSSIDer.Scanning;
 using MetaGeek.WiFi;
 using inSSIDer.Localization;
 using System.Linq;
-using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class TimeGraph : UserControl, IThemeable
+    public partial class TimeGraph : UserControl
     {
         //Graph size
         private int _graphWidth;
@@ -83,7 +82,7 @@ namespace inSSIDer.UI.Controls
             BottomMargin = 20;
             TopMargin = 10;
             LeftMargin = 55;
-            RightMargin = 20;
+            RightMargin = 35;
             ShowSSIDs = false;
             InitializeComponent();
 
@@ -514,18 +513,12 @@ namespace inSSIDer.UI.Controls
             return Color.FromArgb(Math.Min(age*20 < 255 ? 255 - (age*20) : 0, 255), color);
         }
 
-        public void SetColorScheme(ColorScheme scheme)
-        {
-            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Graph);
-            UpdateGraphDimensions();
-        }
-
         #region Properties
 
         /// <summary>
         /// Pixels from right to place border
         /// </summary>
-        [Category("Margins"), DefaultValue(10)]
+        [Category("Margins"), DefaultValue(35)]
         public int RightMargin { get; set; }
 
         /// <summary>
@@ -589,7 +582,7 @@ namespace inSSIDer.UI.Controls
         /// <summary>
         /// Determines if the SSIDs are shown on that graph.
         /// </summary>
-        [Category("Configuration"), DefaultValue(false)]
+        [Category("Configuration"), DefaultValue(true)]
         public bool ShowSSIDs { get; set; }
 
         #endregion

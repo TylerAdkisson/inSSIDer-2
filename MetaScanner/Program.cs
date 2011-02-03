@@ -35,7 +35,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Runtime.InteropServices;
-using inSSIDer.UI.Theme;
 using System.IO;
 
 namespace inSSIDer
@@ -119,8 +118,6 @@ namespace inSSIDer
         [STAThread]
         static void Main(string[] args)
         {
-            LoadThemeFromDisk();
-
             #region Filter Testing
             /*
             string expr = "ssId == \"fuji-2\" (&& SSID sw \"Hot Rod\" && Channel == 1";

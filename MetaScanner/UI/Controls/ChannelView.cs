@@ -26,11 +26,10 @@ using inSSIDer.Scanning;
 using MetaGeek.WiFi;
 using inSSIDer.Localization;
 using System.Diagnostics;
-using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class ChannelView : UserControl,IThemeable
+    public partial class ChannelView : UserControl
     {
         //Graph size
         private int _graphWidth;
@@ -638,16 +637,6 @@ namespace inSSIDer.UI.Controls
         /// </summary>
         [Category("Configuration"), DefaultValue(2400)]
         public float MinFrequency { get; set; }
-
-        #endregion
-
-        #region IThemeable Members
-
-        public void SetColorScheme(ColorScheme scheme)
-        {
-            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Graph);
-            UpdateGraphDimensions();
-        }
 
         #endregion
     }

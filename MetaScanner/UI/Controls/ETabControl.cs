@@ -30,11 +30,10 @@ using System.Threading;
 using inSSIDer.UI.Forms;
 using System.Runtime.Remoting;
 using System.Drawing.Drawing2D;
-using inSSIDer.UI.Theme;
 
 namespace inSSIDer.UI.Controls
 {
-    public partial class ETabControl : UserControl,IThemeable
+    public partial class ETabControl : UserControl
     {
         private int TabMargin = 24;
         public List<ETab> Tabs = new List<ETab>();
@@ -500,24 +499,6 @@ namespace inSSIDer.UI.Controls
 
             return et;
         }
-
-
-        #region IThemeable Members
-
-        public void SetColorScheme(ColorScheme scheme)
-        {
-            // Apply theme to self and all child themeable controls
-            ColorScheme.ApplyColorScheme(scheme, this, ColorClass.Custom);
-
-            IEnumerable<Control> controls = Tabs.SelectMany(tab => tab.Controls.Cast<Control>());
-            IEnumerable<IThemeable> themeable = controls.Where(control => control is IThemeable).Cast<IThemeable>();
-            foreach (IThemeable control in themeable)
-            {
-                control.SetColorScheme(scheme);
-            }
-        }
-
-        #endregion
     }
 
     public class TabRemovedEventArgs : EventArgs

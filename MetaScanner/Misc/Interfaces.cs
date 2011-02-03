@@ -17,11 +17,10 @@
 ////////////////////////////////////////////////////////////////
 
 using inSSIDer.Scanning;
-using inSSIDer.UI.Theme;
 
 namespace inSSIDer.Misc
 {
-    public interface IScannerUi : IThemeable
+    public interface IScannerUi
     {
         void Initalize(ref ScanController scanner);
     }

@@ -69,7 +69,6 @@ namespace inSSIDer.UI.Forms
             this.startNullScanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopNullScanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMemoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadThemeFromDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sdlgLog = new System.Windows.Forms.SaveFileDialog();
             this.sdlgNs1 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -95,7 +94,6 @@ namespace inSSIDer.UI.Forms
             this.tabGps = new System.Windows.Forms.TabPage();
             this.gpsMon1 = new inSSIDer.UI.Controls.GpsMon();
             this.networkInterfaceSelector1 = new inSSIDer.UI.Controls.NetworkInterfaceSelector();
-            this.reloadFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gripContainer1.Panel1.SuspendLayout();
@@ -384,9 +382,7 @@ namespace inSSIDer.UI.Forms
             this.developerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startNullScanningToolStripMenuItem,
             this.stopNullScanningToolStripMenuItem,
-            this.clearMemoryToolStripMenuItem,
-            this.reloadThemeFromDiskToolStripMenuItem,
-            this.reloadFormToolStripMenuItem});
+            this.clearMemoryToolStripMenuItem});
             this.developerToolStripMenuItem.Name = "developerToolStripMenuItem";
             this.developerToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.developerToolStripMenuItem.Text = "Developer";
@@ -395,30 +391,23 @@ namespace inSSIDer.UI.Forms
             // startNullScanningToolStripMenuItem
             // 
             this.startNullScanningToolStripMenuItem.Name = "startNullScanningToolStripMenuItem";
-            this.startNullScanningToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.startNullScanningToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.startNullScanningToolStripMenuItem.Text = "Start Null Scanning";
             this.startNullScanningToolStripMenuItem.Click += new System.EventHandler(this.StartNullScanningToolStripMenuItemClick);
             // 
             // stopNullScanningToolStripMenuItem
             // 
             this.stopNullScanningToolStripMenuItem.Name = "stopNullScanningToolStripMenuItem";
-            this.stopNullScanningToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.stopNullScanningToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.stopNullScanningToolStripMenuItem.Text = "Stop Null Scanning";
             this.stopNullScanningToolStripMenuItem.Click += new System.EventHandler(this.StopNullScanningToolStripMenuItemClick);
             // 
             // clearMemoryToolStripMenuItem
             // 
             this.clearMemoryToolStripMenuItem.Name = "clearMemoryToolStripMenuItem";
-            this.clearMemoryToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.clearMemoryToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.clearMemoryToolStripMenuItem.Text = "Clear Memory";
             this.clearMemoryToolStripMenuItem.Click += new System.EventHandler(this.clearMemoryToolStripMenuItem_Click);
-            // 
-            // reloadThemeFromDiskToolStripMenuItem
-            // 
-            this.reloadThemeFromDiskToolStripMenuItem.Name = "reloadThemeFromDiskToolStripMenuItem";
-            this.reloadThemeFromDiskToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.reloadThemeFromDiskToolStripMenuItem.Text = "Reload Theme from disk";
-            this.reloadThemeFromDiskToolStripMenuItem.Click += new System.EventHandler(this.reloadThemeFromDiskToolStripMenuItem_Click);
             // 
             // sdlgLog
             // 
@@ -605,11 +594,10 @@ namespace inSSIDer.UI.Forms
             this.timeGraph1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.timeGraph1.Location = new System.Drawing.Point(0, 0);
             this.timeGraph1.MaxAmplitude = -10F;
-            this.timeGraph1.MaxTime = new System.DateTime(2010, 7, 28, 12, 8, 7, 739);
+            this.timeGraph1.MaxTime = new System.DateTime(2011, 2, 2, 18, 56, 32, 699);
             this.timeGraph1.MinAmplitude = -100F;
             this.timeGraph1.Name = "timeGraph1";
             this.timeGraph1.OutlineColor = System.Drawing.Color.DimGray;
-            this.timeGraph1.RightMargin = 32;
             this.timeGraph1.ShowSSIDs = true;
             this.timeGraph1.Size = new System.Drawing.Size(1000, 239);
             this.timeGraph1.SsidBoxColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
@@ -734,13 +722,6 @@ namespace inSSIDer.UI.Forms
             this.networkInterfaceSelector1.TabIndex = 2;
             this.networkInterfaceSelector1.SizeChanged += new System.EventHandler(this.NetworkInterfaceSelector1SizeChanged);
             // 
-            // reloadFormToolStripMenuItem
-            // 
-            this.reloadFormToolStripMenuItem.Name = "reloadFormToolStripMenuItem";
-            this.reloadFormToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.reloadFormToolStripMenuItem.Text = "Reload form";
-            this.reloadFormToolStripMenuItem.Click += new System.EventHandler(this.reloadFormToolStripMenuItem_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -847,7 +828,5 @@ namespace inSSIDer.UI.Forms
         private GripSplitContainer gripTopView;
         private GripSplitContainer gripBottomView;
         private System.Windows.Forms.ToolStripMenuItem clearMemoryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reloadThemeFromDiskToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reloadFormToolStripMenuItem;
     }
 }
