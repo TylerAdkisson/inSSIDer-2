@@ -22,6 +22,8 @@ using System.Windows.Forms;
 using inSSIDer.HTML;
 using inSSIDer.Properties;
 using inSSIDer.Localization;
+using System.Linq;
+using System.Text;
 
 namespace inSSIDer.UI.Forms
 {
@@ -34,7 +36,12 @@ namespace inSSIDer.UI.Forms
         {
             InitializeComponent();
 
-            versionLabel.Text = Localizer.GetString("Version") + " " + Application.ProductVersion;
+            string[] versions = Application.ProductVersion.Split('.');//.Select(i => int.Parse(i)).ToArray();
+
+            string minor =  ((char)(int.Parse(versions[1]) - 35)).ToString();
+            versions[1] = minor;
+
+            versionLabel.Text = Localizer.GetString("Version") + " " + string.Join(".", versions);//Application.ProductVersion;
              
             //aboutHeaderImage.Left = (Width - aboutHeaderImage.Width) / 2;
             //versionLabel.Left = (Width - versionLabel.Width) / 2;

@@ -187,6 +187,7 @@ namespace inSSIDer.UI.Forms
             this.exportToNS1ToolStripMenuItem1.Name = "exportToNS1ToolStripMenuItem1";
             this.exportToNS1ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.exportToNS1ToolStripMenuItem1.Text = "Export to NS1";
+            this.exportToNS1ToolStripMenuItem1.Click += new System.EventHandler(this.exportToNS1ToolStripMenuItem1_Click);
             // 
             // exportToCSVToolStripMenuItem
             // 
@@ -364,7 +365,6 @@ namespace inSSIDer.UI.Forms
             // 
             // sdlgNs1
             // 
-            this.sdlgNs1.CheckFileExists = true;
             this.sdlgNs1.Filter = "NetStumbler files (*.ns1)|*.ns1|Comma Seperated Values (*.csv)|*.csv";
             this.sdlgNs1.SupportMultiDottedExtensions = true;
             this.sdlgNs1.Title = "Select where to place the output file";
