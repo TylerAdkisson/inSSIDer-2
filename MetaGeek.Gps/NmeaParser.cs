@@ -603,6 +603,19 @@ namespace MetaGeek.Gps
             {
                 try
                 {
+                    // Tyler: Fix for invalid parsing of location data (longitude of -2 was being parsed as -216)
+                    // Left pad with 0s to meet the minimum length
+                    string[] rawLatParts = rawLatitude.Split('.');
+                    string[] rawLonParts = rawLongitude.Split('.');
+
+                    if (rawLatParts.Length != 2 || rawLonParts.Length != 2)
+                        return; // Bad sentence
+
+                    rawLatParts[0] = rawLatParts[0].PadLeft(4, '0');
+                    rawLonParts[0] = rawLonParts[0].PadLeft(5, '0');
+                    rawLatitude = string.Join(".", rawLatParts);
+                    rawLongitude = string.Join(".", rawLonParts);
+
                     double latHours = double.Parse(rawLatitude.Substring(0, 2), NmeaCultureInfo);
                     double latMinutes = double.Parse(rawLatitude.Substring(2), NmeaCultureInfo);
 
